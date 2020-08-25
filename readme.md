@@ -7,7 +7,7 @@ IQ-WEB is a video surveillance solution, that uses computer vision algorithms to
 
 
 
-![alt text](https://github.com/Sirendium/iqweb/blob/master/Logo_w.png?raw=true)
+![alt text](https://github.com/Sirendium/iqweb/blob/master/Images/Logo_w.png?raw=true)
 
 
 ## About IQ VMS
