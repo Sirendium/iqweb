@@ -1,0 +1,1057 @@
+//IE FIX
+if (typeof console == "undefined") {
+	this.console = {
+		log : function(msg) {
+			// do nothing
+			// alert(msg);
+		}
+	};
+}
+
+var redirectLoginString = "<!--Redirect to Login-->";
+var sideBarStr = "";
+var sideBarMobileStr = "";
+var isAdmin = false;
+var loadingPage = false;
+var currentVhost = "_defaultVHost_";
+var currentVhostConnectionIPAddress = "localhost";
+var currentVhostConnectionPort = 1935;
+var currentVhostConnectionSSLEnable = false;
+var isTranscoderAvailable = "true";
+var lastServerMC = "serverSetup";
+var lastTab = readCookie("lastTab", "Basic");
+
+var reloadApplciations = true;
+var showRightRail = readCookie("showRightRail", "true") == "true";
+var allApplications = new Array();
+var liveApplications = new Array();
+var vodApplications = new Array();
+var lastApplication = "app";
+var lastApplicationType = "new";
+var lastApplicationSection = "new";
+var lastApplicationQueryParams = "";
+
+var lastMediaCacheStore = "";
+var lastMediaCacheSource = "";
+
+var lastTemplate = "";
+var lastTemplateEncode = "";
+var lastTemplateApp = "";
+var lastTemplateEncodeApp = "";
+
+var reloadLastApplication = true;
+
+var vhostsData = new Array();
+var lastSB_page = "home/main.htm";
+
+var lastSB_active = "";
+
+var incomingStreamDetailsParentPage = null;
+var incomingStreamViewByStream = readCookie("incomingStreamViewByStream",
+		'true');
+
+function removeOption(objName) {
+	var htmlSelect = document.getElementById(objName);
+	var htmlSelect2 = document.getElementById(objName + '.visible');
+	var newTextbox = document.getElementById(objName + '.newValue');
+	if (htmlSelect.options.length == 0) {
+		return false;
+	}
+	var optionToRemove = htmlSelect2.options.selectedIndex;
+	newTextbox.value = htmlSelect2.options[optionToRemove].value;
+	htmlSelect.remove(optionToRemove);
+	htmlSelect2.remove(optionToRemove);
+
+	if (htmlSelect.options.length > 0) {
+		htmlSelect.options[0].selected = true;
+	}
+	return true;
+}
+
+function isIE() {
+	return navigator.appName == 'Microsoft Internet Explorer';
+}
+
+function addOption(objName) {
+	var htmlSelect = document.getElementById(objName);
+	var htmlSelect2 = document.getElementById(objName + '.visible');
+	var newTextbox = document.getElementById(objName + '.newValue');
+	if (newTextbox.value != "") {
+		var newKeyOption = document.createElement('option');
+		newKeyOption.text = newTextbox.value;
+		newKeyOption.value = newTextbox.value;
+		newKeyOption.selected = true;
+		htmlSelect.options.add(newKeyOption);
+		var newKeyOption = document.createElement('option');
+		newKeyOption.text = newTextbox.value;
+		newKeyOption.value = newTextbox.value;
+		newKeyOption.selected = true;
+		htmlSelect2.options.add(newKeyOption);
+	}
+	newTextbox.value = "";
+
+}
+function createCookie(name, value, days) {
+	var expires;
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toGMTString();
+	} else {
+		expires = "";
+	}
+	document.cookie = name + "=" + escape(value) + expires + "; path=/";
+}
+
+function readCookie(name, defaultValue) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ')
+			c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0)
+			return unescape(c.substring(nameEQ.length, c.length));
+	}
+	return defaultValue;
+}
+
+function eraseCookie(name) {
+	createCookie(name, "", -1);
+}
+
+var vHostArray = new Array();
+// updates the SideBar list of apps and the top nav drop down list of apps
+function loadCurrentVHosts() {
+	document.body.style.cursor = "wait";
+	console.log("Loading Current VHosts");
+	// ajax is called asynchronously but we want to finish loadCurrentVHosts()
+	// linearly so that loadCurrentApplications() has up to date VHost. async: false for ajax
+	//var jqResolve = $.Deferred();
+	$
+			.ajax({
+				url : "VHosts.jsdata",
+				data : null,
+				cache : false,
+				async: false,
+				success : function(data) {
+					var currentVhostExists = false;
+					var topNavStr = "";
+					var vHostStr = "_defaultVHost_";
+					if (data.substring(0, 1) != "{") {
+						console.log("Error: (" + this.url + ") "
+								+ " Can't load vhosts");
+					} else if (data.substring(0, redirectLoginString.length) == redirectLoginString) {
+						document.location = "login.htm" + location.hash;
+					} else {
+						// data is
+						// vhostname:ipaddress:port,vhostname2:ipaddress2:port2
+						var json_parsed = $.parseJSON(data);
+						vhostsData = json_parsed.vhosts;
+						isTranscoderAvailable = json_parsed.transcoderAvail;
+						if (isTranscoderAvailable == "false") {
+							$('#vhostTranscoder').hide();
+							if (lastServerMC == "vhostTranscoder") {
+								loadServerSetup();
+							}
+						}
+						var defVHost = "";
+						if (vhostsData.length > 1) {
+							for (var i = 0; i < vhostsData.length; i++) {
+								var vHost = vhostsData[i];
+								vHostStr = vHost.name;
+								currentVhostExists |= vHostStr == currentVhost;
+								if (vHost.name == "_defaultVHost_") {
+									defVHost = vHost.name;
+									vHostStr = "Default";
+								}
+								if (defVHost.length == 0) {
+									defVHost = vHost.name;
+								}
+								topNavStr += "<li>";
+								topNavStr += "<a class=\"menu-overflow\" onclick=\"javascript:changeVHost('"
+										+ escapeHtml(vHost.name)
+										+ "')\" id=\"activeVhost_"
+										+ escapeHtml(vHost.name) + "\">";
+								topNavStr += escapeHtml(vHostStr) + "</a>";
+								topNavStr += "</li>";
+							}
+						} else {
+							defVHost = "_defaultVHost_";
+							vHostStr = vhostsData[0].name;
+							currentVhostExists |= vHostStr == currentVhost;
+							$('#topNavVHosts').hide();
+							$('#topNavVHostsButton').hide();
+						}
+						$('#topNavVHosts').html(topNavStr);
+						if (currentVhostExists) {
+							setVHost(currentVhost);
+						} else {
+							// Current VHost doesn't match what we got from
+							// server. Save new VHost.
+							setVHost(vHostStr);
+						}
+					}
+				},
+				error : function(jqXHR, textStatus, thrownError) {
+					if (lastSB_page == "SB_Applications.html") {
+						$('#sbnav').html("Error loading data");
+					}
+					displayErrorInMC(jqXHR, textStatus, thrownError,
+							"SB_Applications.html");
+					console.log("Error: (" + this.url + ") " + thrownError);
+				},
+				complete : function(jqXHR, textStatus) {
+					document.body.style.cursor = "default";
+				}
+			});
+	return;
+}
+function changeVHost(vhost) {
+	setVHost(vhost);
+	if (lastSB_page == "SB_Server.html") {
+		lastTemplate = "";
+		setServerMCPage(lastServerMC);
+	}
+}
+function setVHost(vhost) {
+	previousVhost = currentVhost;
+	vHostStr = currentVhost;
+	if (currentVhost == "_defaultVHost_") {
+		vHostStr = "Default";
+	}
+	if (document.getElementById("activeVhost_" + currentVhost) != null) {
+		document.getElementById("activeVhost_" + currentVhost).innerHTML = escapeHtml(vHostStr);
+	}
+	currentVhost = vhost;
+	vHostStr = currentVhost;
+	if (currentVhost == "_defaultVHost_") {
+		vHostStr = "Default";
+	}
+	if (document.getElementById("activeVhost_" + currentVhost) != null) {
+		document.getElementById("activeVhost_" + currentVhost).innerHTML = "<b>*</b>"
+				+ escapeHtml(vHostStr);
+		document.getElementById("topNavServer").innerHTML = "Server:"
+				+ escapeHtml(vHostStr);
+	}
+	if (previousVhost != currentVhost) {
+		lastApplication = "";
+		// console.log("loadingApplication from setVHost()");
+		loadCurrentApplications();
+	}
+	for (var i = 0; i < vhostsData.length; i++) {
+		if (vhostsData[i].name == currentVhost) {
+			currentVhostConnectionIPAddress = vhostsData[i].connectionIPAddress;
+			currentVhostConnectionPort = vhostsData[i].connectionPort;
+			currentVhostConnectionSSLEnable = vhostsData[i].connectionSSLEnable == "true";
+		}
+	}
+	$.event.trigger({
+		type : "vhostChanged",
+	});
+}
+// updates the SideBar list of apps and the top nav drop down list of apps
+function loadCurrentApplications() {
+	document.body.style.cursor = "wait";
+	console.log("Loading Current Applications");
+	$
+			.ajax({
+				url : "Applications.jsdata",
+				data : "vhost=" + encodeURIComponent(currentVhost),
+				cache : false,
+				success : function(data) {
+					var lastApplicationExists = false;
+					if (data.substring(0, 1) != "{") {
+						$('#mainContent').html(data);
+						if (lastSB_page == "SB_Applications.html") {
+							$('#sbnav').html("Error loading applications");
+						}
+						console.log("Error: (" + this.url + ") "
+								+ " Can't load applications");
+					} else if (data.substring(0, redirectLoginString.length) == redirectLoginString) {
+						document.location = "login.htm" + location.hash;
+					} else {
+						var json_parsed = $.parseJSON(data);
+						allApplications = json_parsed.allApps;
+						liveApplications = json_parsed.liveApps;
+						vodApplications = json_parsed.vodApps;
+						var unknownApplications = json_parsed.unknownApps;
+						// TopNavBar
+						var topNavStr = "";
+						sideBarMobileStr = "";
+						sideBarStr = "";
+						sideBarStr2 = "";
+						if (isAdmin) {
+							topNavStr += "<li class=\"li-button\"><a href=\"javascript:loadNewApplicationAndSB()\"><i class=\"fa fa-plus\"></i>&nbsp;&nbsp;Add Application</a></li>";
+							sideBarStr += "<li id=\"appName=app:new\" class=\"sidebar-nonaccordion-element\"><a href=\"javascript:loadNewApplication()\"><i class=\"fa fa-plus\"></i>&nbsp;&nbsp;Add Application</a></li>";
+							sideBarMobileStr += "<option id=\"appName2=app:new\" value='new'>+ Add Application</option>";
+						} else {
+							if (allApplications.length == 0) {
+								topNavStr += "<li><a onclick=\"\">No Applications available</a></li>";
+								sideBarMobileStr += "<option id=\"\" value=''>No Applications available</option>";
+								sideBarStr += "<li class=\"nav-header notfirst\">No Applications available</li>";
+							} else {
+								lastApplication = allApplications[0].name;
+								lastApplicationType = allApplications[0].appType;
+								lastApplicationSection = "main";
+							}
+						}
+						/*
+						 * for(var i=0;i < allApplications.length;i++) { var app =
+						 * allApplications[i]; var appName=app.name; var
+						 * appType=app.appType;
+						 * 
+						 * if(appName.length == 0) { continue; }
+						 * if(appName!="_default_") { topNavStr+= "<li>";
+						 * topNavStr+= "<a
+						 * href=\"javascript:loadApplicationAndSB('"+appName+"','" +
+						 * appType + "','main','')\">"; topNavStr+= appName + "</a>";
+						 * topNavStr+= "</li>"; sideBarMobileStr+="<option
+						 * id=\"appName2=" + appName + ":main\" value='" +
+						 * appName + "::::" + appType + "'>" + appName + "</option>"; } }
+						 */
+						if (allApplications.length > 0) {
+							sideBarStr += "<li class=\"divider\"></li>";
+							sideBarStr += "<li class=\"nav-header notfirst\">Selected Application</li>";
+							sideBarStr += "<li class=\"nav-text\" id=\"selectAppText\" >Select an application below</li>";
+						}
+						// SideNavBar
+						if (liveApplications.length > 0) {
+							sideBarStr2 += "<li class=\"divider\"></li>";
+							sideBarStr2 += "<li class=\"nav-header notfirst\">Live Applications</li>";
+							topNavStr += "<li class=\"divider\"></li>";
+							topNavStr += "<li class=\"navbar-dropdown-subhead\">Live Applications</li><li class=\"divider\"></li>";
+							sideBarMobileStr += "<option disabled>LIVE APPLICATIONS</option>";
+							for (var i = 0; i < liveApplications.length; i++) {
+								var app = liveApplications[i];
+								var appName = app.name;
+								var appType = app.appType;
+
+								if (appName.length == 0) {
+									continue;
+								}
+								appName = escapeHtml(appName);
+								lastApplicationExists |= lastApplication == appName;
+								buildSideBar(app);
+								sideBarStr2 += "<li class=\"\">";
+								sideBarStr2 += "<a onclick=\"loadApplicationWithCollapse2('"
+										+ appName
+										+ "','"
+										+ appType
+										+ "','main')\" class=\"\" >";
+								sideBarStr2 += "<i class=\"fa fa-circle\" style=\"font-size:8px;top: -2px;position: relative;display:none\" id=\"appNameIcon="
+										+ appName + "\"></i> ";
+								sideBarStr2 += appName + "&nbsp;</a>";
+								sideBarStr2 += "</li>";
+
+								sideBarMobileStr += "<option id=\"appName2="
+										+ appName + ":main\" value='" + appName
+										+ "::::" + appType + "'>" + appName
+										+ "</option>";
+								topNavStr += "<li>";
+								topNavStr += "<a class=\"menu-overflow\" onclick=\"javascript:loadApplicationAndSB('"
+										+ appName
+										+ "','"
+										+ appType
+										+ "','main','')\">";
+								topNavStr += appName + "</a>";
+								if (i!=liveApplications.length-1) {
+									topNavStr += "</li><li class=\"divider\"></li>";
+								} else {
+									topNavStr += "</li>";
+								}
+								
+							}
+						}
+						if (vodApplications.length > 0) {
+							sideBarStr2 += "<li class=\"divider\"></li>";
+							sideBarStr2 += "<li class=\"nav-header notfirst\">VOD Applications</li>";
+							topNavStr += "<li class=\"divider\"></li>";
+							topNavStr += "<li class=\"navbar-dropdown-subhead\">VOD Applications</li><li class=\"divider\"></li>";
+							sideBarMobileStr += "<option disabled>VOD APPLICATIONS</option>";
+							for (var i = 0; i < vodApplications.length; i++) {
+								var app = vodApplications[i];
+								var appName = app.name;
+								var appType = app.appType;
+
+								if (appName.length == 0) {
+									continue;
+								}
+								appName = escapeHtml(appName);
+								lastApplicationExists |= lastApplication == appName;
+								buildSideBar(app);
+								sideBarStr2 += "<li class=\"\">";
+								sideBarStr2 += "<a onclick=\"loadApplicationWithCollapse2('"
+										+ appName
+										+ "','"
+										+ appType
+										+ "','main')\" class=\"\" >";
+								sideBarStr2 += "<i class=\"fa fa-circle\" style=\"font-size:8px;top: -2px;position: relative;display:none\" id=\"appNameIcon="
+										+ appName + "\"></i> ";
+								sideBarStr2 += appName + "&nbsp;</a>";
+								sideBarStr2 += "</li>";
+								sideBarMobileStr += "<option id=\"appName2="
+										+ appName + ":main\" value='" + appName
+										+ "::::" + appType + "'>" + appName
+										+ "</option>";
+								topNavStr += "<li>";
+								topNavStr += "<a  class=\"menu-overflow\" onclick=\"javascript:loadApplicationAndSB('"
+										+ appName
+										+ "','"
+										+ appType
+										+ "','main','')\">";
+								topNavStr += appName + "</a>";
+								
+								if (i!=vodApplications.length-1) {
+									topNavStr += "</li><li class=\"divider\"></li>";
+								} else {
+									topNavStr += "</li>";
+								}
+								
+							}
+						}
+						if (unknownApplications.length > 0) {
+							sideBarStr2 += "<li class=\"divider\"></li>";
+							sideBarStr2 += "<li class=\"nav-header notfirst\">Other Applications</li>";
+							topNavStr += "<li class=\"divider\"></li>";
+							topNavStr += "<li class=\"navbar-dropdown-subhead\">Other Applications</li>";
+							sideBarMobileStr += "<option disabled>OTHER APPLICATIONS</option>";
+							for (var i = 0; i < unknownApplications.length; i++) {
+								var app = unknownApplications[i];
+								var appName = app.name;
+								var appType = app.appType;
+
+								if (appName.length == 0) {
+									continue;
+								}
+								appName = escapeHtml(appName);
+								lastApplicationExists |= lastApplication == appName;
+								buildSideBar(app);
+								sideBarStr2 += "<li class=\"\">";
+								sideBarStr2 += "<a onclick=\"loadApplicationWithCollapse2('"
+										+ appName
+										+ "','"
+										+ appType
+										+ "','main')\" class=\"\" >";
+								sideBarStr2 += "<i class=\"fa fa-circle\" style=\"font-size:8px;top: -2px;position: relative;display:none\" id=\"appNameIcon="
+										+ appName + "\"></i> ";
+								sideBarStr2 += appName + "&nbsp;</a>";
+								sideBarStr2 += "</li>";
+								sideBarMobileStr += "<option id=\"appName2="
+										+ appName + ":main\" value='" + appName
+										+ "::::" + appType + "'>" + appName
+										+ "</option>";
+								topNavStr += "<li>";
+								topNavStr += "<a  class=\"menu-overflow\" onclick=\"javascript:loadApplicationAndSB('"
+										+ appName
+										+ "','"
+										+ appType
+										+ "','main','')\">";
+								topNavStr += appName + "</a>";
+								topNavStr += "</li>";
+							}
+						}
+						sideBarStr += sideBarStr2;
+						$('#topNavApplications').html(topNavStr);
+						if (lastSB_page == "SB_Applications.html") {
+							setApplicationSidebar(sideBarStr);
+						}
+						reloadApplciations = false;
+					}
+				},
+				error : function(jqXHR, textStatus, thrownError) {
+					if (lastSB_page == "SB_Applications.html") {
+						$('#sbnav').html("Error loading data");
+					}
+					displayErrorInMC(jqXHR, textStatus, thrownError,
+							"SB_Applications.html");
+					console.log("Error: (" + this.url + ") " + thrownError);
+				},
+				complete : function(jqXHR, textStatus) {
+					document.body.style.cursor = "default";
+				}
+			});
+}
+
+function buildSideBar(app) {
+	var appName = app.name;
+	var appType = app.appType;
+	appName = escapeHtml(appName);
+	sideBarStr += "<div id=\"appNameSelected=" + appName
+			+ "\" class=\"panel-group\" style=\"display:none\">";
+	sideBarStr += "<div class=\"panel panel-default sidebar\" >";
+
+	if (appName != "_default_") {
+		sideBarStr += "<li class=\"panel-heading\" id=\"appName=" + appName
+				+ ":main\">";
+		sideBarStr += "<a onclick=\"loadApplicationWithCollapse2('" + appName
+				+ "','" + appType
+				+ "','main')\" class=\"sidebar-accordion-toggle\" >";
+		sideBarStr += appName + "&nbsp;<i class=\"fa fa-caret-down\"></i></a>";
+		sideBarStr += "</li>";
+
+		sideBarStr += "<div id=\"collapse" + appName
+				+ "\" class=\"sidebar-accordion-body\">";
+
+		sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+				+ appName + ":monitoring\">";
+		sideBarStr += "<a onclick=\"loadApplication('" + appName + "','"
+				+ appType + "','monitoring')\">";
+		sideBarStr += "Monitoring</a>";
+		sideBarStr += "</li>";
+		// Incomning Publishers
+		if (canShowPublishers(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":publishers\">";
+			sideBarStr += "<a onclick=\"javascript:loadApplication('" + appName
+					+ "','" + appType + "','publishers')\">";
+			sideBarStr += "Sources (Live)</a>";
+			sideBarStr += "</li>";
+		}
+		// StreamFiles
+		if (canShowStreamFiles(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":streamfiles\">";
+			sideBarStr += "<a onclick=\"javascript:loadApplication('" + appName
+					+ "','" + appType + "','streamfiles')\">";
+			sideBarStr += "Stream Files" + "</a>";
+			sideBarStr += "</li>";
+		}
+		// Incoming Streams
+		if (canShowIncomingStreams(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":incomingstreams\">";
+			sideBarStr += "<a onclick=\"loadApplication('" + appName + "','"
+					+ appType + "','incomingstreams')\">";
+			sideBarStr += "Incoming Streams</a>";
+			sideBarStr += "</li>";
+		}
+		// Stream Targets
+		if (canShowStreamTargets(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":streamtargets\">";
+			sideBarStr += "<a onclick=\"loadApplication('" + appName + "','"
+					+ appType + "','streamtargets')\">";
+			sideBarStr += "Stream Targets";
+			sideBarStr += "&nbsp;<i class='fa fa-check-circle' id=\"appName="
+					+ appName + ":streamtargets:enabled\"";
+			if (app.streamTargetsEnabled != "true") {
+				sideBarStr += " style='display:none'";
+			}
+			sideBarStr += "> </i>";
+			sideBarStr += "</a></li>";
+		}
+		// Security-Publishing
+		if (canShowSecurityPublishing(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":securitypub\">";
+			sideBarStr += "<a onclick=\"loadApplication('" + appName + "','"
+					+ appType + "','securitypub')\">";
+			sideBarStr += "Source Security</a>";
+			sideBarStr += "</li>";
+		}
+		// Security-Playback
+		if (canShowSecurityPlayback(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":securityplayback\">";
+			sideBarStr += "<a onclick=\"loadApplication('" + appName + "','"
+					+ appType + "','securityplayback')\">";
+			sideBarStr += "Playback Security</a>";
+			sideBarStr += "</li>";
+		}
+		// SMILFiles
+		if (canShowSMILFiles(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":smilfiles\">";
+			sideBarStr += "<a onclick=\"javascript:loadApplication('" + appName
+					+ "','" + appType + "','smilfiles')\">";
+			sideBarStr += "SMIL Files" + "</a>";
+			sideBarStr += "</li>";
+		}
+		// nDVR
+		if (canShowNDVR(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":ndvr\">";
+			sideBarStr += "<a onclick=\"loadApplication('" + appName + "','"
+					+ appType + "','ndvr')\">";
+			sideBarStr += "nDVR";
+			sideBarStr += "&nbsp;<i class='fa fa-check-circle' id=\"appName="
+					+ appName + ":ndvr:enabled\"";
+			if (app.dvrEnabled != "true") {
+				sideBarStr += " style='display:none'";
+			}
+			sideBarStr += "> </i>";
+			sideBarStr += "</a></li>";
+		}
+		// Transcoder
+		if (canShowTranscoder(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":transcoder\">";
+			sideBarStr += "<a onclick=\"javascript:loadApplication('" + appName
+					+ "','" + appType + "','transcoder')\">";
+			sideBarStr += "Transcoder";
+			sideBarStr += "&nbsp;<i class='fa fa-check-circle' id=\"appName="
+					+ appName + ":transcoder:enabled\"";
+			if (app.transcoderEnabled != "true") {
+				sideBarStr += " style='display:none'";
+			}
+			sideBarStr += "> </i>";
+			sideBarStr += "</a></li>";
+		}
+		// DRM
+		if (canShowDRM(appType)) {
+			sideBarStr += "<li class=\"sidebar-accordion-inner\" id=\"appName="
+					+ appName + ":drm\">";
+			sideBarStr += "<a onclick=\"javascript:loadApplication('" + appName
+					+ "','" + appType + "','drm')\">";
+			sideBarStr += "DRM";
+			sideBarStr += "&nbsp;<i class='fa fa-check-circle' id=\"appName="
+					+ appName + ":drm:enabled\"";
+			if (app.drmEnabled != "true") {
+				sideBarStr += " style='display:none'";
+			}
+			sideBarStr += "> </i>";
+			sideBarStr += "</a></li>";
+		}
+
+		sideBarStr += "</div></div></div>";
+	}
+}
+//
+function canShowPublishers(appType) {
+	return appType == "live" || appType == "liveedge"
+			|| appType == "livehttporigin";
+}
+function canShowIncomingStreams(appType) {
+	return appType == "live" || appType == "liveedge"
+			|| appType == "livehttporigin";
+}
+function canShowStreamTargets(appType) {
+	return appType == "live" || appType == "liveedge"
+			|| appType == "livehttporigin";
+}
+function canShowSecurityPublishing(appType) {
+	return appType == "live" || appType == "liveedge"
+			|| appType == "livehttporigin";
+}
+function canShowSecurityPlayback(appType) {
+	return appType == "live" || appType == "vod" || appType == "liveedge"
+			|| appType == 'vodedge' || appType == "livehttporigin"
+			|| appType == "vodhttporigin";
+}
+function canShowStreamFiles(appType) {
+	return appType == "live" || appType == "liveedge";
+}
+function canShowSMILFiles(appType) {
+	return appType == "live" || appType == "liveedge" || appType == "vod"
+			|| appType == "vodedge";
+}
+function canShowNDVR(appType) {
+	return appType == "live" || appType == "liveedge"
+			|| appType == "livehttporigin";
+}
+function canShowTranscoder(appType) {
+	return appType == "live" || appType == "livehttporigin";
+}
+function canShowDRM(appType) {
+	return appType == "live" || appType == "vod" || appType == "liveedge"
+			|| appType == 'vodedge';
+}
+
+function setApplicationSidebar(sideBarStr) {
+	lastApplicationExists = false;
+	for (var i = 0; i < allApplications.length; i++) {
+		if (allApplications[i].name == lastApplication) {
+			lastApplicationExists = true;
+			break;
+		}
+	}
+	$('#sbnav').html(sideBarStr);
+	$('#sbnavMobile').html(sideBarMobileStr);
+	if (lastApplicationType != null && lastApplication != null
+			&& lastApplicationExists) {
+		if (lastApplicationType != '' && lastApplication != ''
+				&& lastApplicationSection != '') {
+			loadApplicationWithCollapse(lastApplication, lastApplicationType,
+					lastApplicationSection, lastApplicationQueryParams);
+		} else {
+			loadNewApplication();
+		}
+	} else {
+		loadNewApplication();
+	}
+}
+function loadAjaxSideBarAndMC(page, params, mcPage, mcParams) {
+	loadAjaxSideBar(page, params);
+}
+
+function loadAjaxSideBar(page, params) {
+	console.log("ajax:" + page + " " + params);
+	document.body.style.cursor = "wait";
+	loadingPage = true;
+	$.event.trigger({
+		type : "preContentNavigation",
+		page : page,
+		options : params
+	});
+	$
+			.ajax({
+				url : page,
+				data : params,
+				cache : false,
+				success : function(data) {
+					if (document.getElementById(lastSB_page) != null) {
+						document.getElementById(lastSB_page).setAttribute(
+								'class', '');
+					}
+					if (lastSB_page != page) {
+						lastTab = "Basic";
+					}
+					lastSB_page = page;
+					if (document.getElementById(lastSB_page) != null) {
+						document.getElementById(lastSB_page).setAttribute(
+								'class', 'active');
+					}
+					if (data.substring(0, redirectLoginString.length) == redirectLoginString) {
+						document.location = "login.htm" + location.hash;
+					} else {
+						$('#sideBar').html(data);
+					}
+				},
+				error : function(jqXHR, textStatus, thrownError) {
+					document.body.style.cursor = "default";
+					loadingPage = false;
+					displayErrorInMC(jqXHR, textStatus, thrownError, page);
+				},
+				complete : function(jqXHR, textStatus) {
+					loadingPage = false;
+					document.body.style.cursor = "default";
+					$.event.trigger({
+						type : "postContentNavigation",
+					});
+				}
+			});
+}
+
+function loadAjaxMainContent(page, params) {
+	loadAjaxContent("#mainContent", page, params);
+}
+function loadAjaxContent(divId, page, params) {
+	console.log("ajax:" + page + " " + params);
+	$.event.trigger({
+		type : "preContentNavigation",
+		page : page,
+		options : params
+	});
+	document.body.style.cursor = "wait";
+	loadingPage = true;
+	$
+			.ajax({
+				url : page,
+				data : params,
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				cache : false,
+				success : function(data, textStatus, jqXHR) {
+					if (data.substring(0, redirectLoginString.length) == redirectLoginString) {
+						document.location = "login.htm" + location.hash;
+					} else {
+						$(divId).html(data);
+					}
+				},
+				error : function(jqXHR, textStatus, thrownError) {
+					document.body.style.cursor = "default";
+					loadingPage = false;
+					displayErrorInMC(jqXHR, textStatus, thrownError, page);
+				},
+				complete : function(jqXHR, textStatus) {
+					document.body.style.cursor = "default";
+					loadingPage = false;
+					$.event.trigger({
+						type : "postContentNavigation",
+					});
+				}
+
+			});
+}
+
+function postAJAXForm(page, btnName) {
+	return postAJAXFormDst(page, btnName, "mainContent");
+}
+
+function postAJAXFormDst(page, btnName, dst) {
+	postAJAXFormDstFormName(page, btnName, dst, "defaultForm");
+}
+function postAJAXFormDstFormName(page, btnName, dst, formName) {
+	var serf = $("form#" + formName).serialize(); // serializes the form's
+													// elements.
+
+	if (btnName != null && btnName != "") {
+		serf += "&" + btnName;
+	}
+	return postAJAX(page, serf, dst);
+}
+function postAJAX(page, params) {
+	return postAJAX(page, params, "mainContent");
+}
+
+function postAJAX(page, params, dst) {
+	document.body.style.cursor = "wait";
+	$
+			.ajax({
+				type : "POST",
+				url : page,
+				data : params,
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				success : function(data) {
+					if (data.substring(0, redirectLoginString.length) == redirectLoginString) {
+						document.location = "login.htm" + location.hash;
+					} else {
+						$("#" + dst).html(data);
+					}
+				},
+				error : function(jqXHR, textStatus, thrownError) {
+					document.body.style.cursor = "default";
+					displayError(jqXHR, textStatus, thrownError, page, dst);
+				},
+				complete : function(jqXHR, textStatus) {
+					document.body.style.cursor = "default";
+				}
+
+			});
+	return false; // avoid to execute the actual submit of the form.
+}
+
+function displayErrorInMC(jqXHR, textStatus, thrownError, url) {
+	displayError(jqXHR, textStatus, thrownError, url, "mainContent");
+}
+function displayError(jqXHR, textStatus, thrownError, url, dst) {
+	var errMsg;
+	errMsg = "<div class='alert alert-danger'>";
+	if (jqXHR.status == 0) {
+		errMsg += "Sorry there was an error getting to (" + url + "):<br>";
+		errMsg += "Cant connect to UI web server<br>";
+	} else {
+		errMsg += "Sorry there was an error getting to (" + url + "):<br>";
+		errMsg += thrownError + ":" + jqXHR.status;
+	}
+	errMsg += "</div>";
+	if (document.getElementById(dst) != null) {
+		$('#' + dst).html(errMsg);
+	} else {
+		$('#sideBar').html(errMsg);
+	}
+}
+
+var lastHash = "";
+window.addEventListener("hashchange", hashChanged, false);
+
+function hashChanged() {
+	if (decodeURIComponent(lastHash) != decodeURIComponent(location.hash)) {
+		// becuase adv properties link to a hash tag, don't reload the page.
+		if (location.hash.indexOf("/") > 0) {
+			prevLastSB_page = lastSB_page;
+			getHashVars();
+			loadCurrentVHosts();
+			if (lastSB_page != "SB_Applications.html") {
+				loadCurrentApplications();
+			}
+			if (prevLastSB_page != lastSB_page) {
+				$('#' + getGoodJqueryID(prevLastSB_page)).removeClass('active');
+			}
+			loadAjaxSideBar(lastSB_page, '');
+		}
+	}
+}
+
+function getHashVars() {
+	var myHash = location.hash;
+	var splits = myHash.split("/");
+	if (splits[0] == '#home') {
+		lastSB_page = "home/main.htm";
+		currentVhost = decodeURIComponent(splits[1]);
+	} else if (splits[0] == '#help') {
+		lastSB_page = "SB_Help.html";
+		currentVhost = decodeURIComponent(splits[1]);
+	} else if (splits[0] == '#server') {
+		lastSB_page = "SB_Server.html";
+		currentVhost = decodeURIComponent(splits[1]);
+		lastServerMC = splits[2];
+	} else if (splits[0] == '#application') {
+		lastSB_page = "SB_Applications.html";
+		currentVhost = decodeURIComponent(splits[1]);
+		lastApplication = decodeURIComponent(splits[2]);
+		lastApplicationType = splits[3];
+		var ampSplit = splits[4].split("&");
+		lastApplicationSection = ampSplit[0];
+		if (splits.length > 5) {
+			lastApplicationQueryParams = splits[5];
+		}
+		if (ampSplit.length > 1) {
+			lastApplicationQueryParams = splits[4].substr(splits[4]
+					.indexOf("&"));
+		}
+	} else {
+		lastSB_page = "home/main.htm";
+		currentVhost = "_defaultVHost_";
+	}
+}
+
+function getGoodJqueryID(jqueryID) {
+	retval = jqueryID;
+	retVal = retval.replace(/ /g, "\\ ");
+	retVal = retVal.replace(/\./g, "\\.");
+	retVal = retVal.replace(/\//g, "\\/");
+	retVal = retVal.replace(/\+/g, "\\+");
+	retVal = retVal.replace(/\$/g, "\\$");
+	retVal = retVal.replace(/@/g, "\\@");
+	retVal = retVal.replace(/#/g, "\\#");
+	retVal = retVal.replace(/&/g, "\\&");
+	retVal = retVal.replace(/!/g, "\\!");
+	retVal = retVal.replace(/=/g, "\\=");
+	retVal = retVal.replace(/{/g, "\\{");
+	retVal = retVal.replace(/}/g, "\\}");
+	retVal = retVal.replace(/;/g, "\\;");
+	retVal = retVal.replace(/,/g, "\\,");
+	retVal = retVal.replace(/`/g, "\\`");
+	retVal = retVal.replace(/\'/g, "\\'");
+	retVal = retVal.replace(/\[/g, "\\[");
+	retVal = retVal.replace(/\]/g, "\\]");
+	retVal = retVal.replace(/\(/g, "\\(");
+	retVal = retVal.replace(/\)/g, "\\)");
+	retVal = retVal.replace(/\^/g, "\\^");
+	retVal = retVal.replace(/\%/g, "\\%");
+	return retVal;
+}
+
+function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	var regexS = "[\\?#&]" + name + "=([^&#]*)";
+	var regex = new RegExp(regexS);
+	var results = regex.exec(document.location);
+	if (results == null)
+		return "";
+	else
+		return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function loadNewApplicationAndSB() {
+	if (lastSB_page == "SB_Applications.html") {
+		loadNewApplication();
+	} else {
+		lastApplication = "app";
+		lastApplicationType = 'new';
+		lastApplicationSection = 'new';
+		lastApplicationQueryParams = '';
+		loadAjaxSideBar('SB_Applications.html', '');
+	}
+}
+function loadApplicationAndSB(appName, appType, appSection) {
+	if (lastSB_page == "SB_Applications.html") {
+		loadApplicationWithCollapse(appName, appType, appSection);
+	} else {
+		lastApplication = appName;
+		lastApplicationType = appType;
+		lastApplicationSection = appSection;
+		lastApplicationQueryParams = '';
+		loadAjaxSideBar('SB_Applications.html', '');
+	}
+}
+function showTestPlayer(tpVhost, tpAppName, tAppType, tpAppSection,
+		tStreamName, tInstanceName) {
+	if (typeof tInstanceName === 'undefined') {
+		tInstanceName = "";
+	}
+	var testAppDiv = $("#testApplicationDiv");
+	if (testAppDiv.length > 0) {
+		$("#testApplicationModal").modal({
+			backdrop : 'static',
+			keyboard : false
+		});
+	} else {
+		testAppDiv = $(
+				"<div id='testApplicationDiv' style='display: hidden;'></div>")
+				.appendTo($("body"));
+		$(document).on("preContentNavigation", function(e) {
+			if (testApplicationClose) {
+				testApplicationClose();
+			}
+			testAppDiv.remove();
+			$(document).off("preContentNavigation", arguments.callee);
+		});
+
+		vhost = encodeURIComponent(tpVhost);
+		appName = encodeURIComponent(tpAppName);
+
+		testAppDiv
+				.load(
+						"applications/" + tAppType + "/" + tpAppSection
+								+ "/players.htm?vhost=" + vhost + "&appName="
+								+ appName + "&streamName=" + tStreamName
+								+ "&instanceName=" + tInstanceName,
+						function() {
+							if ($(this).html().substring(0,
+									redirectLoginString.length) == redirectLoginString) {
+								document.location = "login.htm" + location.hash;
+							}
+						});
+	}
+}
+function genSharedSecret(len) {
+	var s = [];
+	var hexDigits = "0123456789abcdef";
+	for (var i = 0; i < len; i++) {
+		s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+	}
+	return s.join("");
+}
+
+// attempt at equivilant
+// org.apache.commons.lang.StringEscapeUtils.escapeHtml(String)
+function escapeHtml(str) {
+	return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+			"&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+function isValidFileName(fname) {
+	// match this with ModelBase.isValidFileName Pattern
+	// match single dot OR any one of these chars OR two consecutive dots
+	regExp = /^(\.)$|[<>:"'\/\\|?*~]|(\.{2})/;
+	return !regExp.test(fname);
+}
+
+function isValidFileNameLength(fname) {
+	return fname.length < 150;
+}
+
+function isValidPath(fpath) {
+	// match this with ModelBase.isValidPath Pattern
+	regExp = /[<>\"'?*\\]/;
+	var retVal = !regExp.test(fpath);
+	return retVal;
+}
+function fixFilePathSlashes(filePath) {
+	// match this with ModelBase.fixFilePathSlashes
+	var retVal = filePath;
+	if (retVal != null) {
+		retVal = retVal.replace("\\", "/");
+	}
+	return retVal;
+}
+function isValidStreamName(streamName) {
+	// match this with ModelBase.isValidStreamName Pattern
+	// same as regExp in isValidFileName, minus ":" & "*"
+	regExp = /^(\.)$|[<>"'\/\\|?~]|(\.{2})/;
+	return !regExp.test(streamName);
+}
+
+function isValidJavaInt(val) {
+	var val_int = parseInt(val, 10);
+	return (!isNaN(val_int) && (val_int >= (-2147483648)) && (val_int <= (2147483647)));
+}
+
+function isValidJavaLong(val) {
+	var val_int = parseInt(val, 10);
+	var MAX_INT = 9007199254740992; // max Javascript integer (2^53)
+	var MIN_INT = -MAX_INT; // min Javascript integer (-2^53)
+	return (!isNaN(val_int) && (parseFloat(val, 10) == parseInt(val, 10))
+			&& (val_int >= MIN_INT) && (val_int <= MAX_INT));
+}

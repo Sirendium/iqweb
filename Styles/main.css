@@ -1,0 +1,39 @@
+body{
+		background-color: silver;
+}
+#error_password{
+	text-align: center;
+	color: red;
+	font-size: 34px;
+	margin-top: 20%;
+}
+#footer{
+	float: right;
+}
+#menu{
+text-align: center;
+padding-top: 20%;
+}
+
+#menu_text{
+text-align: center;
+color: white;
+font-size:25px;
+font-family: Calibri;
+padding-right: 1px;
+
+}
+#text_our1{
+margin-right: 50px;
+}
+#text_our2{
+margin-right: 70px;
+}
+#text_our3{
+margin-right: 48px;
+}
+#text_our4{
+margin-right: 1px;
+}
+
+

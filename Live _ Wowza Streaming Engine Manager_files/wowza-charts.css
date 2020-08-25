@@ -1,0 +1,167 @@
+.wowza-pie-charts {
+	width: 100%;
+	height: 240px;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+.wowza-pie-chart-container {
+	display: inline-block;
+	width: 100%;
+}
+
+.wowza-pie-chart {
+	height: 150px;
+	/*width: 140px;*/
+}
+@media (max-width: 767px) {
+	.wowza-pie-charts {
+		height: 800px;
+}
+}
+
+.wowza-pie-title {
+	/*height: 20%;*/
+	display: block;
+}
+
+.row .wowza-series-chart-container {
+	height: 450px;
+	padding: 20px 15px 15px;
+	margin: 15px auto 30px;
+	border: 1px solid rgb(221, 221, 221);
+	background: linear-gradient(rgb(246, 246, 246) 0px, rgb(255, 255, 255)
+		50px) repeat scroll 0% 0% transparent;
+	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.wowza-series-chart {
+	position: relative;
+	min-height: 429px;
+	font-size: 14px;
+	line-height: 1.2em;
+	vertical-align: top;
+	margin-left:15px;
+	margin-right:-15px;
+	max-width:99%;
+	margin-top:30px;
+	margin-bottom:40px;
+}
+
+.wowza-chart-top-row {
+	margin-top: 25px;
+}
+.wowza-chart-t {
+	background-color:#fff7df;
+	border: 1px solid #000;
+	padding:5px;
+	max-width:250px;
+	-moz-box-shadow: 5px 5px 5px #ccc;
+	-webkit-box-shadow: 5px 5px 5px #ccc;
+	box-shadow: 5px 5px 5px #ccc;
+}
+.wowza-pie-inline-legend {
+	font-size: 8pt;
+	text-align: center;
+	padding: 2px;
+	color: white;
+}
+
+.wowza-chart-series ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.wowza-chart-series ul li input {
+	width: 13px;
+	height: 13px;
+	padding: 0;
+	margin: 0;
+	vertical-align: bottom;
+	position: relative;
+	top: -1px;
+	*overflow: hidden;
+}
+
+.wowza-chart-series ul li label {
+	display: block;
+	padding-left: 15px;
+	text-indent: -15px;
+	font-weight: bold;
+	margin-right: 15px;
+}
+
+.wowza-chart-series  {
+	white-space:nowrap;
+	width:500px;
+}
+
+.wowza-legend-container {
+	padding: 2px;
+	margin-bottom: 8px;
+/*	border-radius: 3px 3px 3px 3px;
+	border: 1px solid #E6E6E6;*/
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.wowza-chart-metric ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.wowza-chart-series ul li {
+	display: inline;
+	list-style-type: none;
+	width: 33%;
+}
+
+.wowza-chart-metric ul li {
+	display: inline-block;
+}
+
+.wowza-chart-metric ul li label {
+	display: inline-block;
+	margin-right: 15px;
+	margin-top: 1px;
+}
+
+.wowza-chart-metric {
+	position:relative;
+	top:-3px;
+	width:342px;
+}
+
+.wowza-default-timespan-picker {
+/*	width: 15em;*/
+}
+
+.date-start {
+	display: inline;
+}
+
+.date-end {
+	display: inline;
+}
+
+.wowza-series-chart-reset-wrapper {
+	margin-left: 6em;
+	float: right;
+	font-size: 3em;
+	position: relative;
+	opacity: 0.8;
+	top: 5px;
+	left: 0.5em;
+}
+
+.wrappable {
+	white-space: normal;
+	padding-left: 3px;
+	margin-right: 5px;
+}
+
+.wowza-chart-label {
+	white-space: nowrap;
+}

@@ -1,0 +1,800 @@
+var WOWZA = WOWZA || {};
+WOWZA.Charts = WOWZA.Charts || {};
+
+WOWZA.Charts.Series = function(container, _series, _options) {
+	var yaxisFunctions = {
+		"" : function(val, axis) {
+			return val;
+		},
+		"count" : function(val, axis) {
+			return val;
+		},
+		"bits" : function(val, axis) {
+			return WOWZA.Util.HumanReadableBits(val, 'bits');
+		},
+		"bytes" : function(val, axis) {
+			return WOWZA.Util.HumanReadableBytes(val, 'B');
+		},
+		"percent" : function(val, axis) {
+			return val + "%";
+		}
+	};
+	var me = {
+		series : _series,
+		chart : this,
+		options : {},
+		plots : {}
+	};
+
+	me.series.controls = {};
+
+	me.parseOptions = function(opts) {
+		$.extend(true, me.options, opts);
+	};
+
+	me.updateData = function(newDates, seriesType, series) {
+		if (newDates.start === null || newDates.end == null) {
+			return;
+		}
+		$
+				.ajax({
+					url : me.options.baseUrl,
+					data : {
+						vhost : me.options.vhost,
+						appName : me.options.appName,
+						periodStart : newDates.start.format(),
+						periodEnd : newDates.end.format()
+					},
+					cache : false
+				})
+				.fail(function(jqXHR, textStatus) {
+					alert("Request failed: " + textStatus);
+				})
+				.done(
+						function(newData) {
+							if (!(newData instanceof Object)
+									&& newData.substring(0, 6) == "Error:") {
+								$('#mainContent').html(newData);
+								return;
+							} else if (!(newData instanceof Object)
+									&& newData.substring(0, redirectLoginString.length) == redirectLoginString) {
+								document.location = "login.htm" + location.hash;
+								return;
+							}
+							var plotData = {};
+							var labelIndexes = {};
+							$.each(me.plots, function(idx, plot) {
+								plotData[idx] = me.plots[idx].getData();
+								// build a quick map so we can look up the index
+								// by the
+								// given name
+								labelIndexes[idx] = {};
+								$.each(plotData[idx], function(i2, value) {
+									labelIndexes[idx][value.label] = i2;
+								});
+							});
+
+							// now go through all the new data and update the
+							// plotData
+							// with the new
+							// values, using the map we just built to figure out
+							// what
+							// data goes to what index
+							$
+									.each(
+											newData.data,
+											function(_seriesType, series) {
+												if (_seriesType === seriesType) {
+													$
+															.each(
+																	series,
+																	function(
+																			seriesKey,
+																			seriesInfo) {
+																		$
+																				.each(
+																						seriesInfo.metrics,
+																						function(
+																								key,
+																								metric) {
+																							var dataIndex = labelIndexes[_seriesType][seriesInfo.label
+																									+ " - "
+																									+ key];
+																							plotData[_seriesType][dataIndex].data = metric.series;
+																							if (key == "actual") {
+																								if (metric.series.length > 0) {
+																									$(
+																											"#id"
+																													+ seriesType
+																													+ key
+																													+ "li")
+																											.show();
+																								} else {
+																									$(
+																											"#id"
+																													+ seriesType
+																													+ key
+																													+ "li")
+																											.hide();
+																								}
+																							}
+																						});
+																	});
+													if (me.plots[_seriesType].resetControl != null) {
+														me.plots[_seriesType].resetControl
+																.remove();
+														me.plots[_seriesType].resetControl = null;
+													}
+													me.plots[_seriesType]
+															.getOptions().xaxes[0].min = newDates.start
+															.utc().toDate()
+															.getTime();
+													me.plots[_seriesType]
+															.getOptions().xaxes[0].max = newDates.end
+															.utc().toDate()
+															.getTime();
+													me.plots[_seriesType]
+															.setData(plotData[_seriesType]);
+													me.plots[_seriesType]
+															.setupGrid();
+													me.plots[_seriesType]
+															.draw();
+												}
+											});
+						});
+	};
+
+	me.parseOptions(_options);
+	_options.selection = {
+		mode : "x"
+	};
+	_options.yaxis = _options.yaxis || {
+		min : 0,
+		minTickSize : 1,
+		tickDecimals : 0
+	};
+	var keyToLabel = {"cpu":"Wowza CPU", "disk":"Total Disk"};
+	// for every series collection we have
+	$
+			.each(
+					me.series.data,
+					function(seriesType, series) {
+						// TODO replace this with a template some day...
+						// generate a container and the top level time selection
+						// control
+						var graphs = $(
+								'<div id="'
+										+ seriesType
+										+ '-container" class="row-fluid"></div>')
+								.appendTo("#" + container);
+						var chartParent = container + "-chart-container-"
+								+ seriesType;
+
+						var toprow = $(
+								'<div class="col-md-12 wowza-chart-top-row " id="'
+										+ chartParent + '-toprow"></div>')
+								.appendTo(graphs);
+						var seriesTypeLabel = seriesType;
+						if(keyToLabel[seriesType])
+							seriesTypeLabel = keyToLabel[seriesType];
+						$('<h3>' + String(seriesTypeLabel).capitalize() + '</h3>')
+								.appendTo(toprow);
+						var pickerrow = $('#datetimepicker-template').clone()
+								.attr('id', null).css('display', 'inline')
+								.appendTo(toprow);
+
+						var chart = graphs.append('<div id="' + chartParent
+								+ '"></div>');
+						var controls = me.series.controls[seriesType] = {};
+
+						// create the date and time picker
+						controls.startDateTimePicker = WOWZA.Util
+								.DateTimePicker(pickerrow, '.datetime-start');
+						controls.endDateTimePicker = WOWZA.Util.DateTimePicker(
+								pickerrow, '.datetime-end');
+						controls.updateTimer = null;
+						var now = moment().seconds(0);
+						controls.startDateTimePicker.setDateTime(moment(now)
+								.subtract('hours', 1));
+						// make the end date picker disable dates before the
+						// start date
+						controls.endDateTimePicker.datepicker
+								.data('datepicker').onRender = function(date) {
+							return moment(date).local().startOf('day')
+									.isBefore(
+											controls.startDateTimePicker
+													.getDateTime().startOf(
+															'day')) ? 'disabled'
+									: '';
+						};
+						controls.endDateTimePicker.setDateTime(now);
+
+						// when the start date changes, make the end date a day
+						// past if
+						// we went
+						// forward in time
+						// and if the event is from the picker, then queue up a
+						// timer to
+						// refresh
+						// the data.
+						controls.startDateTimePicker
+								.on(
+										'changeDateTime',
+										function(ev) {
+											if (ev.date
+													.isAfter(controls.endDateTimePicker
+															.getDateTime())
+													|| controls.endDateTimePicker
+															.getDateTime() === null) {
+												var newDate = moment(ev.date)
+														.add('days', 1);
+												controls.endDateTimePicker
+														.setDateTime(newDate);
+											}
+											if (ev.target == controls.startDateTimePicker) {
+												controls.startDateTimePicker
+														.hide();
+												controls.endDateTimePicker
+														.focusDate();
+												if (controls.updateTimer !== null) {
+													clearTimeout(controls.updateTimer);
+													controls.updateTimer = null;
+												}
+												controls.updateTimer = setTimeout(
+														function() {
+															var newDates = {
+																start : controls.startDateTimePicker
+																		.getDateTime()
+																		.utc(),
+																end : controls.endDateTimePicker
+																		.getDateTime()
+																		.utc()
+															};
+															me.updateData(
+																	newDates,
+																	seriesType,
+																	series);
+														}, 1000);
+											}
+											controls.endDateTimePicker.redraw();
+										});
+						// when the end date changes if the event is from the
+						// picker,
+						// then queue
+						// up a timer to refresh the data.
+						controls.endDateTimePicker
+								.on(
+										'changeDateTime',
+										function(ev) {
+											if (ev.target == controls.endDateTimePicker) {
+												controls.endDateTimePicker
+														.hide();
+												if (controls.updateTimer !== null) {
+													clearTimeout(controls.updateTimer);
+													controls.updateTimer = null;
+												}
+												controls.updateTimer = setTimeout(
+														function() {
+															var newDates = {
+																start : controls.startDateTimePicker
+																		.getDateTime()
+																		.utc(),
+																end : controls.endDateTimePicker
+																		.getDateTime()
+																		.utc()
+															};
+															me.updateData(
+																	newDates,
+																	seriesType,
+																	series);
+														}, 1000);
+											}
+										});
+
+						controls.defaultTimePicker = WOWZA.Util
+								.DefaultTimespanPicker(
+										pickerrow,
+										function(newDates) {
+											controls.startDateTimePicker
+													.setDateTime(newDates.start);
+											controls.endDateTimePicker
+													.setDateTime(newDates.end);
+											me.updateData(newDates, seriesType,
+													series);
+										});
+
+						var showdata = [];
+						var chartDiv = chartParent + "-chart-" + seriesType;
+						var seriesDiv = chartParent + "-series-" + seriesType;
+						var metricDiv = chartParent + "-metric-" + seriesType;
+						var navRow = $('<div>&nbsp;</div>').appendTo(chart);
+
+						navRow
+								.prepend('<div id="'
+										+ metricDiv
+										+ '" class="col-md-6 wowza-chart-metric"></div>');
+						navRow
+								.prepend('<p><div id="'
+										+ seriesDiv
+										+ '" class="col-md-6 wowza-chart-series"></div></p>');
+						var legend = $(
+								'<div class="wowza-legend-container"></div>')
+								.appendTo(navRow);
+						navRow.append('<div id="' + chartDiv
+								+ '" class="wowza-series-chart" ></div>');
+						$("#" + seriesDiv).append("<ul></ul>");
+						$("#" + metricDiv).append("<ul></ul>");
+						var metrics = {
+							min : [],
+							max : [],
+							average : [],
+							actual : []
+						};
+
+						// generate the checkboxes for the series and metric
+						// selection
+						var metricOptionContainer = $("#" + seriesDiv + " ul");
+						var choiceContainer = $("#" + metricDiv + " ul");
+						var symbolTable = {
+							"min" : "diamond",
+							"max" : "triangle",
+							"average" : "circle"
+						};
+						var symbolHtmlTable = {
+							"min" : "&#x25c7;",
+							"max" : "&#x25B3;",
+							"average" : "&#x25CB;",
+							"actual" : ""
+						};
+						$
+								.each(
+										series,
+										function(seriesKey, seriesInfo) {
+											metricOptionContainer
+													.append("<li><label class='wowza-chart-label' style='display: inline-block;'><input type='checkbox' series='"
+															+ seriesInfo.label
+															+ "' checked='checked' id='id"
+															+ seriesKey
+															+ "'></input><span class='wrappable'>"
+															+ seriesInfo.label
+															+ "</span></label></li>");
+											$
+													.each(
+															seriesInfo.metrics,
+															function(key,
+																	metric) {
+																metrics[key]
+																		.push(metric);
+																var idx=showdata
+																		.push({
+																			data : metric.series,
+																			label : seriesInfo.label
+																					+ " - "
+																					+ key,
+																			points : {
+																				symbol : symbolTable[key]
+																			}
+																		});
+																if(seriesInfo.label in WOWZA.Util.ProtocolColorMap)
+																	showdata[idx-1].color= WOWZA.Util.ProtocolColorMap[seriesInfo.label];
+															});
+										});
+						_options.legend = {
+							container : legend,
+							show : false,
+							noColumns : 8
+						};
+						if (me.series.config && me.series.config[seriesType]) {
+							_options.yaxis.tickFormatter = yaxisFunctions[me.series.config[seriesType]["yaxis.scale"]];
+						}
+						_options.xaxis.tickFormatter = function(val, axis) {
+							var d = moment(val);
+							return d.format("DD MMM YY")+"<br/>"+d.format("hh:mm:ss A");
+						};
+						_options.xaxis.ticks = 5;
+
+						var plot = $.plot("#" + chartDiv, showdata, _options);
+						me.plots[seriesType] = plot;
+
+						$.each(metrics, function(key, values) {
+							var display = false;
+							if (key == "actual") {
+								type = "checkbox";
+								for (var valIdx = 0; valIdx < values.length; valIdx++) {
+									if (values[valIdx].series
+											&& values[valIdx].series.length > 0) {
+										display = true;
+									}
+								}
+							} else {
+								display = true;
+								type = "radio";
+							}
+							choiceContainer
+									.append("<li id='id"
+											+ seriesType
+											+ key + "li'><label class='wowza-chart-label'><input type='"
+											+ type + "' name='" + seriesType + "' series='"
+											+ key + "' id='id" + seriesType + key + "' "
+											+ (key == 'average' ? " checked='checked'": "")
+											+ "></input><span class='wrappable'>" + key
+											+ "</span></label></li>");
+							if (!display) {
+								$(
+										"#id" + seriesType
+												+ key + "li")
+										.hide();
+							}
+	
+						});
+
+						// synchronize colors
+						var seriesColors = [];
+						var plotData = plot.getData();
+						for (var i = 0; i < plotData.length; i++) {
+							seriesColors[plotData[i].label] = plotData[i].color;
+						}
+						for (var i = 0; i < plotData.length; i++) {
+							if (~plotData[i].label.indexOf("average")) {
+								continue;
+							}
+							var parts = plotData[i].label.split(" - ");
+							var clr = $.Color(seriesColors[parts[0]
+									+ " - average"]);
+							plotData[i].color = WOWZA.Util.shadeColor(clr, -10);
+						}
+						$("#" + seriesDiv + " ul li").each(
+								function(idx, li) {
+									var seriesLabel = $(li).children("label")
+											.children(":input").attr('series');
+									$(li).children("label").css(
+											'color',
+											seriesColors[seriesLabel
+													+ " - average"]);
+								});
+						// generate the list of series to show
+						var plotAccordingToChoices = function() {
+							var seriesToShow = [];
+							var metricToShow = [];
+							choiceContainer.find("input:checked").each(
+									function() {
+										var key = $(this).attr("series");
+										seriesToShow.push(key);
+									});
+							metricOptionContainer.find("input:checked").each(
+									function() {
+										var key = $(this).attr("series")
+												.escapeForRegEx();
+										metricToShow.push(key);
+									});
+							var seriesReg = new RegExp(seriesToShow.join("|"));
+							var metricReg = new RegExp(metricToShow.join("|"));
+							var someData = plot.getData();
+							$.each(someData, function(idx, plotSeries) {
+								if (seriesToShow.length > 0
+										&& seriesReg.test(plotSeries.label)
+										&& metricToShow.length > 0
+										&& metricReg.test(plotSeries.label)) {
+									plotSeries.lines.show = true;
+									plotSeries.points.show = true;
+								} else {
+									plotSeries.lines.show = false;
+									plotSeries.points.show = false;
+								}
+							});
+							plot.setData(someData);
+							plot.draw();
+						};
+						metricOptionContainer.find("input").click(
+								plotAccordingToChoices);
+						choiceContainer.find("input").click(
+								plotAccordingToChoices);
+
+						$("#" + chartDiv).bind("plotselected",function(event, ranges) {
+											if (plot.resetControl == null) {
+												plot.origmin = plot
+														.getOptions().xaxes[0].min;
+												plot.origmax = plot
+														.getOptions().xaxes[0].max;
+												var reset = $('<div class="wowza-series-chart-reset-wrapper"><i class="fa fa-search-minus wowza-series-chart-reset"></i><h5>Reset</h5></div>');
+												plot.resetControl = reset;
+												reset
+														.on(
+																'click',
+																function() {
+																	plot
+																			.getOptions().xaxes[0].min = plot.origmin;
+																	plot
+																			.getOptions().xaxes[0].max = plot.origmax;
+																	plot
+																			.setupGrid();
+																	plot.draw();
+																	plot.resetControl = null;
+																	reset.remove();
+																});
+												reset.appendTo($("#"+ chartDiv));
+											}
+
+											plot.getOptions().xaxes[0].min = ranges.xaxis.from;
+											plot.getOptions().xaxes[0].max = ranges.xaxis.to;
+											plot.setupGrid();
+											plot.draw();
+											plot.clearSelection();
+										});
+
+						$("#" + chartDiv).bind("plothover",
+								WOWZA.Charts.handleChartHover);
+
+						plotAccordingToChoices();
+					});
+	return me;
+};
+
+/**
+ * Pie expects data to be in this form: { CHART_KEY:{label: "CHART LABEL", data:
+ * [{label:"Label 1", data: value1}, .... {label:"Label N", data: valueN}, ] },
+ * ... }
+ * 
+ * and will return a structure which has important bits that look like: { plots: {
+ * CHART_KEY: $flotChartObject, ... } }
+ * 
+ * Which means you can update the data for each chart provided in the initial
+ * data, like so:
+ * 
+ * var pies = WOWZA.Charts.Pie("piecharts", pies,{});
+ * pies.plots.CHART_KEY.setData( [{label:"Free", data:
+ * newData.machine.memoryFree}, {label:"Used", data:
+ * newData.machine.memoryUsed}]);
+ */
+WOWZA.Charts.Pie = function(container, _series, _options) {
+	var me = {};
+
+	me.series = _series, me.chart = this, me.url = null, me.data = _series,
+			me.params = {
+				startTime : null,
+				endTime : null
+			}, me.options = {
+				series : {
+					pie : {
+						show : true,
+						radius : 1,
+						label : {
+							show : true,
+							radius : 3 / 4,
+							formatter : function(label, series) {
+								return '<div class="wowza-pie-inline-legend">'
+										+ label + '<br/>'
+										+ Math.round(series.percent)
+										+ '%</div>';
+							},
+							background : {
+								opacity : 0.5,
+								color : '#000'
+							}
+						},
+						highlight : {
+							opacity : 0
+						}
+					}
+				},
+				/*colors : WOWZA.Util.FlotColors,*/
+				legend : {
+					show : false
+				},
+				grid : {
+					hoverable : true
+				}
+			}
+					|| _options, me.totalPoints = 150, me.timeoutPeriod = 50,
+			me.hooks = {
+				onDataSuccess : [],
+				onDataFail : [],
+				fetchData : null
+
+			};
+	me.plots = {};
+	var graphs = $("#" + container);
+
+	$.each(me.series, function(seriesType, series) {
+		var chartParent = container + "-chart-container-" + seriesType;
+		var chartDiv = container + "-chart-" + seriesType;
+		var chartTitle = container + "-chart-title-" + seriesType;
+		graphs.append('<div class="wowza-pie-chart-container '
+				+ _options.classes + '" id="' + chartParent + '"></div>');
+		var chart = $("#" + chartParent);
+		chart.append('<div id="' + chartTitle + '" class="wowza-pie-title">'
+				+ series.label + '</div>');
+		chart.append('<div id="' + chartDiv
+				+ '" class="wowza-pie-chart"></div>');
+		// since we are adding these dynamically, we need to let the browser
+		// lay out the new DOM before we can add a chart, otherwise the new
+		// div height is not calculated and flot explodes when creating the
+		// canvas
+		window.setTimeout(function() {
+			var plotOptions = me.options || {};
+			var plot = $.plot("#" + chartDiv, series.data, plotOptions);
+			var plotData = plot.getData();
+			var colors = [];
+			for (var i = 0; i < plotData.length; i++) {
+				if(plotData[i].label in WOWZA.Util.ProtocolColorMap) {
+					plotData[i].color = WOWZA.Util.ProtocolColorMap[plotData[i].label];
+					colors.push(plotData[i].color);
+				}
+			}
+			me.options.colors = colors;
+			plot.draw();
+			$("#" + chartDiv).bind(
+					"plothover",
+					function(event, pos, item) {
+						if (series.formatter && item) {
+							WOWZA.Charts.handlePieHover(event, pos, item,
+									series.formatter(item.series.data[0][1]));
+						} else {
+							WOWZA.Charts.handlePieHover(event, pos, item);
+						}
+					});
+			me.plots[seriesType] = plot;
+		}, 1);
+	});
+	return me;
+};
+
+WOWZA.Charts.handlePieHover = function(event, pos, item, val) {
+	$("#wowza-chart-tooltip").remove();
+
+	if (item) {
+		if (!val)
+			val = item.series.data[0][1];
+		WOWZA.Charts.showTooltip(pos.pageX, pos.pageY, item.series.label + ": "
+				+ val);
+	}
+};
+
+WOWZA.Charts.handleChartHover = function(event, pos, item) {
+	if (item) {
+		if (previousPoint != item.dataIndex) {
+			previousPoint = item.dataIndex;
+			$("#wowza-chart-tooltip").remove();
+			var x = item.datapoint[0], y = item.datapoint[1];
+			if (item.series.yaxis.tickFormatter != null) {
+				y = item.series.yaxis.tickFormatter(y, null);
+			} else {
+				y = y.toFixed(0);
+			}
+			WOWZA.Charts.showTooltip(item.pageX, item.pageY, item.series.label
+					+ " at " + moment(x).format(WOWZA.Util.momentFormat) + ": "
+					+ y);
+		}
+	} else {
+		$("#wowza-chart-tooltip").remove();
+		previousPoint = null;
+	}
+};
+
+WOWZA.Charts.showTooltip = function showTooltip(x, y, contents) {
+	y = y + 20;
+	x = x + 20;
+	var redge = $(window).width();
+	if (x > redge - 150) {
+		x = x - 150;
+	} 
+	$(
+			"<div id='wowza-chart-tooltip' class='wowza-chart-t'>" + contents
+					+ "</div>").css({
+		position : "absolute",
+		display : "none",
+		top : y,
+		left : x
+	}).appendTo("body").fadeIn(800);
+};
+
+/**
+ * HorizontalBar expects data to be in this form: { CHART_KEY:{label: "CHART
+ * LABEL", data: [{label:"Label 1", data: value1}, .... {label:"Label N", data:
+ * valueN}, ] }, ... }
+ * 
+ * and will return a structure which has important bits that look like: { plots: {
+ * CHART_KEY: $flotChartObject, ... } }
+ * 
+ * Which means you can update the data for each chart provided in the initial
+ * data, like so:
+ * 
+ * var pies = WOWZA.Charts.Pie("piecharts", pies,{});
+ * pies.plots.CHART_KEY.setData( [{label:"Free", data:
+ * newData.machine.memoryFree}, {label:"Used", data:
+ * newData.machine.memoryUsed}]);
+ */
+WOWZA.Charts.HorizontalBar = function(container, _series, _options) {
+	var me = {};
+
+	me.series = _series, me.chart = this, me.options = {
+		series : {
+			bars : {
+				show : true,
+				barWidth : 1.0,
+				align : "center",
+				horizontal : true,
+				fill : 1,
+				lineWidth : 0
+			}
+		},
+		yaxis : {
+			mode : "categories",
+			tickLength : 0,
+			autoscaleMargin : 0.05
+		},
+		xaxis : {
+			min : 0,
+			max : 100,
+			autoscaleMargin : 0
+		},
+		grid : {
+			hoverable : true,
+			autoHighlight : false
+		}
+	};
+	me.options = $.extend(true, me.options, _options);
+	var data = [];
+	var THRESHOLD = 100;
+	var idx = 0;
+	$.each(me.series, function(seriesType, series) {
+		var total = series.data[0].data + series.data[1].data;
+		var val = 100 * series.data[1].data / total;
+		var thresh = 0;
+		if (val >= THRESHOLD) {
+			thresh = val;
+			val = THRESHOLD;
+		}
+		data.unshift({
+			data : [ [ val, series.label ] ],
+			value : series.data[1].data,
+			color : WOWZA.Util.FlotColors[idx++]
+		});
+		if (thresh > 0)
+			data.unshift({
+				data : [ [ thresh, series.label ] ],
+				value : series.data[1].data,
+				color : "#C81919"
+			});
+	});
+	var seriesToFormat = {
+		"Total Memory" : function(val) {
+			return WOWZA.Util.HumanReadableBytes(val, 'B');
+		},
+		"Total Disk" : function(val) {
+			return WOWZA.Util.HumanReadableBytes(val, 'B');
+		},
+		"Wowza Heap" : function(val) {
+			return WOWZA.Util.HumanReadableBytes(val, 'B');
+		},
+		"Wowza CPU" : function(val) {
+			return val + "%";
+		}
+	};
+	var plot = $.plot("#" + container, data, me.options);
+	var previousPoint = [ 0, 0, 0 ];
+	$("#" + container)
+			.bind(
+					"plothover",
+					function(event, pos, item) {
+						if (item) {
+							if (previousPoint[0] != item.datapoint[0]
+									|| previousPoint[1] != item.datapoint[1]
+									|| previousPoint[2] != item.datapoint[2]) {
+								previousPoint = item.datapoint;
+								$("#wowza-chart-tooltip").remove();
+								var x = data[item.seriesIndex].value;
+								WOWZA.Charts
+										.showTooltip(
+												pos.pageX,
+												pos.pageY,
+												seriesToFormat[data[item.seriesIndex].data[0][1]]
+														(x.toFixed(0)));
+							}
+						} else {
+							$("#wowza-chart-tooltip").remove();
+							previousPoint = [ 0, 0, 0 ];
+						}
+					});
+	return me;
+};

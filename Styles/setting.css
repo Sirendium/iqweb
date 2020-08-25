@@ -1,0 +1,45 @@
+body{
+	background-color: gray;
+}
+#Text{
+	font-size: 30px;
+	color:white;
+}
+#logo{
+	float: right;
+}
+#menu{
+margin-top: 15%;
+margin-left: 30%;
+}
+#menu_text{
+text-align: center;
+color: white;
+font-size:25px;
+font-family: Calibri;
+padding-right: 1px;
+}
+#text_our1{
+margin-right: 2%;
+}
+#text_our2{
+margin-right: 3%;
+}
+#text_our3{
+margin-right: 2.4%;
+}
+#text_our4{
+margin-right: 2%;
+}
+#menu_text1{
+	
+text-align: center;
+
+color: white;
+font-size:25px;
+font-family: Calibri;
+padding-right: 1px;
+}
+#menu1{
+margin-left: 30%;
+}

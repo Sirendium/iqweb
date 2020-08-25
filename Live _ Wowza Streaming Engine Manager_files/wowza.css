@@ -1,0 +1,1172 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* GENERAL ITEMS */
+	.breakword {
+		word-wrap: break-word;
+	}
+	.table-fixed {
+		table-layout:fixed;
+	}
+	.container-full {
+	  margin: 0 auto;
+	  width: 100%;
+	  padding-left:15px;
+	  padding-right:15px;
+	}
+	hr {
+		border-color: #DDDDDD;
+	}
+
+	a:focus {
+	  outline: none;
+	  outline-offset: 0;
+	}
+	.appbuttons {
+		text-align:right;
+	}
+	.well-help {
+  		background-color: #FFFFFF;
+		padding-top: 0px;
+		/*margin-top: -10px;*/
+		border-top:0;
+		border-right:0;
+		border-bottom:0;
+		border-left: 1px dotted #a3a3a3;
+  		-webkit-border-radius: 0px;
+     		-moz-border-radius: 0px;
+          	border-radius: 0px;	
+		  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.05);
+			 -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.05);
+				  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.05);	
+	}
+	.btn-help {
+		float:right;
+		margin-left:15px;			
+
+	}
+	.with-right-rail {
+		margin-right:90px;
+	}
+	.well-help h5:first-child, .well-help h4:first-child {
+		margin-top:5px;
+	}
+	.well-center {
+		margin:0 auto;
+		max-width:500px;
+	}
+	.well-white {
+		background-color: #fff;
+	}	
+	.modal-header .alert-warning, .modal-header .alert-danger, .modal-header .alert-success, .modal-header .alert-info {
+		margin:5px 0 0;
+		padding: 5px;
+		font-size:13px;
+	}
+	.modal-footer .alert-warning, .modal-footer .alert-danger, .modal-footer .alert-success, .modal-footer .alert-info {
+		margin-bottom:0px;
+		padding:6px;
+		font-size:13px;
+		float:left;
+		text-align:left;
+	}	
+	.breakall {
+		word-break:break-all;
+	}
+	.modal-tab-content {
+		margin-top:-20px;
+	}
+	.overlay-location {
+		border:1px solid #CCCCCC;
+		border-radius:5px;
+		width:30%;
+		padding:0px 5px 5px 5px;
+	}
+	.overlay-location-table {
+		width:100%;
+	}
+	.nav-tabs {
+		margin-bottom: 10px;
+	}
+	.notabs {
+		margin-top:-20px;
+	}
+	
+	.sidebar-nav > .nav > li > a.pdf-icon, 
+	.pdf-icon {
+		background-image:url('../img/pdficon_small.png');
+		background-repeat:no-repeat;
+		background-position:left;
+		margin-left:0px;
+		margin-right:0px;
+		padding-left:25px;
+		padding-right:0px;
+	}
+
+	.sidebar-nav > .nav > li > a.pdf-icon:hover {
+		margin-left:0px;
+		margin-right:0px;
+		padding-left:25px;
+		padding-right:0px;
+	}
+	
+	.sidebar-nav > .nav > li > a.web-icon, 
+	.web-icon {
+		background-image:url('../img/webicon_small.png');
+		background-repeat:no-repeat;
+		background-position:left;
+		margin-left:0px;
+		margin-right:0px;
+		padding-left:25px;
+		padding-right:0px;
+	}
+
+	.sidebar-nav > .nav > li > a.web-icon:hover {
+		margin-left:0px;
+		margin-right:0px;
+		padding-left:25px;
+		padding-right:0px;
+	}
+
+	.btn-xs:focus {
+  		outline: none;
+	}
+	.row-radioinput {
+		margin-left:0px;
+		padding-left:0px;
+	}
+	.field-radioinput {
+		padding-left:0px;
+	}
+	
+
+/* Standalone icon changes */
+	/* Make standalone icons that are used as links NOT have underline and be black */
+	.icon-standalone-link:hover, a > .icon-standalone-link:hover {
+		text-decoration:none;
+		color:#0088CC;
+	}
+	a:hover > .icon-standalone-link {
+		text-decoration:none;
+		color:#0088CC;
+	}
+	.icon-standalone-link {
+		color:#000000;
+	}
+	.table td.action-icons {
+		padding:4px 30px 5px 5px;
+	}
+	.table td.action-icons-single {
+		padding-left:30px;
+		padding-top:10px;
+	}
+	.table td.action-icons-triple {
+		padding:0px 10px 0px 15px;
+	}
+	.sort-down {
+		margin-top:12px;
+		margin-bottom:-16px;
+	}
+	.sort-with-edit {
+		width:16px;
+	}
+	.trash-icon {
+		margin-top:6px;
+	}
+
+/* End standalone icon changes */
+		
+/* END GENERAL */
+
+/* ADDITIONAL TEXT FORMATTING */
+	happ {
+		font-size: 24.5px;
+  		font-weight: bold;
+		word-wrap:break-word;
+	}
+	.indent0 {
+		margin-left:18px;
+	}
+	.indent1 {
+		margin-left:20px;
+	}
+	.indent2 {
+		margin-left:40px;
+	}
+	.indent3 {
+		margin-left:60px;
+	}
+	.indent5 {
+		margin-left:80px;
+	}
+	.indent6 {
+		margin-left:100px;
+	}
+	.secondStream {
+		margin-top:15px;
+	}
+	.btn-subtext {
+		font-size:75%;
+		white-space:normal;
+	}
+	h5 {
+		margin-top:15px;
+		font-weight:bold;
+	}
+    .value {
+		margin-top:-5px;
+		margin-bottom:10px;
+		word-wrap:break-word;
+	}
+	.return-to-top {
+		float:right;
+		margin-top:10px;
+	}
+	.advanced-table-title {
+		margin-bottom:10px;
+	}
+	.not-implemented,
+	.not-implemented:hover {
+		color:#999999;
+		cursor:not-allowed;
+		text-decoration: none;
+
+	}	
+	.help-block-has-error {
+		/*vertical-align:middle;*/
+		color: #b94a48;
+	}
+	.help-block-has-warning {
+		/*vertical-align:middle;*/
+		color: #c09853;
+	}
+	/* Bootstrap help text is too close to black, so making it more gray */
+	.help-block {
+		color:#999999;
+	}
+	.default-value-view {
+		color:#999999;
+	}
+	.default-value-edit {
+		color:#999999;
+		margin-top:-10px;		
+	}
+	.recordinginfo {
+		/*padding-left:17px;*/
+		text-indent:0px;
+		font-size:85%;
+		color:#999999;
+		margin-bottom:0px;
+	}
+	.loginoptiontext {
+		float:right;
+		margin-top:5px;
+	}
+	.timecoloncolumn {
+		vertical-align:top;
+		padding: 9px 5px 0 8px;
+	}
+	
+	.popover-title {
+		word-break:break-all;
+	}
+	.icon-question-sign {
+		cursor:pointer;
+	}
+	.vhost-connection-count {
+		float: right;
+	}
+	.app-connection-count {
+		float: right;
+	}
+
+/* END ADDITIONAL TEXT FORMATTING */
+
+/* FORM Formatting */
+	input-license-field {
+		width:337px;
+	}
+	license-list {
+		width:350px;
+		size:5;
+	}
+	select,
+	textarea,
+	input[type="text"],
+	input[type="password"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="date"],
+	input[type="month"],
+	input[type="time"],
+	input[type="week"],
+	input[type="number"],
+	input[type="email"],
+	input[type="url"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="color"],
+	.uneditable-input {
+	  margin-bottom: 0px;
+	}
+	.checkbox {
+		margin-top:0px;
+	}
+	.radio {
+		margin-top:0px;
+	}
+	.durationgroup {
+		margin-top:-32px;
+		margin-bottom:-10px;
+	}
+	.form-modal {
+		margin:0;
+	}
+/* NAVBAR */
+
+	/* Navbar size change to accommodate wowza streaming engine logo*/
+	
+	.navbar-static-top {
+	  border-width: 0;
+	}
+	
+	#topnav.nav > li {
+		padding-top:8px;
+		padding-bottom:8px;
+	}
+	
+	/* Correct margin for right-hand user and sign-out link */
+	.navbar-inverse .navbar-text {
+		margin-top:15px;
+	}
+	/* Remove text shadow on nav items */
+	.nav-list > li > a, .nav-list .nav-header {
+	  text-shadow: none;
+	}
+	/* modified brand text color */
+	.navbar .navbar-brand {
+	  color: #eeeeee;
+	  padding: 2px 15px 3px 0px;
+	}
+	
+	/* Styles for the header title branding */
+	.navbar-brand-wse {
+		padding-top:5px;
+		padding-right:20px;
+	}
+	
+	.navbar-brand-mgr {
+		text-transform:uppercase;
+		color:#999;
+		font-size:.65em;
+		font-weight:bold;
+	}
+	
+	/* changed text color of the links to match other navbar text elements */
+	.navbar-inverse .navbar-link {
+	  color: #eeeeee;
+	}
+	/* added vertical dividers that match our new header better than default dividers */
+	.navbar-inverse .divider-vertical {
+		border-left: 1px dotted #666666;
+		width:1px;
+		height:34px;
+	}
+	/* removed shadow and button chrome on split dropdown so it matched other nav elements */
+	.navbar .btn-group > .btn + .dropdown-toggle {
+	  box-shadow:none;
+	  left:-8px;
+	}
+	.navbar-dropdown-subhead {
+		color: #666;
+		font-weight: bold;
+		background-color:#f2f2f2;
+		padding-left:17px;
+		text-transform: uppercase;
+		font-style: italic;
+	}
+	
+	.dropdown-menu {
+		min-width:227px;
+		border-radius:0px;
+		margin:7px 0px 0px -1px;
+		padding:0px;
+	}
+	
+	.dropdown-menu > li {
+		line-height:40px;
+	}
+	.dropdown-menu > li > a {
+		line-height:45px;
+	}
+	
+	.dropdown-menu .divider {
+	  margin:0px;
+	  padding:0px;
+	  height:1px;
+	}
+	
+	/* Fixed problem with open state of navbar drop-downs */
+	li.active > .btn-group.open > a,
+	li.active > .btn-group.open > a:hover,
+	li.active > .btn-group.open > a:focus {
+		background-color: transparent; /*#D96816*/
+		border-color:  transparent; /*#D96816*/
+	}
+	/* Fixed problem with open state of navbar drop-downs */
+	.btn-group.open > a,
+	.btn-group.open > a:hover,
+	.btn-group.open > a:focus {
+		background-color: transparent; /* #222222*/
+		border-color: transparent; /* #222222*/
+	}
+	/* New orange color for active navbar elements */
+	.navbar-inverse .nav-collapse .nav .active > a,
+	.navbar-inverse .nav-collapse .nav .active > a:hover,
+	.navbar-inverse .nav-collapse .nav .active > a:focus {
+	  color: #ffffff;
+	  background-color: #F58326;
+	}
+	
+	/* Orange active state for Navbar elements */
+	.navbar .nav > li.active,
+	.navbar .nav > li.active:hover { 
+	  background-color:#F58326;
+	}
+	/* Hover state for top navbar elements */
+	.navbar-inverse .nav-collapse .nav > li > a:hover,
+	.navbar-inverse .nav-collapse .dropdown-menu a:hover {
+		color: #ffffff;
+		background-color: #222222;
+	}
+	/* Hover state for split drop downs in top navbar */
+	.navbar .nav > li:hover { 
+	  background-color:#222222;
+	}
+	/* changed text color of nav bar elements */
+	.navbar .btn, .navbar .btn-group {
+		color:#eeeeee;
+	}
+@media (max-width:767px) {
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+		color: #eeeeee;
+	}
+}
+	/* modified caret to look better on orange background */
+	.nav .dropdown-toggle .caret {
+		border-bottom-color: #ffffff;
+		border-top-color: #ffffff;
+		margin-left:0px;
+	}
+	/* Remove rounded corners for navbar split dropdown */
+	.navbar-inverse .btn, .navbar .btn-group{
+			-webkit-border-radius:0px;
+			-moz-border-radius: 0px;
+			  border-radius: 0px;
+			background-color:transparent;
+			background-image:none;
+			border-color:transparent;
+			box-shadow:none;
+	}
+	/* changed text color hover state to be more subtle in navbar */
+	.navbar-inverse .btn:hover {
+		color:#ffffff;
+	}	
+	/* make server a max width so it does not wrap with multiple vhosts defined and the selected vhost is very long*/
+	.btn-overflow {
+		max-width:184px;
+		text-overflow:ellipsis;
+		display:block;
+		overflow:hidden;
+	}
+	.menu-overflow {
+		max-width:300px;
+		text-overflow:ellipsis;
+		overflow:hidden;
+	}
+/* END NAVBAR */
+
+@media (max-width:1090px) {
+	/* Wrap Remove License Key button properly at narrower widths */
+	}
+	
+	@media (max-width: 992px) {
+	/* removed hover action to open dropdown menus from navbar in collapsed state */
+	.nav-collapse div.btn-group:hover ul.dropdown-menu {
+		display:none;
+	}
+	
+	/* Remove dropdown-toggle from collapsed menu, as navbar menus are annoying in that state */
+	.nav-collapse .dropdown-toggle {
+	  display:none;
+	}
+	/* modified to all nav elements match in collapsed header - a's were different from the button dropdowns */
+	.navbar-inverse .nav-collapse .nav > li > a, 
+	.navbar-inverse .nav-collapse .dropdown-menu a {
+		color: #eeeeee;
+	}
+	
+	/* fixed padding in collapsed header buttons so all nav elements line up */
+	.nav-collapse .btn {
+		padding: 4px 0 4px 14px;
+	}
+	/* remove bold font in collapsed navbar state to match split button dropdowns */
+	.nav-collapse .nav > li > a, 
+	.nav-collapse .dropdown-menu a {
+		font-weight: normal;
+	}
+	.well-help {
+  		margin-top:50px;
+		background-color: #FFFFFF;
+		padding-top: 20px;
+		border-top:1px dotted #a3a3a3;
+		border-right:0;
+		border-bottom:0;
+		border-left: 0;
+  		-webkit-border-radius: 0px;
+     		-moz-border-radius: 0px;
+          	border-radius: 0px;	
+		  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.05);
+			 -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.05);
+				  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.05);
+	}
+	.btn-help {
+		position:absolute; 
+		bottom:-40px;
+		right:20px;
+		z-index:9999;
+	}
+	.with-right-rail {
+		margin-right:inherit;
+	}
+	footer {
+		margin-top:50px;
+	}
+	.footer-logo {
+		max-height:60px;
+	}
+	.appbuttons {
+		text-align:left;
+		margin:5px 0 10px 0;
+	}
+	
+	}	
+	
+/* SIDEBAR */
+
+	.sidebar-nav {
+		/*padding: 9px 0;*/
+		min-height: 500px;
+	}
+	.nav-header {
+		color: #999999;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	.nav-text {
+		color: #aaaaaa;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	/* Extra padding for the lower down the page nav-headers */
+	.notfirst {
+		padding-top:10px;
+	}
+	/* Remove top padding from Add Application link */
+	.topitem-nonheader {
+		padding-top:0px;
+	}
+	/* Extend hover state to edge of sidebar well */
+	.sidebar-nav > .nav > li > a:hover {
+		margin-left:-19px;
+		padding-left:19px;
+		margin-right:-19px;
+		padding-right:19px;
+	}
+	/* Remove new default indent for sidebar navs in Bootstrap 3 */
+	.sidebar-nav > .nav > li > a {
+		margin-left:-19px;
+		padding-left:19px;
+		margin-right:-19px;
+		padding-right:19px;
+		padding-bottom: 5px;
+		word-wrap:break-word;
+		padding-top:5px;
+	}
+	/* Extend hover state to edge of sidebar well */
+	.sidebar-nav > .nav > li.active {
+		background-color:#F58326;	
+		margin-left:-19px;
+		padding-left:19px;
+		margin-right:-19px;
+		padding-right:19px;
+	}
+	/* White color for active hover state */
+	.sidebar-nav > .nav > li.active > a {
+		color:#FFFFFF;	
+	}
+	/* Orange active state for sidebar */
+	.sidebar-nav > .nav > li.active:hover {
+	  background-color: #F58326;
+	}
+	/* Orange hover state for active sidebar items */
+	.sidebar-nav > .nav > li.active > a:hover,
+	.sidebar-nav > .nav > li.active > a:focus {
+	  color: #FFFFFF;
+	  background-color: #F58326;
+	}
+	/* Change to orange highlight color on sidebar and dropdown menu in navbar */
+	.nav-list > .active > a,
+	.nav-list > .active > a:hover,
+	.nav-list > .active > a.edit:hover,
+	.dropdown-menu > li > a:hover,
+	.dropdown-menu > li > a.edit:hover {  
+	  background-color: #f2f2f2;
+	  color:#000;
+	}
+	.li-button > a:hover {
+		background-color: #ff8400!important;
+		color:#fff!important;
+	}
+	.nav-list > li > a, .nav-list .nav-header {
+	  text-shadow: none;
+	}
+	.sidebar-selected-icon {
+		font-size:8px;
+		top: -2px;
+		position: relative;
+	}
+		
+	/* Move edit (pencil) icon up and next to the related item in sidebar and dropdown menu
+	.nav-list > li > a.edit,
+	.dropdown-menu > li > a.edit {
+	  margin-top:-26px;
+	  padding-left: 10px;
+	  padding-right:10px;
+	}*/
+	
+	/* Removal of hover color around pencil icon
+	.nav-list > li > a.iconselect:hover {
+	  background-color: transparent;
+	}*/
+	
+	/* New blue highlight state for pencil icon
+	[class^="icon-"].iconselect:hover,
+	[class*=" icon-"].iconselect:hover {
+	  background-image: url("../img/glyphicons-halflings-blue.png");
+	}*/
+
+/* END SIDEBAR */
+
+/* SIDEBAR PANEL COLLAPSE ACCORDION */
+/* These modifications will be an issue if we re-use the Collapse control anywhere else. */
+	
+	/* Remove borders and shadows for the panel collapse control and make it extend to the edge of the well */
+	.sidebar {
+		border: none;
+		background-color:#F5F5F5;
+		box-shadow:none;
+	}
+	.panel-group .panel {
+		border-radius:0px;
+	}
+	.panel-group .panel-heading + .panel-collapse .panel-body {
+ 		border-top: none;
+	}
+	.panel-group {
+		margin-left:-19px;
+		margin-right:-19px;
+	}
+	.panel-body {
+		padding:0px;
+	}
+	/* end remove and extend */
+	
+	/* style for sub-items of the accordion */
+	.sidebar-accordion-inner {
+		padding:5px 30px;
+	}
+	.sidebar-accordion-inner > a {
+		display:block;
+	}
+	/* hover style for sub-items of the accordion */
+	.sidebar-accordion-inner:hover {
+	  background-color: #EEEEEE;
+	  padding:5px 30px;
+	  text-decoration:none;
+	}
+	/* style for active state of sub-items of the accordion */
+	.sidebar-accordion-inner-active {
+	  color:#FFFFFF;
+	  background-color: #F58326;
+	  padding:5px 30px;
+	}
+	.sidebar-accordion-inner-active > a {
+	  display:block;
+	}
+	a {
+		cursor: pointer;
+	}
+	/* text color for sub-item links */
+	.sidebar-accordion-inner-active > a {
+	  color:#FFFFFF;
+	}
+	/* remove underline from hover state for accordion items */
+	.sidebar-accordion-inner-active > a:hover,
+	.sidebar-accordion-inner-active > a:focus,
+	.sidebar-accordion-inner > a:hover,
+	.sidebar-accordion-inner > a:focus {
+		text-decoration:none;
+	}
+	/* margin and padding and height for sidebar accordion headings - made smaller for wowza */
+	.panel-heading {
+		padding: 5px 19px;
+		border-radius:0px;
+	 }	
+	 /* add gray hover color for accordion headings */
+	 .panel-heading:hover {
+	 	background-color:#EEEEEE;
+	 }
+	 /* Orange active state for accordion headings */
+	 .panel-heading-active {
+		color: #ffffff;
+		background-color: #F58326;
+		word-wrap:break-word;
+		padding: 5px 19px;
+		border-radius:0px;
+	 }
+	/* make sure the link color is white when active */ 
+ 	.panel-heading-active > a {
+		color: #ffffff;
+		text-decoration:none;
+	}
+	/* Remove underline from hover state for panel headings */
+	.panel-heading > a:hover, .panel-heading > a.active:hover {
+		text-decoration:none;
+	}	
+	/* Move edit (pencil) icon up and next to the related item in accordion sidebar
+	.sidebar-accordion-heading > a.edit {
+  		margin-top:-26px;
+	  	padding-left: 10px;
+	  	padding-right:10px;	}*/
+	
+	/* same as above for active state
+	.sidebar-accordion-heading-active > a.edit {
+		margin-right:-5px;
+	}*/
+	
+	/* make sure the link color is white when active 
+ 	.sidebar-accordion-heading-active > a {
+		color: #ffffff;
+	}*/
+	
+	/* For Add Applications and other non-accordion elements sharing sidebar space with an accordion */
+	.sidebar-nonaccordion-element {
+		  margin-left: -19px;
+		  margin-right: -19px;	
+		  padding: 0px 19px;
+	 }	
+	.sidebar-nonaccordion-element:hover {
+	  background-color: #EEEEEE;
+	  display: block;
+	  padding: 0px 19px;
+	}
+		
+	/* active state for non-accordion elements sharing sidebar space with an accordion */
+     .sidebar-nonaccordion-element-active {
+		color: #ffffff;
+		background-color: #F58326;
+		margin-left: -19px;
+		margin-right: -19px;	
+		padding: 0px 19px;
+	 }	
+	/* Extend hover state to edge of sidebar well */
+	.sidebar-nav > .nav > .sidebar-nonaccordion-element-active > a:hover,
+	.sidebar-nav > .nav > .sidebar-nonaccordion-element-active > a {
+	 	background-color: #F58326;
+		margin-left:-19px;
+		margin-right:-19px;
+		padding: 5px 19px;
+	}
+	
+	/* ensure link color stays white for active non-accordion element sharing sidebar space with an accordion */
+ 	.sidebar-nonaccordion-element-active > a {
+		color: #ffffff;
+	}
+	
+	/* style for items that toggle the accordion open */
+	.sidebar-accordion-heading .sidebar-accordion-toggle {
+	  display: block;
+	  margin-left:-19px;
+	  margin-right:-19px;
+	  padding: 0px 19px;
+	}
+
+	/* hover state style for items that toggle the accordion open */
+	.sidebar-accordion-heading .sidebar-accordion-toggle:hover {
+	  background-color: #EEEEEE;
+	  display: block;
+  	  line-height: 20px;
+	  padding: 3px 15px;
+	}
+		
+/* END SIDEBAR ACCORDION */
+
+/* MODAL CHANGES */
+/* Fixes a bootstrap bug where 15px of margin-right is added when a modal is opened */
+body.modal-open,
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+  margin-right: 0px;
+}
+
+@media (max-width: 580px) {
+	.modal-body {
+        max-height:700px;
+    }
+
+	.modal-footer .alert-warning, .modal-footer .alert-danger, .modal-footer .alert-success, .modal-footer .alert-info {
+		margin:-10px 0px 10px 0px;
+	}	
+}
+@media (max-width: 992px) {
+	.modal-body {
+        max-height:700px;
+    }
+
+	.modal-footer .alert-warning, .modal-footer .alert-danger, .modal-footer .alert-success, .modal-footer .alert-info {
+		margin:-10px 0px 10px 0px;
+	}	
+}
+
+/* END MODAL CHANGES */
+
+/* ADDITIONAL FORM FORMATTING */
+	.input-lickey {
+	  width: 350px;
+	}
+/* LOGIN FORM */
+	.login-body {
+		background-color: #f5f5f5;
+		padding-top: 80px;
+	    padding-bottom: 40px;
+	}
+	
+	.form-signin {
+	max-width: 300px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	}
+	.form-signin .form-signin-heading,
+	.form-signin .checkbox {
+	margin-bottom: 10px;
+	}
+	.form-signin input[type="text"],
+	.form-signin input[type="password"] {
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+	}
+/* END LOGIN FORM */
+
+/* FIRST TIME USER EXPERIENCE */
+.welcome-well {
+	max-width: 600px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	}
+.workflow-well {
+	max-width: 900px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	}
+/* END LOGIN FORM */
+/* INCOMING PUBLISHERS BUTTONS */
+	.btn-publisher-width {
+	  width: 119px;	
+	}
+	
+	.btn-publisher {
+	  width: 119px;
+	  height: 119px;
+	  padding-left:3px;
+	  padding-right:3px;
+	  padding-top: 3px;
+	  border: none;
+	  margin-left: 0px;
+	  margin-top: 0px;
+	}
+	.btn-publisher-normal {
+	  background-color: #E4E4E4;
+	}
+	.btn-publisher-active {
+	  background-color: #428BCA;
+	}
+	.encoder-vertical-center {
+     height:52px;
+	  display:table-cell;
+	  vertical-align:middle;
+	  width:119px;
+	}
+	.pub-div {
+	 width: 15%;
+	 margin-right: 67px;
+	}	
+/* END INCOMING PUBLISHERS BUTTONS */
+/* STREAM TARGET DESTINATIONS BUTTONS */
+	.btn-targetdest-width {
+	  width: 119px;	
+	}
+	
+	.btn-targetdest {
+	  width: 114px;
+	  height: 128px;
+	  padding-left:3px;
+	  padding-right:3px;
+	  padding-top: 3px;
+	  border: none;
+	}
+	.btn-targetdest-normal {
+	  background-color: #E4E4E4;
+	}
+	.btn-targetdest-active {
+	  background-color: #428BCA;
+	}
+	.targetdest-dest {
+	}
+	.targetdest-vertical-center {
+      height:58px;
+	  display:table-cell;
+	  vertical-align:middle;
+	  width:114px;
+	  line-height: normal;
+	}
+	.dest-div {
+	 width: 114px;
+	 margin-right: 40px;
+     margin-bottom: 10px;
+	 cursor:pointer;
+	}	
+	.target-logo-div {
+		width:60px;
+		margin-left:20px;
+	}
+	.target-info-div {
+		font-weight:bold;
+		font-size:13px;
+		margin-top:4px;
+		margin-bottom:0px;
+	}
+	.target-info-div a {
+		font-weight:normal;
+	}
+	.target-div {
+		cursor:pointer;
+		cursor:hand;
+	}
+	.td-vert-middle {
+		vertical-align:middle!important;
+	}
+/* END STREAM TARGET DESTINATIONS BUTTONS */
+/* TEST PLAYER */
+
+ /* Facebook buttons */
+ 	.fb-login-button {
+		width:107px;
+		height:34px;
+		background:url('../img/fb-login-button.png');
+		background-size: 107px 34px;
+		background-repeat: no-repeat;
+ 	}
+ 	.fb-login-button:hover {
+ 		background:url('../img/fb-login-button-hover.png');
+		background-size: 107px 34px;
+		background-repeat: no-repeat;
+ 	}
+ 	.fb-change-user-button {
+		width:174px;
+		height:34px;
+		background:url('../img/fb-change-user-button.png');
+		background-size: 174px 34px;
+		background-repeat: no-repeat;
+	}
+ 	.fb-change-user-button:hover {
+ 		background:url('../img/fb-change-user-button-hover.png');
+		background-size: 174px 34px;
+		background-repeat: no-repeat;
+ 	}
+ 	.fb-cancel-button {
+ 		width:113px;
+		height:34px;
+ 		background:url('../img/fb-cancel-button.png');
+		background-size: 113px 34px;
+		background-repeat: no-repeat;
+ 	}
+ 	.fb-cancel-button:hover {
+ 		background:url('../img/fb-cancel-button-hover.png');
+		background-size: 113px 34px;
+		background-repeat: no-repeat;
+ 	}
+  
+	.test-application-dialog {
+		width:auto;
+		max-width:720px;
+		margin-top:-25px;
+		padding-top:40px;
+	}
+	
+ END TEST PLAYER */
+ /* LISTS */
+ ol {
+ 	padding-top: 5px;
+ 	font-weight: bold;
+ }
+ .live-encoder ol li {
+ 	padding-bottom: 25px;
+ 	font-weight: bold;
+ }
+ ol li > div {
+ 	font-weight: normal; 
+}
+/* PTZ Controls */
+#imageCapture {
+	width:320px;
+}
+#ptz-controls {
+	position:relative;
+	width:198px;
+	height:140px;
+	float:right;
+}
+#ptz-dpad {
+	position:relative;
+	width:139px;
+	height:139px;
+	background:url('../img/ptz/ptz-dpad-full.png') no-repeat;
+	cursor:pointer;
+	cursor:hand;
+}
+#ptz-dpad-top {
+	background:url('../img/ptz/ptz-dpad-top.png') no-repeat;
+	width: 74px;
+	height: 32px;
+	position:absolute;
+	left:32px;
+}
+#ptz-dpad-top:hover {
+	background:url('../img/ptz/ptz-dpad-top-hover.png') no-repeat;
+	width: 74px;
+	height: 32px;
+}
+#ptz-dpad-left {
+	background:url('../img/ptz/ptz-dpad-left.png') no-repeat;
+	height: 74px;
+	width: 32px;
+	position:absolute;
+	top:32px;
+}
+#ptz-dpad-left:hover {
+	background:url('../img/ptz/ptz-dpad-left-hover.png') no-repeat;
+	height: 74px;
+	width: 32px;
+}
+#ptz-dpad-center {
+	background:url('../img/ptz/ptz-dpad-center.png') no-repeat;
+	width: 74px;
+	height: 74px;
+	position: absolute;
+	top: 32px;
+	left: 32px;
+}
+#ptz-dpad-center:hover {
+	background:url('../img/ptz/ptz-dpad-center-hover.png') no-repeat;
+	width: 74px;
+	height: 74px;
+}
+#ptz-dpad-right {
+	background:url('../img/ptz/ptz-dpad-right.png') no-repeat;
+	height: 74px;
+	width: 32px;
+	position:absolute;
+	top:32px;
+	left:107px;
+}
+#ptz-dpad-right:hover {
+	background:url('../img/ptz/ptz-dpad-right-hover.png') no-repeat;
+	height: 74px;
+	width: 32px;
+}
+#ptz-dpad-bottom {
+	background:url('../img/ptz/ptz-dpad-bottom.png') no-repeat;
+	width: 74px;
+	height: 32px;
+	position:absolute;
+	left: 32px;
+	top: 107px;
+}
+#ptz-dpad-bottom:hover {
+	background:url('../img/ptz/ptz-dpad-bottom-hover.png') no-repeat;
+	width: 74px;
+	height: 32px;
+}
+#ptz-zoom {
+	position:absolute;
+	width:68px;
+	height:70px;
+	top:35px;
+	left:160px;
+	cursor:pointer;
+	cursor:hand;
+}
+#ptz-zoom-in {
+	position:absolute;
+	background:url('../img/ptz/ptz-zoom-in.png') no-repeat;
+	width:34px;
+	height:35px;
+}
+#ptz-zoom-out {
+	position:absolute;
+	background:url('../img/ptz/ptz-zoom-out.png') no-repeat;
+	width:34px;
+	height:35px;
+	top:34px;
+}
+#ptz-zoom-in:hover {
+	background:url('../img/ptz/ptz-zoom-in-hover.png') no-repeat;
+	width:34px;
+	height:35px;
+}
+#ptz-zoom-out:hover {
+	background:url('../img/ptz/ptz-zoom-out-hover.png') no-repeat;
+	width:34px;
+	height:35px;
+}
+.hide-icon {
+	visibility:hidden;
+}

@@ -1,0 +1,45 @@
+var WOWZA = WOWZA || {};
+WOWZA.Util = WOWZA.Util || {};
+
+WOWZA.Util.blockCount = 0;
+
+WOWZA.Util.blockUI = function() {
+	WOWZA.Util.blockCount++;
+	$.blockUI({
+		message : '<h1><img style="height:45px;width:45px;margin-top:-45px;" src="img/busy.gif" /></h1>',
+		css : {
+			width : '45px',
+			height : '45px',
+			border: '0px',
+			backgroundColor: '',
+			top : ($(window).height() - 45) / 3 + 'px',
+			left : ($(window).width() - 45) / 2 + 'px'
+		},
+		overlayCSS:{
+			opacity : .1
+		},
+		ignoreIfBlocked: true
+	});
+};
+
+WOWZA.Util.unblockUI = function() {
+	if(WOWZA.Util.blockCount<=1)
+		$.unblockUI();
+	WOWZA.Util.blockCount=0;
+};
+
+$(document).ready(function() {
+	// prefetch the busy image so it doesn't show up oddly on first render
+	var im = new Image();
+	im.src = "img/busy.gif";
+
+	$(document).ajaxSend(function(event, jqxhr, settings) {
+		if(/.*monitoring\/.*\.jsdata.*/.test(settings.url+'') || /.*vhost\/.*\.jsdata.*/.test(settings.url+'')) {
+			return;
+		}
+		WOWZA.Util.blockUI();
+	});
+	$(document).ajaxComplete(function() {
+		WOWZA.Util.unblockUI();
+	});
+});

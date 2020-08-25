@@ -1,0 +1,46 @@
+
+body{
+	background-color: gray;
+}
+
+#Text{
+	font-size: 30px;
+	color:white;
+}
+
+#logo{
+	float: right;
+}
+
+#Box{
+	background-color: silver;
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+#box_size_height{
+	padding-top: 20%;
+}
+
+#Box_1{
+	background-color: silver;
+	width: 50%;
+	float: right;
+	height: 100%;
+}
+
+#Box_{
+	background-color: silver;
+	width: 20%;
+	float: right;
+	height: 100%;
+}
+
+#box_size_height_1{
+	padding-top: 32%;
+}
+
+#ff_1{
+	text-align: center;
+}

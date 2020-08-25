@@ -1,0 +1,27 @@
+#account_information{
+width: 50%;
+}
+#Height_box{
+	background-color: silver;
+	padding-bottom: 80%;
+}
+#Text_1a{
+	float: left;
+	font-size: 25px;
+	color: white;
+}
+#Text_1b{
+	float: right;
+	font-size: 25px;
+	color: white;
+}
+#Text_1af{
+		float: left;
+	font-size: 20px;
+	color: black
+}
+#Text_1bf{
+	float: right;
+	font-size: 20px;
+	color: black;
+}

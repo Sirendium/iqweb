@@ -1,0 +1,29 @@
+body{
+	background-color: silver;
+}
+#autorization{
+	text-align: center;
+	margin-top: 20%;
+	color: white;
+	font-size: 17px;
+	font-family: Calibri;
+}
+#input_pass{
+	background-color: rgb(217,217,217);
+	height: 40px;
+	border: none;
+	border-radius: 10px;
+}
+#author{
+color: white;
+font-size: 15px;
+font-family: Calibri;
+}
+#about_text{
+
+margin-top: 16%;
+}
+#autorization_click{
+	background-color: silver;
+	border: none;
+	}

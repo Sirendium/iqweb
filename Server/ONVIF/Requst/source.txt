@@ -1,0 +1,1 @@
+1280x720: rtsp://192.168.1.10:554/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream

@@ -1,0 +1,69 @@
+if (Helper.HasFeature(Enums.Features.Motion_Detection))
+            {
+                ConfigureSeconds cf;
+                switch (ddlAlertMode.SelectedIndex)
+                {
+                    case 0:
+                        cf = new ConfigureSeconds
+                                 {
+                                     Seconds = CameraControl.Camobject.detector.movementintervalnew
+                                 };
+                        cf.ShowDialog(this);
+                        if (cf.DialogResult == DialogResult.OK)
+                            CameraControl.Camobject.detector.movementintervalnew = cf.Seconds;
+                        cf.Dispose();
+                        return;
+                    case 1:
+                        cf = new ConfigureSeconds
+                                 {
+                                     Seconds = CameraControl.Camobject.detector.nomovementintervalnew
+                                 };
+                        cf.ShowDialog(this);
+                        if (cf.DialogResult == DialogResult.OK)
+                            CameraControl.Camobject.detector.nomovementintervalnew = cf.Seconds;
+                        cf.Dispose();
+                        return;
+                    case 2:
+                        var coc = new ConfigureObjectCount
+                                      {
+                                          Objects = CameraControl.Camobject.alerts.objectcountalert
+                                      };
+                        coc.ShowDialog(this);
+
+                        if (coc.DialogResult == DialogResult.OK)
+                            CameraControl.Camobject.alerts.objectcountalert = coc.Objects;
+                        coc.Dispose();
+                        return;
+                }
+            }
+
+            if (ddlAlertMode.SelectedIndex == -1)
+                return;
+
+            switch (ddlAlertMode.SelectedItem.ToString())
+            {
+                case "Virtual Trip Wires":
+                    _ctw = new ConfigureTripWires();
+                    _ctw.TripWireEditor1.Init(CameraControl.Camobject.alerts.pluginconfig);
+                    _ctw.ShowDialog(this);
+                    CameraControl.Camobject.alerts.pluginconfig = _ctw.TripWireEditor1.Config;
+                    if (CameraControl.Camera != null && CameraControl.Camera.VideoSource is KinectStream)
+                    {
+                        ((KinectStream) CameraControl.Camera.VideoSource).InitTripWires(
+                            CameraControl.Camobject.alerts.pluginconfig);
+                    }
+                    _ctw.Dispose();
+                    _ctw = null;
+                    break;
+                default:
+                    if (CameraControl.Camera != null && CameraControl.Camera.Plugin != null)
+                    {
+                        CameraControl.ConfigurePlugin();
+                    }
+                    else
+                    {
+                        MessageBox.Show(this,
+                                        LocRm.GetString("Validate_Initialise_Camera"));
+                    }
+                    break;
+            }

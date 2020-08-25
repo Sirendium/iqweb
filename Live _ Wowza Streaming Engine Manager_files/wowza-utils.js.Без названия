@@ -1,0 +1,279 @@
+var WOWZA = WOWZA || {};
+WOWZA.Util = WOWZA.Util || {};
+
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
+String.prototype.escapeForRegEx = function(text) {
+	return this.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+WOWZA.Util.momentFormat = "DD MMM YYYY hh:mm:ss A";
+
+WOWZA.Util.FlotColors = [ '#FF9400', '#006FB2', '#CCC914', '#A84600', '#46CA2B', '#881133', '#DDAABB', '#F28333',
+	'#2B2B2B', '#9D4B11', '#F37D93', '#6ABDC5', '#557755', '#EEDAF2', '#882299', '#3d474c', '#228811', '#0088cc',
+	'#c500c2', '#f2d579', '#A60018', '#846fb3', '#116688', '#668811', '#331188', '#cbd8ad', '#4c3d40', '#881133',
+	'#992244' ];
+WOWZA.Util.ProtocolColorMap = {'Smooth':WOWZA.Util.FlotColors[3], 'HDS':WOWZA.Util.FlotColors[11], 'DASH':WOWZA.Util.FlotColors[7]
+							 , 'RTSP/RTP':WOWZA.Util.FlotColors[15], 'RTMP':WOWZA.Util.FlotColors[19], 'HLS':WOWZA.Util.FlotColors[23]};
+WOWZA.Util.setUptime = function(uptime, prettyId, timeId) {
+	WOWZA.Util.setUptimeSeconds(uptime, prettyId, timeId, true);
+};
+WOWZA.Util.setUptimeSeconds = function(uptime, prettyId, timeId, truncateUptime) {
+	var now = moment().unix();
+	if (truncateUptime) {
+		now = Math.floor(now - (now % 60));
+	}
+	var then = moment("" + now - uptime/1000, "X");
+	if (prettyId) {
+		var formated1 = moment.duration(uptime).humanize();
+		$(prettyId).html(formated1);
+	}
+	if (timeId) {
+		$(timeId).html(then.format(WOWZA.Util.momentFormat));
+	}
+};
+
+/**
+ * Generate a % (whole number, 0-100) increase or decrease in color in terms of
+ * white-value
+ */
+WOWZA.Util.shadeColor = function(color, percent) {
+	var amt = Math.round(2.55 * percent), R = color._rgba[0] + amt, B = color._rgba[2] + amt, G = color._rgba[1] + amt;
+	return "#"
+		+ (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0
+			: B
+			: 255)).toString(16).slice(1);
+};
+
+WOWZA.Util.DefaultTimespanPicker = function(parent, _onSelectionChanged) {
+	var me = {};
+	me.onSelectionChanged = _onSelectionChanged;
+	// value in seconds
+	var selectorValues = {
+		"last hour" : function() {
+			return {
+				start : moment().subtract('hours', 1),
+				end : moment() };
+		},
+		"last 4 hours" : function() {
+			return {
+				start : moment().subtract('hours', 4),
+				end : moment() };
+		},
+		"today" : function() {
+			return {
+				start : moment().startOf('day'),
+				end : moment() };
+		},
+		"yesterday" : function() {
+			return {
+				start : moment().subtract('days', 1).startOf('day'),
+				end : moment().subtract('days', 1).endOf('day') };
+		},
+		"last 3 days" : function() {
+			return {
+				start : moment().subtract('days', 3).startOf('day'),
+				end : moment().endOf('day') };
+		},
+		"last 7 days" : function() {
+			return {
+				start : moment().subtract('days', 7).startOf('day'),
+				end : moment().endOf('day') };
+		},
+		"last 30 days" : function() {
+			return {
+				start : moment().subtract('days', 30).startOf('day'),
+				end : moment().endOf('day') };
+		},
+		"month to date" : function() {
+			return {
+				start : moment().startOf('month'),
+				end : moment().endOf('day') };
+		},
+		"last month" : function() {
+			var month = moment().subtract('months', 1).startOf('month');
+			return {
+				start : month,
+				end : moment(month).endOf('month') };
+		},
+		"quarter to date" : function() {
+			var quarterAdjustment = (moment().month() % 3) + 1;
+			var lastQuarterStartDate = moment().subtract('months', quarterAdjustment).endOf('month');
+			return {
+				start : lastQuarterStartDate,
+				end : moment().endOf('day') };
+		},
+		"last quarter" : function() {
+			var quarterAdjustment = (moment().month() % 3) + 1;
+			var lastQuarterEndDate = moment().subtract('months', quarterAdjustment).endOf('month');
+			var lastQuarterStartDate = lastQuarterEndDate.clone().startOf('month').subtract({
+				months : 2 });
+			return {
+				start : lastQuarterStartDate,
+				end : lastQuarterEndDate };
+		},
+		"year to date" : function() {
+			return {
+				start : moment().startOf('year'),
+				end : moment().endOf('day') };
+		},
+		"last 365 days" : function() {
+			return {
+				start : moment().subtract('days', 365),
+				end : moment().endOf('day') };
+		} };
+	me.selector = $(parent).find('.wowza-default-timespan-picker');
+	$.each(selectorValues, function(label, value) {
+		$("<option value='" + label + "'>" + label + "</option>").appendTo(me.selector);
+	});
+
+	me.selector.change(function() {
+		var dates = {};
+		me.selector.children("option:selected").each(function() {
+			dates = selectorValues[$(this).text()]();
+		});
+		if (me.onSelectionChanged) {
+			me.onSelectionChanged(dates);
+		}
+	});
+	return me;
+};
+
+WOWZA.Util.DateTimePicker = function(parent, type) {
+	var me = {};
+	me.element = $(parent).find(type);
+	me.timepicker = $(parent).find(type + ' .bootstrap-timepicker input');
+	me.datepickerDiv = $(parent).find(type + ' .date');
+	me.timer = null;
+	me.ignore = false;
+
+	me.broadcastDateTimeChangedEvent = function() {
+		if (me.ignore == true)
+			return;
+		if (me.timer != null) {
+			clearTimeout(me.timer);
+		}
+		me.timer = setTimeout(function() {
+			me.element.trigger({
+				type : 'changeDateTime',
+				date : me.dateTime,
+				target : me });
+		}, 1000);
+	};
+	me.timepicker.timepicker({
+		showMeridian : true }).on(
+		'changeTime.timepicker',
+		function(e) {
+			me.dateTime = moment(me.dateTime).local().hours(e.time.hours+(e.time.meridian=="PM"?12:0)).minutes(
+				e.time.minutes).seconds(0);
+			me.broadcastDateTimeChangedEvent();
+		});
+	me.datepicker = me.datepickerDiv.datepicker({
+		onRender : function(date) {
+			return date.valueOf() <= moment().subtract('days', 366) ? 'disabled' : '';
+		} }).on('changeDate', function(ev) {
+		var date = moment(ev.date).local();
+		me.dateTime = moment(me.dateTime).year(date.year()).month(date.month()).date(date.date()).seconds(0);
+		me.broadcastDateTimeChangedEvent();
+	});
+
+	me.on = function(value, callback) {
+		me.element.on(value, callback);
+	};
+
+	me.getDateTime = function() {
+		return moment(me.dateTime);
+	};
+	me.setDateTime = function(newDate) {
+		me.ignore = true;
+		me.dateTime = moment(newDate).seconds(0);
+		me.datepicker.data('datepicker').setValue(me.dateTime);
+		me.timepicker.timepicker('setTime', moment(me.dateTime).format("hh:mm A"));
+		me.ignore = false;
+	};
+
+	me.hide = function() {
+		me.datepicker.data('datepicker').hide();
+	};
+	me.focusDate = function() {
+		me.datepickerDiv[0].focus();
+	};
+	me.redraw = function() {
+		me.datepicker.data('datepicker').update();
+	};
+	return me;
+};
+/*
+ * Convert a value in to a human readable form where the incoming value is in bytes
+ * and the output value is in Byte values as well (base 2)
+ */
+WOWZA.Util.HumanReadableBytes = function(value, suffix) {
+	var divisor = 1024;
+	var scales = ["", "K", "M", "G", "T", "P"];
+	var idx=0;
+	for(;idx<scales.length;idx++) {
+		if(value>divisor) {
+			value /= divisor;
+		} else {
+			break;
+		}
+	}
+	return parseFloat(Math.round(value * 100) / 100).toFixed(3)+" "+scales[idx]+suffix;
+};
+/*
+ * Convert a value in to a human readable form where the incoming value is in bits 
+ * or thousands, and the output value is also in base 10
+ */
+WOWZA.Util.HumanReadableBits = function(value, suffix) {
+	var divisor = 1000;
+	var scales = ["", "K", "M", "G", "T", "P"];
+	var idx=0;
+	for(;idx<scales.length;idx++) {
+		if(value>=divisor) {
+			value /= divisor;
+		} else {
+			break;
+		}
+	}
+	return parseFloat(Math.round(value * 100) / 100).toFixed(3)+" "+scales[idx]+suffix;
+};
+
+WOWZA.Util.Popover = function(selector, text) {
+	var timeoutObj;
+	$(selector).popover({
+		offset: 5,
+		trigger: 'manual',
+		html: true,
+		placement: 'left',
+		template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide();});"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+	}).mouseenter(function(e) {
+		$(this).popover('show');
+	}).mouseleave(function(e) {
+		var _this = this;
+		setTimeout(function() {
+			if (!$(".popover:hover").length) {
+				$(_this).popover("hide");
+			}
+		}, 500);
+	});
+};
+WOWZA.Util.DialogPopover = function(selector, text) {
+	var timeoutObj;
+	$(selector).popover({
+		offset: 5,
+		trigger: 'manual',
+		html: true,
+		placement: 'bottom',
+		template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide();});"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+	}).mouseenter(function(e) {
+		$(this).popover('show');
+	}).mouseleave(function(e) {
+		var _this = this;
+		setTimeout(function() {
+			if (!$(".popover:hover").length) {
+				$(_this).popover("hide");
+			}
+		}, 500);
+	});
+};

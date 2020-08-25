@@ -1,0 +1,4740 @@
+<!DOCTYPE html>
+<!-- saved from url=(0165)http://localhost:8088/enginemanager/Home.htm#application/_defaultVHost_/Live/live/incomingstreams_details/&instance=VOD&stream=Live.stream&returnPage=incomingstreams -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Forces user OUT of IE's compatibility mode and removes "broken page" icon -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Live | Wowza Streaming Engine Manager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Le styles -->
+<link href="./Live _ Wowza Streaming Engine Manager_files/bootstrap.css" rel="stylesheet" media="screen">
+<!--  <style>
+	    .error { vertical-align:top; color: red; }
+	    .warning { vertical-align:top; color: orange; display: inline}
+	    .success { vertical-align:top; color: green; }
+	  	.paramName {vertical-align:top; text-align:right; font-weight:bold; height:30px}
+	  	.paramvalue {vertical-align:top; text-align:left; height:30px; display: inline}
+	  </style>-->
+<link href="./Live _ Wowza Streaming Engine Manager_files/font-awesome.css" rel="stylesheet">
+<link href="./Live _ Wowza Streaming Engine Manager_files/wowza.css" rel="stylesheet">
+<link href="./Live _ Wowza Streaming Engine Manager_files/wowza-charts.css" rel="stylesheet">
+<link href="./Live _ Wowza Streaming Engine Manager_files/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="./Live _ Wowza Streaming Engine Manager_files/datepicker.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+<script src="./Live _ Wowza Streaming Engine Manager_files/include.js.Без названия"></script>
+
+<!-- Fav and touch icons -->
+<link rel="shortcut icon" type="image/x-icon" href="http://localhost:8088/enginemanager/img/ico/favicon.ico?v=2">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:8088/enginemanager/img/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:8088/enginemanager/img/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:8088/enginemanager/img/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="http://localhost:8088/enginemanager/img/ico/apple-touch-icon-57-precomposed.png">
+
+<object class="chrome-extension://jffafkigfgmjafhpkoibhfefeaebmccg/" style="display: none; visibility: hidden;"></object></head>
+<body style="cursor: default;" class="modal-open">
+	
+		<script>
+			isAdmin = true;
+		</script>
+	
+	
+	<nav id="apptop" class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<div class="container-full">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-1-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand hidden-sm hidden-xs" href="javascript:loadAjaxSideBar(&#39;home/main.htm&#39;,&#39;&#39;)"><img style="height: 40px; width: 40px;float:left;margin-top:3px;" src="./Live _ Wowza Streaming Engine Manager_files/icon-product_176.png">
+					<div style="float:left;padding-left:10px;"><div class="navbar-brand-wse">Wowza
+					Streaming Engine</div><div class="navbar-brand-mgr">Manager</div></div></a> <a class="navbar-brand visible-sm visible-xs" href="javascript:loadAjaxSideBar(&#39;home/main.htm&#39;,&#39;&#39;)"><img style="height: 44px; width: 44px;" src="./Live _ Wowza Streaming Engine Manager_files/icon-product_176.png"></a>
+			</div>
+			<!--navbar-header-->
+			<div class="collapse navbar-collapse nav-1-collapse">
+				<ul class="nav navbar-nav" id="topnav">
+					<li id="home/main.htm">
+						<div class="btn-group">
+							<a class="btn btn-inverse" href="javascript:loadAjaxSideBar(&#39;home/main.htm&#39;,&#39;&#39;)"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a>
+						</div>
+					</li>
+					
+					<li id="SB_Server.html">
+						<div class="btn-group">
+							<a class="btn btn-inverse btn-overflow" href="javascript:loadAjaxSideBar(&#39;SB_Server.html&#39;,&#39;&#39;)" id="topNavServer"><i class="fa fa-desktop"></i>&nbsp;&nbsp;Server</a>
+							<button id="topNavVHostsButton" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" style="display: none;">
+								<span class="caret"></span>
+							</button>
+							<ul id="topNavVHosts" class="dropdown-menu" style="display: none;"></ul>
+						</div>
+					</li>
+					
+					<li id="SB_Applications.html" class="active">
+						<div class="visible-xs visible-sm">
+							<div class="btn-group">
+								<a class="btn btn-inverse" href="javascript:loadAjaxSideBar(&#39;SB_Applications.html&#39;,&#39;&#39;)"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;Applications</a>
+							</div>
+						</div>
+						<div class="visible-md visible-lg">
+							<div class="btn-group">
+								<a class="btn btn-inverse" href="javascript:loadAjaxSideBar(&#39;SB_Applications.html&#39;,&#39;&#39;)"><i class="fa fa-folder-open"></i>&nbsp;&nbsp;Applications</a>
+								<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+									<span class="caret"></span>
+								</button>
+								<ul id="topNavApplications" class="dropdown-menu"><li class="li-button"><a href="javascript:loadNewApplicationAndSB()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Application</a></li><li class="divider"></li><li class="navbar-dropdown-subhead">Live Applications</li><li class="divider"></li><li><a class="menu-overflow" onclick="javascript:loadApplicationAndSB(&#39;Live&#39;,&#39;live&#39;,&#39;main&#39;,&#39;&#39;)">Live</a></li><li class="divider"></li><li><a class="menu-overflow" onclick="javascript:loadApplicationAndSB(&#39;Live_1&#39;,&#39;live&#39;,&#39;main&#39;,&#39;&#39;)">Live_1</a></li><li class="divider"></li><li class="navbar-dropdown-subhead">VOD Applications</li><li class="divider"></li><li><a class="menu-overflow" onclick="javascript:loadApplicationAndSB(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;main&#39;,&#39;&#39;)">VOD</a></li></ul>
+							</div>
+						</div>
+					</li>
+					<!--
+					<li id="SB_Help.html">
+						<div class="btn-group">
+							<a class="btn btn-inverse" href="javascript:loadAjaxSideBar('SB_Help.html','')"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;Help</a>
+						</div>
+					</li>
+					-->
+				</ul>
+				<p class="nav navbar-text pull-right">
+					<!--Logged in as -->
+					<i class="fa fa-user"></i>
+					Serios_Cem
+					<!--
+					
+						-admin
+					
+					
+				  -->
+					&nbsp;&nbsp;&nbsp;<a class="navbar-link" href="javascript:loadAjaxSideBar(&#39;SB_Help.html&#39;,&#39;&#39;)"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;Help</a>
+					&nbsp;&nbsp;&nbsp;<a class="navbar-link" href="javascript:signOut()"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Sign Out</a>
+				</p>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+		<!--container-->
+	</nav>
+
+
+	<div class="container-full">
+		<div id="sideBar" class="row"><div class="col-md-3">
+	<div class="visible-xs visible-sm">
+		<div class="well well-sm">
+			<h4>Select or add an application</h4>
+			<select id="sbnavMobile" class="form-control" onchange="loadAppFromMobile(value);"><option id="appName2=app:new" value="new">+ Add Application</option><option disabled="">LIVE APPLICATIONS</option><option id="appName2=Live:main" value="Live::::live">Live</option><option id="appName2=Live_1:main" value="Live_1::::live">Live_1</option><option disabled="">VOD APPLICATIONS</option><option id="appName2=VOD:main" value="VOD::::vodedge">VOD</option></select>
+			<div id="selectPageMobile">
+				<h4>Select a page</h4>
+				<select id="sbnavMobile2" class="form-control" onchange="loadAppFromMobile2(value);">
+				<option id="sbnavMobile_main" value="main">Main</option><option id="sbnavMobile_monitoring" value="monitoring">Monitoring</option><option id="sbnavMobile_publishers" value="publishers">Sources (Live)</option><option id="sbnavMobile_streamfiles" value="streamfiles">Stream Files</option><option id="sbnavMobile_incomingstreams" value="incomingstreams">Incoming Streams</option><option id="sbnavMobile_streamtargets" value="streamtargets">Stream Targets</option><option id="sbnavMobile_securitypub" value="securitypub">Source Security</option><option id="sbnavMobile_securityplayback" value="securityplayback">Playback Security</option><option id="sbnavMobile_smilfiles" value="smilfiles">SMIL Files</option><option id="sbnavMobile_ndvr" value="ndvr">nDVR</option><option id="sbnavMobile_transcoder" value="transcoder">Transcoder</option><option id="sbnavMobile_drm" value="drm">DRM</option></select>
+				</div>
+		</div>
+	</div>
+	<div class="well sidebar-nav hidden-xs hidden-sm"> <!-- sidebar-nav">-->
+	  <ul class="nav" id="sbnav"><li id="appName=app:new" class="sidebar-nonaccordion-element"><a href="javascript:loadNewApplication()"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Application</a></li><li class="divider"></li><li class="nav-header notfirst">Selected Application</li><li class="nav-text" id="selectAppText" style="display: none;">Select an application below</li><div id="appNameSelected=Live" class="panel-group" style=""><div class="panel panel-default sidebar"><li class="panel-heading" id="appName=Live:main"><a onclick="loadApplicationWithCollapse2(&#39;Live&#39;,&#39;live&#39;,&#39;main&#39;)" class="sidebar-accordion-toggle">Live&nbsp;<i class="fa fa-caret-down"></i></a></li><div id="collapseLive" class="sidebar-accordion-body"><li class="sidebar-accordion-inner" id="appName=Live:monitoring"><a onclick="loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;monitoring&#39;)">Monitoring</a></li><li class="sidebar-accordion-inner" id="appName=Live:publishers"><a onclick="javascript:loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;publishers&#39;)">Sources (Live)</a></li><li class="sidebar-accordion-inner" id="appName=Live:streamfiles"><a onclick="javascript:loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;streamfiles&#39;)">Stream Files</a></li><li class="sidebar-accordion-inner-active" id="appName=Live:incomingstreams"><a onclick="loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;incomingstreams&#39;)">Incoming Streams</a></li><li class="sidebar-accordion-inner" id="appName=Live:streamtargets"><a onclick="loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;streamtargets&#39;)">Stream Targets&nbsp;<i class="fa fa-check-circle" id="appName=Live:streamtargets:enabled"> </i></a></li><li class="sidebar-accordion-inner" id="appName=Live:securitypub"><a onclick="loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;securitypub&#39;)">Source Security</a></li><li class="sidebar-accordion-inner" id="appName=Live:securityplayback"><a onclick="loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;securityplayback&#39;)">Playback Security</a></li><li class="sidebar-accordion-inner" id="appName=Live:smilfiles"><a onclick="javascript:loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;smilfiles&#39;)">SMIL Files</a></li><li class="sidebar-accordion-inner" id="appName=Live:ndvr"><a onclick="loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;ndvr&#39;)">nDVR&nbsp;<i class="fa fa-check-circle" id="appName=Live:ndvr:enabled"> </i></a></li><li class="sidebar-accordion-inner" id="appName=Live:transcoder" style="display: none;"><a onclick="javascript:loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;transcoder&#39;)">Transcoder&nbsp;<i class="fa fa-check-circle" id="appName=Live:transcoder:enabled" style="display:none"> </i></a></li><li class="sidebar-accordion-inner" id="appName=Live:drm"><a onclick="javascript:loadApplication(&#39;Live&#39;,&#39;live&#39;,&#39;drm&#39;)">DRM&nbsp;<i class="fa fa-check-circle" id="appName=Live:drm:enabled" style="display:none"> </i></a></li></div></div></div><div id="appNameSelected=Live_1" class="panel-group" style="display:none"><div class="panel panel-default sidebar"><li class="panel-heading" id="appName=Live_1:main"><a onclick="loadApplicationWithCollapse2(&#39;Live_1&#39;,&#39;live&#39;,&#39;main&#39;)" class="sidebar-accordion-toggle">Live_1&nbsp;<i class="fa fa-caret-down"></i></a></li><div id="collapseLive_1" class="sidebar-accordion-body"><li class="sidebar-accordion-inner" id="appName=Live_1:monitoring"><a onclick="loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;monitoring&#39;)">Monitoring</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:publishers"><a onclick="javascript:loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;publishers&#39;)">Sources (Live)</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:streamfiles"><a onclick="javascript:loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;streamfiles&#39;)">Stream Files</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:incomingstreams"><a onclick="loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;incomingstreams&#39;)">Incoming Streams</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:streamtargets"><a onclick="loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;streamtargets&#39;)">Stream Targets&nbsp;<i class="fa fa-check-circle" id="appName=Live_1:streamtargets:enabled"> </i></a></li><li class="sidebar-accordion-inner" id="appName=Live_1:securitypub"><a onclick="loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;securitypub&#39;)">Source Security</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:securityplayback"><a onclick="loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;securityplayback&#39;)">Playback Security</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:smilfiles"><a onclick="javascript:loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;smilfiles&#39;)">SMIL Files</a></li><li class="sidebar-accordion-inner" id="appName=Live_1:ndvr"><a onclick="loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;ndvr&#39;)">nDVR&nbsp;<i class="fa fa-check-circle" id="appName=Live_1:ndvr:enabled"> </i></a></li><li class="sidebar-accordion-inner" id="appName=Live_1:transcoder"><a onclick="javascript:loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;transcoder&#39;)">Transcoder&nbsp;<i class="fa fa-check-circle" id="appName=Live_1:transcoder:enabled" style="display:none"> </i></a></li><li class="sidebar-accordion-inner" id="appName=Live_1:drm"><a onclick="javascript:loadApplication(&#39;Live_1&#39;,&#39;live&#39;,&#39;drm&#39;)">DRM&nbsp;<i class="fa fa-check-circle" id="appName=Live_1:drm:enabled" style="display:none"> </i></a></li></div></div></div><div id="appNameSelected=VOD" class="panel-group" style="display:none"><div class="panel panel-default sidebar"><li class="panel-heading" id="appName=VOD:main"><a onclick="loadApplicationWithCollapse2(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;main&#39;)" class="sidebar-accordion-toggle">VOD&nbsp;<i class="fa fa-caret-down"></i></a></li><div id="collapseVOD" class="sidebar-accordion-body"><li class="sidebar-accordion-inner" id="appName=VOD:monitoring"><a onclick="loadApplication(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;monitoring&#39;)">Monitoring</a></li><li class="sidebar-accordion-inner" id="appName=VOD:securityplayback"><a onclick="loadApplication(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;securityplayback&#39;)">Playback Security</a></li><li class="sidebar-accordion-inner" id="appName=VOD:smilfiles"><a onclick="javascript:loadApplication(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;smilfiles&#39;)">SMIL Files</a></li><li class="sidebar-accordion-inner" id="appName=VOD:drm"><a onclick="javascript:loadApplication(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;drm&#39;)">DRM&nbsp;<i class="fa fa-check-circle" id="appName=VOD:drm:enabled" style="display:none"> </i></a></li></div></div></div><li class="divider"></li><li class="nav-header notfirst">Live Applications</li><li class=""><a onclick="loadApplicationWithCollapse2(&#39;Live&#39;,&#39;live&#39;,&#39;main&#39;)" class=""><i class="fa fa-circle" style="font-size: 8px; top: -2px; position: relative;" id="appNameIcon=Live"></i> Live&nbsp;</a></li><li class=""><a onclick="loadApplicationWithCollapse2(&#39;Live_1&#39;,&#39;live&#39;,&#39;main&#39;)" class=""><i class="fa fa-circle" style="font-size:8px;top: -2px;position: relative;display:none" id="appNameIcon=Live_1"></i> Live_1&nbsp;</a></li><li class="divider"></li><li class="nav-header notfirst">VOD Applications</li><li class=""><a onclick="loadApplicationWithCollapse2(&#39;VOD&#39;,&#39;vodedge&#39;,&#39;main&#39;)" class=""><i class="fa fa-circle" style="font-size:8px;top: -2px;position: relative;display:none" id="appNameIcon=VOD"></i> VOD&nbsp;</a></li></ul>
+	</div>
+</div>
+
+<div class="col-md-9">
+    <div id="mainContent">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+			
+			
+				<script>
+					document.title="Live | Wowza Streaming Engine Manager";
+				</script>
+			
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+function panTiltZoomShow(appName, instanceName, streamName, refreshRate) 
+{
+	var ptzDiv = $("#panTiltZoomDiv");
+	if (ptzDiv.length > 0)
+	{
+		$("#panTiltZoomModal").remove();
+	}
+	
+	ptzDiv = $("<div id='panTiltZoomDiv' style='display: hidden;'></div>").appendTo($("body"));
+	$(document).on("preContentNavigation", function(e)
+	{
+		if(panTiltZoomClose) {
+			panTiltZoomClose();
+		}
+		ptzDiv.remove();
+		$(document).off("preContentNavigation", arguments.callee);
+	});
+
+	vhost=encodeURIComponent("_defaultVHost_");
+	returnPage=encodeURIComponent("appconfig.incomingstreams");
+	ptzDiv.load("sourceControlDialog.htm?vhost="+vhost+"&appName="+encodeURIComponent(appName)+'&instance='+encodeURIComponent(instanceName)+'&stream='+encodeURIComponent(streamName)+'&refreshRate='+encodeURIComponent(refreshRate) + '&returnPage='+returnPage, function() {
+		if($(this).html().substring(0,redirectLoginString.length)==redirectLoginString) {
+			document.location="login.htm"+location.hash;
+		}
+	});
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+	<div class="row">
+		
+
+
+
+
+
+		
+
+
+
+<div id="generic.warnings" class="alert alert-warning" style="display:none"></div>
+
+		
+
+
+
+
+
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<happ>Live &gt; Incoming Streams &gt;
+	
+Live.stream</happ>
+			<br> <small class="text-muted">
+
+
+
+
+
+
+
+
+
+
+	
+	
+		
+			
+				Live Single Server or Origin
+			
+			
+			
+		
+	
+
+	
+</small>
+		</div>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+<div class="col-md-7 appbuttons" id="AppButtons">
+	
+
+
+
+
+
+
+
+<a class="btn btn-default" name="test" onclick="javascript:testApplicationShow()"><i class="fa fa-play"></i> Test Players...</a>
+	
+
+
+
+
+
+
+
+
+
+	<a class="btn btn-default" name="copy" onclick="javascript:copyApplicationShow()"><i class="fa fa-files-o"></i> Copy...</a>
+
+	
+
+
+
+
+
+
+
+
+
+	<a class="btn btn-default" name="restart" onclick="javascript:restartApplicationShow()"><i class="fa fa-refresh"></i> Restart...</a>
+
+
+	
+
+
+
+
+
+
+
+
+
+	<a class="btn btn-default" name="delete" onclick="javascript:deleteApplicationShow()"><i class="fa fa-trash-o"></i> Delete...</a>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="copyApplicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="copyApplicationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="copyForm" class="form-modal">
+				<fieldset>
+					<div class="modal-header">
+						<button type="button" class="close" onclick="javascript:copyApplicationClose()">x</button>
+						<h4 id="copyApplicationModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Copy Application
+	
+</h4>
+					</div>
+					<div class="modal-body">
+						<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		This will copy all attributes and settings for application:
+	
+ <b>Live</b>.</p>
+						<label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Enter a name for the copied application:
+	
+</label><br>
+						<input class="form-control" id="newAppName" path="newAppName" value="">
+					</div>
+					<div class="modal-footer">
+						<div class="row">
+							<div class="col-md-8">
+								<div id="newAppNameError" class="alert alert-danger" style="display:none"></div>
+							</div>
+							<div class="col-md-4">
+								
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:copyApplicationClose()">Cancel</a>
+
+								
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doCopyApplication()">OK</a>
+
+
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+$(document).ready(function() {
+	$("#copyForm").bind("keypress", function(e) {
+         if (e.keyCode == 13) {   
+        	 doCopyApplication();
+             return false;
+        }
+     });
+});
+
+function copyApplicationShow() {
+	$('#newAppNameError').hide();
+	$('#newAppName').val("");
+	$('#copyApplicationModal').on("shown.bs.modal", function() {
+		$('#newAppName').focus();
+	});
+	$('#copyApplicationModal').modal('show');
+}
+
+function copyApplicationClose() {
+	$('#copyApplicationModal').modal('hide');
+}
+
+function doCopyApplication()
+{
+	var ok=true;
+	var nApp=$('#newAppName').val().trim();
+	$('#newAppName').val(nApp);
+	if(ok && !isValidFileName(nApp))
+	{
+		$('#newAppNameError').text("This field cannot contain the following characters: &lt; &gt; : ' &quot; / \\ | ? * .. ~<br/>It also cannot be a single dot.");
+		$('#newAppNameError').show();
+		ok=false;
+	}
+	if(ok && !isValidFileNameLength(nApp))
+	{
+		$('#newAppNameError').text("This field value is too long.");
+		$('#newAppNameError').show();
+		ok=false;
+	}
+	if(ok)
+	{
+	
+		$.ajax({
+			url : "NewAppName.jsdata",
+			data : "vhost="+encodeURIComponent(currentVhost)+"&appName="+nApp,
+			cache : false,
+			success : function(data) {
+				if(data.substring(0, redirectLoginString.length)==redirectLoginString) {
+					document.location = "login.htm" + location.hash;
+				}
+				else {	
+					var json_parsed = $.parseJSON(data);
+					if(json_parsed.status=="valid")
+					{
+						createCopyApplication();
+					}
+					else {
+						document.getElementById("newAppNameError").innerHTML=json_parsed.message; 
+						document.getElementById("newAppNameError").style.display="";
+					}
+				}
+			},
+			error : function (jqXHR, textStatus, thrownError) {
+				console.log("Error: (" + this.url +") " + thrownError);
+			}
+		});
+	}
+}
+
+function createCopyApplication() {
+	var result=$('#newAppName').val();
+	lastApplication=result.trim();
+	lastApplicationType="live";
+	lastApplicationSection='main';
+	$('#copyApplicationModal').on('hidden.bs.modal', function() {
+		postAJAXForm('applications/copy.htm','srcApp=Live'+'&dstApp='+encodeURIComponent(result.trim())+"&vhostName=_defaultVHost_&appType=live");
+	});
+	copyApplicationClose();
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<div id="restartApplicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="restartApplicationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-modal"><fieldset>
+				  <div class="modal-header">
+					<button type="button" class="close" onclick="javascript:restartApplicationClose()">x</button>
+					<h4 id="restartApplicationModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Restart Application
+	
+</h4>
+				  </div>
+				  <div class="modal-body">
+						<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Are you sure you want to restart application:
+	
+ <b>Live</b>?</p>
+						<p class="text-warning">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Warning: All users for this application will be disconnected.
+	
+</p>
+				  </div>
+				  <div class="modal-footer">
+					
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:restartApplicationClose()">Cancel</a>
+
+					
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doRestart()">OK</a>
+
+
+				  </div>
+			</fieldset></form>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+});
+
+function restartApplicationShow() {
+	$('#restartApplicationModal').modal('show');
+	var pageName = new String("appconfig");
+	if ( pageName == 'streamTargets' )
+	{
+		stopRefresh();
+	}
+
+}
+
+
+function restartApplicationClose() {
+	$('#restartApplicationModal').modal('hide');
+	var pageName = new String("appconfig");
+	if ( pageName == 'streamTargets' )
+	{
+		restartRefresh();
+	}
+
+}
+
+function doRestart() {
+	var pageName = new String("appconfig");
+	if ( pageName == 'streamTargets' )
+	{
+		stopRefresh();
+	}
+	$('#restartApplicationModal').on('hidden.bs.modal', function() {
+		postAJAXForm('applications/live/incomingstreams_details/restart.htm','restartVhostName=_defaultVHost_&restartAppName=Live');
+	});
+	restartApplicationClose();
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<div id="deleteApplicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteApplicationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-modal">
+				<fieldset>
+					  <div class="modal-header">
+						<button type="button" class="close" onclick="javascript:deleteApplicationClose()">x</button>
+						<h4 id="deleteApplicationModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Delete Application
+	
+</h4>
+					  </div>
+					  <div class="modal-body">
+							<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Are you sure you want to delete application:
+	
+ <b>Live</b>?</p>
+							<p class="text-warning">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Warning: This cannot be undone.
+	
+</p>
+					  </div>
+					  <div class="modal-footer">
+						
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:deleteApplicationClose()">Cancel</a>
+
+						
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doDeleteApplication()">OK</a>
+
+
+					  </div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+
+function deleteApplicationShow() {
+	$('#deleteApplicationModal').on("shown.bs.modal", function() {
+	});
+	$('#deleteApplicationModal').modal('show');	
+}
+
+function deleteApplicationClose() {
+	$('#deleteApplicationModal').modal('hide');
+}
+
+function doDeleteApplication() {
+	lastApplication='app';
+	lastApplicationType='new';
+	lastApplicationSection='new';
+	$('#deleteApplicationModal').on('hidden.bs.modal', function() {
+		postAJAXForm('applications/delete.htm','vhostName=_defaultVHost_&appName=Live');
+		lastMC_page="";
+		lastMC_params="";
+	});
+	deleteApplicationClose();
+}
+
+</script>
+
+<script>
+$(document).ready(function(){
+	if(lastApplicationType=='unknown') {
+		$('a[name="test"]').addClass('disabled');
+		$('a[name="test"]').attr('onclick', '');
+	}
+});
+
+function testApplicationShow()
+{
+	var playStreamName;
+	
+	if (false) {
+		playStreamName = "Live.stream.stream";
+	} else if (false) {
+		playStreamName = "smil:Live.stream.smil";
+	} else {
+		playStreamName = "Live.stream";
+	}	
+	showTestPlayer("_defaultVHost_","Live","live","incomingstreams_details",playStreamName,"VOD");
+}
+</script>
+	</div>
+	<p><a onclick="javascript:loadApplication(&#39;Live&#39;, &#39;live&#39;, &#39;incomingstreams&#39;)"><i class="fa fa-arrow-left"></i> Return to Incoming Streams Page</a></p>
+	<hr>
+	<div class="row">
+		<div class="main-content col-md-12">
+			
+
+
+
+
+
+<a id="rightRailLink" class="btn btn-default btn-xs btn-help right-rail-link" href="javascript:showRightRailText()"><i class="fa fa-angle-double-left"></i> Show Help</a>
+ 
+<script>
+$(document).ready(function() {
+	displayRightRailText(showRightRail);
+});
+
+function hideRightRailText()
+{
+	displayRightRailText(false);
+}
+
+function showRightRailText()
+{
+	displayRightRailText(true);
+}
+
+function displayRightRailText(showIt)
+{
+	showRightRail=showIt;
+	createCookie("showRightRail",showRightRail,730);
+	if(showIt)
+	{
+		$('.main-content').addClass("col-md-8");
+		$('.main-content').removeClass("col-md-12");
+
+/* 		$('#BasicColumn').removeClass("col-md-12");
+		$('#BasicColumn').addClass("col-md-8");
+		$('#BasicEditColumn').removeClass("col-md-12");
+		$('#BasicEditColumn').addClass("col-md-8");
+ */		
+		$('.right-rail-link').html('Hide Help <i class="fa fa-angle-double-right"></i>');
+		$('.right-rail-link').attr("href", "javascript:hideRightRailText()");
+		$('.right-rail').show();
+	}
+	else
+	{
+		$('.right-rail').hide();
+		$('.main-content').addClass("col-md-12");
+		$('.main-content').removeClass("col-md-8");
+
+/* 		$('#BasicColumn').removeClass("col-md-8");
+		$('#BasicColumn').addClass("col-md-12");
+		$('#BasicEditColumn').removeClass("col-md-8");
+		$('#BasicEditColumn').addClass("col-md-12");
+ */		
+		$('.right-rail-link').html('<i class="fa fa-angle-double-left"></i> Show Help');
+		$('.right-rail-link').attr("href", "javascript:showRightRailText()");
+	}
+}
+</script>
+			<form id="defaultForm" action="http://localhost:8088/enginemanager/applications/live/incomingstreams_details/view.htm?vhost=_defaultVHost_&amp;appName=Live&amp;&amp;instance=VOD&amp;stream=Live.stream&amp;returnPage=incomingstreams&amp;_=1597766506277" method="post">
+				
+
+
+
+
+
+
+
+
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-default" name="refresh" id="refresh" onclick="javascript:loadIncomingStreamDetails(&#39;Live&#39;,&#39;live&#39;,&#39;incomingstreams_details&#39;,&#39;VOD&#39;,&#39;Live.stream&#39;)"><i class="fa fa-repeat"></i> Refresh</a>
+
+				
+					
+						
+						 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-default" name="record" id="record" onclick="javascript:startRecordingShow(&#39;Live&#39;, &#39;VOD&#39;, &#39;Live.stream&#39;)"><i class="fa fa-circle text-danger"></i> Record...</a>
+
+						
+						
+					
+					
+						
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+<a class="btn btn-default" name="disconnect" id="disconnect" onclick="javascript:disconnectStreamShow(&#39;Live&#39;, &#39;VOD&#39;, &#39;Live.stream&#39;)"><i class="fa fa-times"></i> Disconnect</a>
+
+						
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+<a class="btn btn-default" name="reset" id="reset" onclick="javascript:resetStreamShow(&#39;Live&#39;, &#39;VOD&#39;, &#39;Live.stream&#39;)"><i class="fa fa-sign-in"></i> Reset Stream</a>
+
+						
+					
+				
+				<hr>
+
+				<div id="app-monitoring-now">
+					<div class="row">
+						<div class="col-md-6">
+							<h4>
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Connections Per Protocol <small>outgoing</small>
+	
+
+							</h4>
+							<div class="row">
+								<div class="col-md-6">
+									<table class="table table-condensed table-hover">
+										<tbody><tr>
+											<td><strong>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Total:
+	
+</strong></td>
+											<td><strong><span class="app-connection-count pull-right" id="app-total-connections">0</span></strong></td>
+										</tr>
+										<tr>
+											<td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Adobe HDS:
+	
+</td>
+											<td><span class="app-connection-count pull-right" id="app-sanjose-connections">0</span></td>
+										</tr>
+										<tr>
+											<td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Adobe RTMP:
+	
+</td>
+											<td><span class="app-connection-count pull-right" id="app-rtmp-connections">0</span></td>
+										</tr>
+										<tr>
+											<td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Apple HLS:
+	
+</td>
+											<td><span class="app-connection-count pull-right" id="app-cupertino-connections">0</span></td>
+										</tr>
+										<tr>
+											<td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Microsoft Smooth:
+	
+</td>
+											<td><span class="app-connection-count" id="app-smooth-connections">0</span></td>
+										</tr>
+										<tr><td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		MPEG DASH:
+	
+</td>
+										<td><span class="app-connection-count" id="app-dash-connections">0</span></td>
+										</tr>
+										<tr>
+											<td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		RTSP/RTP:
+	
+</td>
+											<td><span class="app-connection-count" id="app-rtp-connections">0</span></td>
+										</tr>
+									</tbody></table>
+								</div>
+								<div class="col-md-6">
+									<div id="piecharts" style="height: 180px; margin-top: 40px;" class="wowza-pie-charts"><div class="wowza-pie-chart-container col-md-12" id="piecharts-chart-container-connections"><div id="piecharts-chart-title-connections" class="wowza-pie-title"></div><div id="piecharts-chart-connections" class="wowza-pie-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" width="134" height="134" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 149px; height: 150px;"></canvas><canvas class="flot-overlay" width="134" height="134" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 149px; height: 150px;"></canvas></div></div></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Stream Uptime
+	
+</h4>
+							<div id="uptime-time-up-label">
+								<p>
+									<strong>Live.stream</strong> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		up since
+	
+ <span id="uptime-time">18 Aug 2020 07:01:16 PM</span>
+								</p>
+							</div>
+							<div id="uptime-time-down-label" style="display: none;">
+								<p>
+									<strong>Live.stream</strong> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		not running
+	
+
+								</p>
+							</div>
+							<div id="uptime-pretty-up-label">
+								<p>
+									<strong>Live.stream</strong> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		up for about
+	
+
+									<span id="uptime-pretty">a few seconds</span>
+								</p>
+							</div>
+							<div id="uptime-pretty-down-label" style="display: none;">
+								<p>
+									<strong>Live.stream</strong> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		not running
+	
+
+								</p>
+							</div>
+							<h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Network Throughput
+	
+</h4>
+							<p>
+								<strong>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Bytes In:
+	
+</strong> <span id="bytes-in">10317339</span>
+								&nbsp;@&nbsp; <span id="bytes-in-rate" style="display: inline;">2.650 Mbits/s</span>
+							</p>
+							<p>
+								<strong>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Bytes Out:
+	
+</strong> <span id="bytes-out">0</span>
+								&nbsp;@&nbsp; <span id="bytes-out-rate" style="display: inline;">0.000 bits/s</span>
+							</p>
+						</div>
+					</div>
+					<hr>
+				</div>
+
+				
+					
+					
+					
+					
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- %@ attribute name="title" required="false" rtexprvalue="true" % -->
+
+
+
+
+<!-- Think we don't need this in bootstrap 3.0
+
+	
+
+-->
+
+<div class="form-group" id="streamStateCtrlGroup">
+	
+		<label class="control-label">
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Status
+	
+
+		</label>
+	
+	<div class="controls">
+		
+			
+			
+				
+			
+			
+			
+		
+
+		
+		
+		<div class="value" id="streamStateValue">
+			
+				
+				
+					<span><i class="fa fa-arrow-right fa-fw"></i></span>
+				
+			
+			
+			Active
+			<span id="streamStateHelp" class="help-block" style="display:none"></span>
+			
+
+
+
+
+
+
+	
+	
+
+
+<div id="view.streamState.warnings" class="help-block-has-warning" style="display:none"></div>
+<!-- remove the ui and make the first character lowercase -->
+
+		</div>
+	</div>
+</div>
+
+					
+				
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- %@ attribute name="title" required="false" rtexprvalue="true" % -->
+
+
+
+
+<!-- Think we don't need this in bootstrap 3.0
+
+	
+
+-->
+
+<div class="form-group" id="sourceIpCtrlGroup">
+	
+		<label class="control-label">
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Source
+	
+
+		</label>
+	
+	<div class="controls">
+		
+			
+			
+				
+			
+			
+			
+		
+
+		
+		
+		<div class="value" id="sourceIpValue">
+			
+				
+				
+			
+			
+			rtsp://192.168.1.10:554/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream
+			<span id="sourceIpHelp" class="help-block" style="display:none"></span>
+			
+
+
+
+
+
+
+	
+	
+
+
+<div id="view.sourceIp.warnings" class="help-block-has-warning" style="display:none"></div>
+<!-- remove the ui and make the first character lowercase -->
+
+		</div>
+	</div>
+</div>
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- %@ attribute name="title" required="false" rtexprvalue="true" % -->
+
+
+
+
+<!-- Think we don't need this in bootstrap 3.0
+
+	
+
+-->
+
+<div class="form-group" id="instanceNameCtrlGroup">
+	
+		<label class="control-label">
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Application Instance
+	
+
+		</label>
+	
+	<div class="controls">
+		
+			
+			
+				
+			
+			
+			
+		
+
+		
+		
+		<div class="value" id="instanceNameValue">
+			
+				
+				
+			
+			
+			VOD
+			<span id="instanceNameHelp" class="help-block" style="display:none"></span>
+			
+
+
+
+
+
+
+	
+	
+
+
+<div id="view.instanceName.warnings" class="help-block-has-warning" style="display:none"></div>
+<!-- remove the ui and make the first character lowercase -->
+
+		</div>
+	</div>
+</div>
+
+
+				
+
+				
+
+
+
+
+
+
+
+
+
+
+<script>
+function startRecordingShow(appName, instanceName, streamName) 
+{
+	var recordDiv = $("#startRecordingDiv");
+	if (recordDiv.length > 0)
+	{
+		$("#startRecordingModal").remove();
+	}
+	
+	recordDiv = $("<div id='startRecordingDiv' style='display: hidden;'></div>").appendTo($("body"));
+	$(document).on("preContentNavigation", function(e)
+	{
+		if(startRecordingClose) {
+			startRecordingClose();
+		}
+		recordDiv.remove();
+		$(document).off("preContentNavigation", arguments.callee);
+	});
+
+	vhost=encodeURIComponent("_defaultVHost_");
+	returnPage=encodeURIComponent("appconfig.incomingstreams.details");
+	recordDiv.load("applications/live/incomingstreams_details/startRecordingDialog.htm?vhost="+vhost+"&appName="+encodeURIComponent(appName)+'&instance='+encodeURIComponent(instanceName)+'&stream='+encodeURIComponent(streamName)+'&returnPage='+returnPage, function() {
+		if($(this).html().substring(0,redirectLoginString.length)==redirectLoginString) {
+			document.location="login.htm"+location.hash;					
+		}
+	});
+}
+
+</script>
+				
+
+
+
+
+
+
+
+
+
+<div id="stopRecordingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="stopRecordingModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<fieldset>
+				
+				    <input id="managedStream" name="managedStream" type="hidden" value="true">
+				    <input id="recordingSet" name="recordingSet" type="hidden" value="false">
+			    
+				<div class="modal-header">
+					<button type="button" class="close" onclick="javascript:stopRecordingClose()">x</button>
+					<h4 id="stopRecordingModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Stop Recording
+	
+</h4>
+				</div>
+				<div class="modal-body">
+					<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Are you sure you want to stop recording
+	
+ <b><span id="stopRecorderName"></span></b>?</p>
+				</div>
+				<div class="modal-footer">
+					
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:stopRecordingClose()">Cancel</a>
+
+					
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doStop()">OK</a>
+
+
+				</div>
+			</fieldset>
+		</div>
+	</div>
+</div></form>
+<script>
+var currentInstance;
+var currentRecorder;
+var currentApp;
+
+function stopRecordingShow(app, appInstance, recorderName) {
+	$('#stopRecorderName').text(recorderName);
+	currentApp=app;
+	currentInstance=appInstance;
+	currentRecorder=recorderName;
+	$('#stopRecordingModal').on("shown.bs.modal", function() {});
+	$('#stopRecordingModal').modal('show');	
+}
+
+function stopRecordingClose() {
+	$('#stopRecordingModal').modal('hide');
+}
+
+function doStop() {
+	$('#stopRecordingModal').on('hidden.bs.modal', function() {
+		postAJAXForm('streamrecorder/appconfig.incomingstreams.details/stopRecording.htm','vhost=_defaultVHost_&appName='+encodeURIComponent(currentApp)+'&appType=live&appSection=incomingstreams_details&instanceName='+encodeURIComponent(currentInstance)+'&recorder='+encodeURIComponent(currentRecorder)+'&returnPage=appconfig.incomingstreams.details'+'&parentPage='+incomingStreamDetailsParentPage);
+	});
+	stopRecordingClose();
+}
+
+</script>
+				
+
+
+
+
+
+
+
+
+
+<div id="splitRecordingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="splitRecordingModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-modal"><fieldset>
+				  <div class="modal-header">
+					<button type="button" class="close" onclick="javascript:splitRecordingClose()">x</button>
+					<h4 id="splitRecordingModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Split Recording Now
+	
+</h4>
+				  </div>
+				  <div class="modal-body">
+						<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Are you sure you want to split recording
+	
+ <b><span id="splitRecorderName"></span></b>?</p>
+				  </div>
+				  <div class="modal-footer">
+					
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:splitRecordingClose()">Cancel</a>
+
+					
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doSplit()">OK</a>
+
+
+				  </div>
+			</fieldset></form>
+		</div>
+	</div>
+</div>
+<script>
+var currentInstance;
+var currentStream;
+var currentApp;
+
+function splitRecordingShow(app, appInstance, recorderName) {
+	$('#splitRecorderName').text(recorderName);
+	currentApp=app;
+	currentInstance=appInstance;
+	currentRecorder=recorderName;
+	$('#splitRecordingModal').on("shown.bs.modal", function() {});
+	$('#splitRecordingModal').modal('show');	
+}
+
+function splitRecordingClose() {
+	$('#splitRecordingModal').modal('hide');
+}
+
+function doSplit() {
+	$('#splitRecordingModal').on('hidden.bs.modal', function() {
+		postAJAXForm('streamrecorder/appconfig.incomingstreams.details/splitRecording.htm','vhost=_defaultVHost_&appName='+encodeURIComponent(currentApp)+'&appType=live&appSection=incomingstreams_details&instanceName='+encodeURIComponent(currentInstance)+'&recorder='+encodeURIComponent(currentRecorder)+'&returnPage=appconfig.incomingstreams.details');
+	});
+	splitRecordingClose();
+}
+
+</script>
+				
+
+
+
+
+
+
+
+
+
+<div id="resetStreamModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resetStreamModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-modal"><fieldset>
+				  <div class="modal-header">
+					<button type="button" class="close" onclick="javascript:resetStreamClose()">x</button>
+					<h4 id="resetStreamModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Reset Stream
+	
+</h4>
+				  </div>
+				  <div class="modal-body">
+						<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Are you sure you want to reset stream:
+	
+ <b><span id="resetStreamName"></span></b>?</p>
+				  </div>
+				  <div class="modal-footer">
+					
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:resetStreamClose()">Cancel</a>
+
+					
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doResetStream()">OK</a>
+
+
+				  </div>
+			</fieldset></form>
+		</div>
+	</div>
+</div>
+<script>
+var currentInstance;
+var currentStream;
+var currentApp;
+
+function resetStreamShow(app, appInstance, streamName) {
+	$('#resetStreamName').text(streamName);
+	currentApp=app;
+	currentInstance=appInstance;
+	currentStream=streamName;
+	$('#resetStreamModal').on("shown.bs.modal", function() {});
+	$('#resetStreamModal').modal('show');	
+}
+
+function resetStreamClose() {
+	$('#resetStreamModal').modal('hide');
+}
+
+function doResetStream() {
+	$('#resetStreamModal').on('hidden.bs.modal', function() {
+		postAJAXForm('streams/appconfig.incomingstreams.details/resetStream.htm','vhost=_defaultVHost_&appName='+encodeURIComponent(currentApp)+'&appType=live&appSection=incomingstreams_details&instanceName='+encodeURIComponent(currentInstance)+'&streamName='+encodeURIComponent(currentStream)+'&returnPage=appconfig.incomingstreams.details');
+	});
+	resetStreamClose();
+}
+
+</script>
+				
+
+
+
+
+
+
+
+
+
+<div id="disconnectStreamModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="disconnectStreamModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-modal"><fieldset>
+				
+					<input id="managedStream" name="managedStream" type="hidden" value="true">
+					<input id="recordingSet" name="recordingSet" type="hidden" value="false">
+				
+				<div class="modal-header">
+					<button type="button" class="close" onclick="javascript:disconnectStreamClose()">x</button>
+					<h4 id="disconnectStreamModalLabel" class="modal-title">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Disconnect Stream
+	
+</h4>
+				</div>
+				<div class="modal-body">
+					<p class="breakall">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Are you sure you want to disconnect stream:
+	
+ <b><span id="disconnectStreamName"></span></b>?</p>
+				</div>
+				<div class="modal-footer">
+					
+
+
+
+
+
+
+
+<a name="cancel" class="btn btn-default" onclick="javascript:disconnectStreamClose()">Cancel</a>
+
+					
+
+
+
+
+
+
+
+<a name="ok" class="btn btn-primary" onclick="javascript:doDisconnectStream()">OK</a>
+
+
+				</div>
+			</fieldset></form>
+		</div>
+	</div>
+</div>
+<script>
+var currentInstance;
+var currentStream;
+var currentApp;
+
+function disconnectStreamShow(app, appInstance, streamName) {
+	$('#disconnectStreamName').text(streamName);
+	currentApp=app;
+	currentInstance=appInstance;
+	currentStream=streamName;
+	$('#disconnectStreamModal').on("shown.bs.modal", function() {});
+	$('#disconnectStreamModal').modal('show');	
+}
+
+function disconnectStreamClose() {
+	$('#disconnectStreamModal').modal('hide');
+}
+
+function doDisconnectStream() {
+	$('#disconnectStreamModal').on('hidden.bs.modal', function() {
+		postAJAXForm('streams/appconfig.incomingstreams.details/disconnectStream.htm','vhost=_defaultVHost_&appName='+encodeURIComponent(currentApp)+'&appType=live&appSection=incomingstreams_details&instanceName='+encodeURIComponent(currentInstance)+'&streamName='+encodeURIComponent(currentStream)+'&returnPage=appconfig.incomingstreams.details'+'&parentPage='+incomingStreamDetailsParentPage);
+	});
+	disconnectStreamClose();
+}
+
+</script>
+			
+			<div class="hidden-sm hidden-xs">
+				<div id="streameditNote" class="well">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		To edit this stream, go to the <strong>Stream Files</strong> page.
+	
+
+				</div>
+			</div>
+		</div>
+		<div id="HelpBasic" class="col-md-4 right-rail well-help pull-right" style="display: none;">
+	    	<h4>About Live Stream Recording</h4>
+<p>You can record incoming live streams to video on demand files for later playback. You can split in-process live streams into multiple on-demand MP4 (QuickTime container) files or FLV (Flash Video container) files, with the split points based on video duration, clock time, or file size.</p>
+
+<p>To update the recording details that are displayed, click <strong>Refresh</strong>. Wowza Streaming Engine™ software doesn't update the details automatically as the stream is recorded.</p>
+
+<p>To record an incoming live stream, click <strong>Record</strong> to open the <strong>Record</strong> dialog box. In the dialog box, configure options that control how the live stream is recorded, and then click the <strong>Record</strong> button to start the recording. For details, see <strong>Live Stream Recording Options</strong> below.</p>
+
+<p>To stop recording an incoming live stream, click <strong>Stop Recording</strong>.</p>
+
+<p>To stop the current recording and then start recording the same incoming live stream to a new file, click <strong>Split Recording</strong>.</p>
+<blockquote><strong>Note:</strong> If you specified that the segmented files not exceed a maximum duration, and you click <strong>Split Recording</strong>, data is written to the new file until either the duration value that you specified in <strong>Segment by duration</strong> is reached or you click <strong>Split Recording</strong> again.</blockquote>
+
+<p>For managed streams that this application connects to through the MediaCaster system, click <strong>Disconnect</strong> to disconnect the application from stream. To reset the managed stream (disconnect and then reconnect), click <strong>Reset Stream</strong>.</p>
+
+<p>For incoming streams from PTZ cameras, click <strong>Pan/Tilt/Zoom</strong>. The <strong>Pan/Tilt/Zoom Controller</strong> dialog box that appears has camera controls and a preview of the camera feed.</p>
+
+<blockquote><strong>Note:</strong><br>Different camera models implement the PTZ features in different ways. If your camera doesn't respond to these controls, it may not be supported at this time.</blockquote>
+
+<h4>Live Stream Recording Options</h4>
+<h5>File Name</h5>
+<p>The base file name of the recorded file. You can change the default output file names of your recorded files by entering a new file name. The name can't contain less-than (&lt;), greater-than (&gt;), colon (:), quotation (' and "), forward slash (/), backslash (\), pipe (|), question mark (?), asterisk (*), double-dot (..), and tilde (~) characters.</p>
+
+<h5>Path</h5>
+<p>The physical path of a location on the computer where the recorded files are stored. By default, the files are stored in the server <strong>content</strong> directory. If you want to store files in a different location, make sure that it exists on the computer and then specify its physical path. The path value can't contain less-than (&lt;), greater-than (&gt;), quotation (' and "), backslash (\), pipe (|), question mark (?), and asterisk (*) characters.</p>
+
+<h5>Output File Format</h5>
+<p>The video on demand format of the recorded file, either <strong>MP4</strong> (the default value) or <strong>FLV</strong>.</p>
+
+<h5>Recording Options</h5>
+<ul>
+	<li><strong>Record data</strong>. If metadata is available in the live stream, include it in the recorded file.
+
+	</li><li><strong>Start on key frame</strong>. Start recording the live stream at the first key frame that's encountered.
+</li></ul>
+
+<h5>Segmentation Option</h5>
+<p>The segmentation options specify how live streams are recorded to multiple files. The split points can be based on the recorded file size or duration, or on a schedule:</p>
+
+<p><strong>None</strong>. Record the live stream to a single file (the default setting). Select a <strong>Versioning Option</strong> that specifies what to do if the live stream is restarted:</p>
+<ul>
+	<li><strong>Append to existing file</strong>. Resume recording the live stream to the existing file.
+	</li><li><strong>Version existing file</strong>. Start recording the live stream to a new file (the default setting). The live stream will be recorded to a new file with a file name that's generated using the <strong>File Versioning Template</strong> value.
+	</li><li><strong>Overwrite existing file</strong>. Start recording the live stream to a new file with the same name as the existing file. This option will replace the previously recorded file with a new one.
+</li></ul>
+
+<p><strong>Segment by size</strong>. Split the live stream into multiple on-demand files with a maximum size. Specify the maximum size value (in megabytes) in <strong>Segment Size</strong>. The minimum supported segment size is 1&nbsp;MB. The live stream will be recorded to a new file with a file name that's generated using the <strong>File Versioning Template</strong> value.</p>
+
+<p><strong>Segment by duration</strong>. Split the live stream into multiple on-demand files with a maximum duration. Specify the maximum duration value (in <em>Hours</em>:<em>Minutes</em>:<em>Seconds</em>) in <strong>Segment Duration</strong>. The minimum supported segment duration is 10&nbsp;seconds. The live stream will be recorded to a new file with a file name that's generated using the <strong>File Versioning Template</strong> value.</p>
+
+<p><strong>Segment by schedule</strong>. Split the live stream into multiple on-demand files based on a schedule. Specify the schedule by selecting one of the following <strong>Segment Schedule</strong> options:</p>
+<ul>
+	<li><strong>Every hour on the hour</strong>. Split the recording into a new file at the top of each hour. This is the default setting.
+	</li><li><strong>Advanced</strong>. Split the recording using a customized segmentation schedule that's derived from a <a href="http://www.wowza.com/docredirect.php?doc=incomingStreamscrontab" target="_blank"><i class="fa fa-external-link"></i>&nbsp;crontab expression</a>.<p></p>
+</li></ul>
+
+<h5>File Versioning Template/Module</h5>
+<p>If you select a <strong>Segmentation Option</strong> that requires live streams to be recorded to multiple files, the file names of new recordings are created based on the template variables specified in <strong>File Versioning Template</strong> using the module specified in <strong>File Versioning Module</strong>. For more information about template variable values that you can use in <strong>File Versioning Template</strong>, see <a href="http://www.wowza.com/docredirect.php?doc=incomingStreamssetFileTemplate" target="_blank"><i class="fa fa-external-link"></i>&nbsp;Defining filenames of recorded segments with template strings</a>. To specify your own module that creates file names, enter the custom module name in <strong>File Versioning Module</strong>.</p>
+		</div>
+	</div>
+</div>
+<script language="javascript">
+$(document).ready(function() {
+	console.log("streamname:Live.stream");
+
+	// this is here because when we added PTZ support, we now jump from one section to another without user interactions.
+	// typically, the user selects which app section they are in then drills down, now when they finish some "Sources (Live)" connecions 
+	// we jump from "Sources (Live)" in the sidebar to "Incoming Streams" and have the new streams incoming details shown.
+	// so we now have to update the side bar if we did this.
+	
+	// Set the parent page so query params in IncomingStreamDetailsController are satisfied. always do it here rather than from all other 
+	// pages we can get to from this pages 
+	incomingStreamDetailsParentPage="incomingstreams";
+	
+	if ("false"=='true')
+	{
+		// remove the orange hightlight from the publishers section
+		var publisherSB = document.getElementById("appName="+lastApplication+":publishers");
+		publisherSB.className = publisherSB.className.replace('-active','');
+
+		// add the orange hightlight to the incomingstreams section
+		var incomingSB = document.getElementById("appName="+lastApplication+":incomingstreams");
+		incomingSB.className = incomingSB.className + "-active";
+
+		// update the url in the browser bar
+		location.hash="#application/_defaultVHost_/Live/live/incomingstreams_details/&instance=VOD&stream=Live.stream&returnPage=incomingstreams";
+	}
+
+	var sIp = $("#sourceIpValue").text().trim();
+	if ((sIp == "none") || (sIp == "local (Transcoder)"))
+		$("#streameditNote").hide();
+
+	if(isNaN("31")||"31"==0) {
+		$("#uptime-pretty").html("not running");
+		$("#uptime-time").html("not running");
+		$("#uptime-time-up-label").hide();
+		$("#uptime-pretty-up-label").hide();
+		$("#uptime-time-down-label").show();
+		$("#uptime-pretty-down-label").show();
+	} else {
+		$("#uptime-time-down-label").hide();
+		$("#uptime-pretty-down-label").hide();
+		$("#uptime-time-up-label").show();
+		$("#uptime-pretty-up-label").show();
+		WOWZA.Util.setUptimeSeconds("31"*1000, "#uptime-pretty", "#uptime-time",false);
+	}
+ 	var pieData = {
+		connections:{label: "",
+			data: [
+			 {label:"HDS", data: "0"},
+			 {label:"RTMP", data: "0"},
+			 {label:"HLS", data: "0"},
+			 {label:"DASH", data: "0"},
+			 {label:"Smooth", data: "0"},
+			 {label:"RTSP/RTP", data: "0"}
+			 ]
+		}
+	};
+	var pies = WOWZA.Charts.Pie("piecharts", pieData,{legend: {
+		show: false
+	},
+	colors: WOWZA.Util.FlotColors, classes:"col-md-12"});
+	$("#bytes-in-rate").html(WOWZA.Util.HumanReadableBits("330716"*8, 'bits/s'));
+	$("#bytes-out-rate").html(WOWZA.Util.HumanReadableBits("0"*8, 'bits/s'));
+});
+
+function showPTZ(appName, instanceName, streamName, refreshRate)
+{
+	var streamName2 = streamName.substring(0,streamName.indexOf(".stream"));
+	panTiltZoomShow(appName,instanceName, streamName2, refreshRate);
+}
+</script>
+</div>
+</div>
+
+<script>
+if(sideBarStr == null || sideBarStr=="" || reloadApplciations)
+{
+	loadCurrentApplications();
+}
+else 
+{
+	loadingPage=false;
+	setApplicationSidebar(sideBarStr);
+	loadingPage=true;
+}
+
+function loadAppFromMobile(appInfo)
+{
+	if(appInfo=="new")
+	{
+		loadNewApplicationAndSB();
+	}
+	else 
+	{
+		var splits = appInfo.split("::::");
+		loadApplicationAndSB(splits[0],splits[1] ,'main','');
+	}
+}
+
+function loadAppFromMobile2(section)
+{
+	loadApplication(lastApplication,lastApplicationType,section);
+}
+function loadNewApplication()
+{
+	if(!loadingPage)
+	{
+		$('[id="selectAppText"]').show();
+		appSelectedID="appNameSelected=" + getGoodJqueryID(lastApplication);
+		$('[id="'+appSelectedID+'"]').hide();
+		appNameIcon="appNameIcon=" + getGoodJqueryID(lastApplication);
+		$('[id="'+appNameIcon+'"]').hide();
+		
+
+		//$("#collapse"+getGoodJqueryID(lastApplication)).collapse('toggle');
+		loadAjaxMainContent("applications/new.htm","new");
+		var lastSB = document.getElementById("appName="+lastApplication+":"+lastApplicationSection);
+		var newSB = document.getElementById("appName=app:new");
+		if( lastSB !=null) 
+		{
+			lastSB.className = lastSB.className.replace('-active','');
+		}
+		newSB.className = newSB.className + "-active"; //-active
+    	$('[id="appName2=app:new"]').prop('selected', 'true');
+		$('#selectPageMobile').hide();
+		lastApplication="app";
+		lastApplicationType='new';
+		lastApplicationSection='new';
+		lastApplicationQueryParams='';
+		setDocumentLocation();
+	}
+}
+
+//This is in include.js
+//function loadNewApplicationAndSB()
+
+function loadApplicationWithCollapse(appName,appType,appSection)
+{
+	loadApplicationWithCollapse(appName,appType,appSection,"");
+}
+function loadApplicationWithCollapse(appName,appType,appSection,extraQueryParams)
+{
+	loadApplicationWithCollapse2(appName,appType,appSection,extraQueryParams);
+
+}
+function loadApplicationWithCollapse2(appName,appType,appSection,extraQueryParams)
+{
+	if(!loadingPage)
+	{		
+		if(lastApplication!=appName)
+		{
+			//$("#collapse"+getGoodJqueryID(appName)).collapse('show');			
+			//$("#collapse"+getGoodJqueryID(lastApplication)).collapse('hide');
+		}
+		return loadApplication(appName,appType,appSection,extraQueryParams);
+	}
+}
+
+function loadIncomingStreamDetails(appName,appType,appSection,instanceName,streamName,returnPage)
+{
+	return loadApplication(appName,appType,appSection,"&instance="+encodeURIComponent(instanceName)+"&stream="+encodeURIComponent(streamName)+"&returnPage="+returnPage);
+}
+
+function loadApplication(appName,appType,appSection)
+{
+	return loadApplication(appName,appType,appSection,null);
+}
+
+function loadApplication(appName,appType,appSection,extraQueryParams)
+{
+	$('[id="selectAppText"]').hide();
+	appSelectedID="appNameSelected=" + getGoodJqueryID(lastApplication);
+	$('[id="'+appSelectedID+'"]').hide();
+	appSelectedID="appNameSelected=" + getGoodJqueryID(appName);
+	$('[id="'+appSelectedID+'"]').show();
+	appNameIcon="appNameIcon=" + getGoodJqueryID(lastApplication);
+	$('[id="'+appNameIcon+'"]').hide();
+	appNameIcon="appNameIcon=" + getGoodJqueryID(appName);
+	$('[id="'+appNameIcon+'"]').show();
+
+	$("html, body").animate({ scrollTop: 0 }, 200);
+	if(isTranscoderAvailable=="false")
+    {
+    	appTranID="appName=" + getGoodJqueryID(appName) + ":transcoder";
+    	$('[id="'+appTranID+'"]').hide();
+    	if(appSection=="transcoder") 
+    	{
+    		appSection=='main'
+    	}
+    }
+	if(!loadingPage)
+	{
+		if(appName=="app" && appType=="new") {
+			loadNewApplication();
+		}
+		else {
+			if(	reloadLastApplication) {
+				if(extraQueryParams==null)
+				{
+					loadAjaxMainContent("applications/"+(appType!="none"?appType+"/":"")+appSection+"/view.htm","vhost="+encodeURIComponent(currentVhost)+"&appName=" + encodeURIComponent(appName));
+				}
+				else {
+					loadAjaxMainContent("applications/"+(appType!="none"?appType+"/":"")+appSection+"/view.htm","vhost="+encodeURIComponent(currentVhost)+"&appName=" + encodeURIComponent(appName) + "&" + extraQueryParams);
+				}
+			}
+			reloadLastApplication=true;
+	
+			var lastApplicationSection2=lastApplicationSection;
+			var idx = lastApplicationSection.indexOf("_");
+			if(idx>=0)
+			{
+				lastApplicationSection2=lastApplicationSection.substring(0,idx);	
+			}
+			var lastSB = document.getElementById("appName="+lastApplication+":"+lastApplicationSection2);
+			if( lastSB !=null) 
+			{
+				lastSB.className = lastSB.className.replace('-active','');
+			}	
+			
+			var appSection2=appSection;
+			var idx = appSection.indexOf("_");
+			if(idx>=0)
+			{
+				appSection2=appSection.substring(0,idx);	
+			}
+			var newSB = document.getElementById("appName="+appName+":"+appSection2); 
+			newSB.className = newSB.className + "-active";
+	    	appID=getGoodJqueryID("appName2=" + appName + ":main");
+	    	$('[id="'+appID+'"]').prop('selected', 'true');
+	    	buildSelectPageMobile(appType);
+			$('#selectPageMobile').show();
+	    	$('[id="sbnavMobile_'+appSection2+'"]').prop('selected', 'true');
+	    	if(lastApplication!=appName || lastApplicationSection!=appSection)
+	    	{
+	    		lastTab = "Basic";
+	    	}
+	    	lastApplication=appName;
+			lastApplicationType=appType;
+			lastApplicationSection=appSection;
+			lastApplicationQueryParams=extraQueryParams;
+			setDocumentLocation();
+		}
+	}
+}
+
+function setDocumentLocation()
+{
+	lastHash = "#application/"+encodeURIComponent(currentVhost)+"/"+encodeURIComponent(lastApplication)+"/"+lastApplicationType+"/"+lastApplicationSection;
+	if(typeof lastApplicationQueryParams != 'undefined')
+	{
+		lastHash+= "/"+lastApplicationQueryParams;
+	}
+	document.location=lastHash;
+}
+
+function buildSelectPageMobile(appType)
+{
+	$('#sbnavMobile2 option').remove();
+	$('#sbnavMobile2').append('<option id="sbnavMobile_main" value="main">Main</option>');	
+	$('#sbnavMobile2').append('<option id="sbnavMobile_monitoring" value="monitoring">Monitoring</option>');	
+	if(canShowPublishers(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_publishers" value="publishers">Sources (Live)</option>');
+	}
+	if(canShowStreamFiles(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_streamfiles" value="streamfiles">Stream Files</option>');
+	}
+	if(canShowIncomingStreams(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_incomingstreams" value="incomingstreams">Incoming Streams</option>');
+	}
+	if(canShowStreamTargets(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_streamtargets" value="streamtargets">Stream Targets</option>');
+	}
+	if(canShowSecurityPublishing(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_securitypub" value="securitypub">Source Security</option>');
+	}
+	if(canShowSecurityPlayback(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_securityplayback" value="securityplayback">Playback Security</option>');
+	}
+	if(canShowSMILFiles(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_smilfiles" value="smilfiles">SMIL Files</option>');
+	}	
+	if(canShowNDVR(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_ndvr" value="ndvr">nDVR</option>');
+	}	
+	if(canShowTranscoder(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_transcoder" value="transcoder">Transcoder</option>');
+	}	
+	if(canShowDRM(appType))
+	{
+		$('#sbnavMobile2').append('<option id="sbnavMobile_drm" value="drm">DRM</option>');
+	}
+}
+
+function loadApplicationMonitor(url, params, appName)
+{
+	if(!loadingPage)
+	{
+		loadAjaxMainContent(url, params);
+		reloadLastApplication=true;
+	
+		var lastSB = document.getElementById("appName="+lastApplication+":"+lastApplicationSection);
+		
+		var newSB = document.getElementById("appName="+appName+":monitoring"); 
+		if( lastSB !=null) 
+		{
+			lastSB.className = lastSB.className.replace('-active','');
+		}	
+		newSB.className = newSB.className + "-active";
+		lastApplication=appName;
+		lastApplicationSection="monitoring";
+		lastApplicationQueryParams='';
+		setDocumentLocation()
+	}
+}
+
+</script>
+
+
+</div>
+		<div class="row">
+			<footer>
+				<hr>
+				<!-- removed for NAB -->
+				<!--
+        <div class="col-md-8">
+			<p><a href="?lang=en">English</a> 
+			   | 
+			   <a href="?lang=es">Espa&ntilde;ol</a>
+			   | 
+			   <a href="?lang=zh">&#20013;&#25991;(&#31616;&#20307;)</a></p>
+        </div>
+        <div class="col-md-4">
+            <img src="img/wowza-logo.png" style="height:49px; width=220px;" class="pull-right">
+            <p class="muted pull-right"><small>4.0.x &copy; 2012 Wowza Media Systems, LLC</small></p>
+	    </div>
+	    -->
+				<!-- END NAB -->
+				<!-- Added for NAB -->
+				<div class="col-md-2">
+					<p>
+						<img class="img-responsive footer-logo" src="./Live _ Wowza Streaming Engine Manager_files/wowza-logo.png">
+					</p>
+				</div>
+				<div class="col-md-10">
+					<p class="text-muted">
+						<small>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		© 2007–2016 Wowza Media Systems, LLC. All rights reserved. "Wowza" and other trademarks are trademarks of Wowza. For more information, see <a href="http://www.wowza.com/docredirect.php?doc=legalTrademarks" target="_blank">Wowza Trademarks</a>. Third-party trademarks are property of their respective owners and their use does not imply endorsement by such third parties.
+	
+</small>
+					</p>
+				</div>
+			</footer>
+		</div>
+		<!-- END NAB -->
+	</div>
+
+	<!--/.fluid-container-->
+	<!-- load default sidebar -->
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.blockui.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/bootstrap.js.Без названия"></script>
+	<script>
+		$(document).ready(function() {
+			getHashVars();
+			//update current VHost before we populate apps in dropdown and sidebar
+			//loadCurrentVHosts should be done synchronously
+			loadCurrentVHosts();
+			if (lastSB_page != "SB_Applications.html") {
+				loadCurrentApplications();
+			}
+			loadAjaxSideBar(lastSB_page, '');
+		});
+	</script>
+
+	<script src="./Live _ Wowza Streaming Engine Manager_files/moment.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/excanvas.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.color-2.1.2.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.symbol.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.time.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.resize.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.selection.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.navigate.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.canvas.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.pie.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.categories.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.stack.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/jquery.flot.threshold.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/bootstrap-datepicker.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/bootstrap-timepicker.min.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/wowza-charts.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/wowza-utils.js.Без названия"></script>
+	<script src="./Live _ Wowza Streaming Engine Manager_files/wowza-blockui.js.Без названия"></script>
+
+	<!-- Javascript HTML Templates -->
+	<div style="display: none;" id="datetimepicker-template">
+		<div class="row">
+	<div class="col-md-3">
+		<h6>Select or enter date/time range</h6>
+		<select class="wowza-default-timespan-picker form-control"></select>
+	</div>
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-6">
+				<h6>From:</h6>
+				
+				<div class="datetime-start">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="input-group date" data-date="31/08/2012" data-date-format="dd mon yyyy">
+							<input class="form-control" type="text" readonly=""> <span class="input-group-addon"><i class="fa fa-th"></i></span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="time input-group bootstrap-timepicker input-append">
+								<input type="text" class="form-control"> <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+							</div>	
+						</div>
+					</div>
+				</div>		
+			</div>
+			<div class="col-md-6">
+				<h6>To:</h6>
+				<div class="datetime-end">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="input-group date" data-date="31/08/2012" data-date-format="dd mon yyyy">
+								<input class="form-control" size="16" type="text" readonly=""> <span class="input-group-addon"><i class="fa fa-th"></i></span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="time input-group bootstrap-timepicker input-append">
+								<input type="text" class="form-control"> <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+		
+<!-- Original bootstrap 2.x code
+<div class="row-fluid">
+	<div class="span2">
+		<div class="row-fluid">
+			<h6 style="display: inline;">Select date/time range</h6>
+			<div class="row-fluid">
+				<div class="span12">
+					<select class="wowza-default-timespan-picker"></select>
+				</div>
+				<div class="span1"></div>
+			</div>
+		</div>
+	</div>
+	<div class="span10">
+		<h6 style="display: inline;">or Enter date/time range</h6>
+		<div class="row-fluid">
+			<div class="span4 datetime-start">
+				<div class="input-append date" data-date="31/08/2012"
+					data-date-format="dd mon yyyy">
+					<input class="input-small" size="16" type="text" readonly /> <span
+						class="add-on"><i class="fa fa-th"></i></span>
+				</div>
+				<div class="time input-append bootstrap-timepicker">
+					<input type="text" class="input-mini"> <span class="add-on"><i
+						class="fa fa-clock-o"></i></span>
+				</div>
+			</div>
+			<div class="span1">
+				<h6
+					style="vertical-align: center; margin-top: 0px; display: inline;">&nbsp;to&nbsp;</h6>
+			</div>
+			<div class="span7 datetime-end">
+				<div class="input-append date" data-date="31/08/2012"
+					data-date-format="dd mon yyyy">
+					<input class="input-small" size="16" type="text" readonly /> <span
+						class="add-on"><i class="fa fa-th"></i></span>
+				</div>
+				<div class="time input-append bootstrap-timepicker">
+					<input type="text" class="input-mini"> <span class="add-on"><i
+						class="fa fa-clock-o"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+-->
+
+	</div>
+
+
+<script>
+	function signOut() {
+		lastSB_page = "home/main.htm";
+		//createCookie("LastSB_Page",lastSB_page);
+		location.href = 'j_spring_security_logout';
+	};
+</script>
+
+
+<div id="testApplicationDiv" style="display: hidden;">
+
+
+
+<script type="text/javascript" src="./Live _ Wowza Streaming Engine Manager_files/Silverlight.js.Без названия"></script>
+
+
+
+
+
+
+<script type="text/javascript">
+	// For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection.
+	var swfVersionStr = "10.3.0";
+	// To use express install, set to playerProductInstall.swf, otherwise the empty string.
+	var xiSwfUrlStr = "playerProductInstall.swf";
+	var flashVars =
+	{
+		editStreamBar : false
+	};
+	disconnectHTML5 = 0;
+	var params = {};
+	params.quality = "high";
+	params.bgcolor = "#000000";
+	params.allowscriptaccess = "sameDomain";
+	params.allowfullscreen = "true";
+	params.FlashVars = "showStreamBar=false";
+	params.wmode = "opaque";
+	var attributes = {};
+	attributes.id = "liveHTTPPlayer";
+	attributes.name = "liveHTTPPlayer";
+	attributes.align = "middle";
+	ndvrEnabled = "true" == "true";
+
+	$.getScript("applications/test/swfobject.js", function()
+	{
+	});
+
+	AC_FL_RunContent = 0;
+</script>
+
+<script src="./Live _ Wowza Streaming Engine Manager_files/AC_RunActiveContent.js.Без названия" language="javascript"></script>
+<script>
+	//we need to overwrite this function because it does a document.write.  Need to set innerHtml instead.
+	function AC_Generateobj(objAttrs, params, embedAttrs)
+	{
+		if(GetSwfVer()===-1) {
+			if ($("#liveRTMPPlayerContainer").length > 0)
+				document.getElementById("liveRTMPPlayerContainer").innerHTML="<h2>To view this page ensure that Adobe Flash Player version 11.1.0 or greater is installed.</h2>";
+			return;
+		}
+		var str = '';
+		if (isIE && isWin && !isOpera)
+		{
+			str += '<object ';
+			for ( var i in objAttrs)
+			{
+				str += i + '="' + objAttrs[i] + '" ';
+			}
+			str += '>';
+			for ( var i in params)
+			{
+				str += '<param name="' + i + '" value="' + params[i] + '" /> ';
+			}
+			str += '</object>';
+		} else
+		{
+			str += '<embed id="liveRTMPPlayer" ';
+			for ( var i in embedAttrs)
+			{
+				str += i + '="' + embedAttrs[i] + '" ';
+			}
+			str += '></embed>';
+		}
+		if ($("#liveRTMPPlayerContainer").length > 0)
+			document.getElementById("liveRTMPPlayerContainer").innerHTML = str;
+
+
+	}
+
+	function supports_hls_video()
+	{
+		if (videoObj.canPlayType)
+		{
+			if (videoObj.canPlayType('application/x-mpegURL'))
+			{
+				if (videoObj.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"'))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	function supports_media_source()
+	{
+		"use strict";
+		var hasWebKit = (window.WebKitMediaSource !== null && window.WebKitMediaSource !== undefined), hasMediaSource = (window.MediaSource !== null && window.MediaSource !== undefined);
+		return (hasWebKit || hasMediaSource);
+	}
+</script>
+<!--
+	For new players, please ensure the top tab button has an id formed like test<Protocol> and
+	that the tab div has an id formed like Tab<Protocol> and then simply add the Protocol to the
+	array created in showTab
+
+ -->
+ <div id="mobileSelector" class="visible-xs visible-sm"></div>
+<div id="testApplicationModal" class="modal fade in" tabindex="-1" style="position: fixed; margin: 0px; overflow: auto; display: block;" role="dialog" aria-labelledby="testApplicationModalLabel" aria-hidden="false">
+	<div class="modal-dialog test-application-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" onclick="javascript:testApplicationClose()">x</button>
+				<h4 class="modal-title">
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Test Players
+	
+
+					<i id="infoPopup" class="fa fa-question-circle" data-html="true" data-content="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		&lt;p style=&quot;font-size:small;font-weight:normal;&quot;&gt;Test players do not support closed captioning or DRM. DVR playback is only supported for Apple HLS, Adobe HDS, and Smooth. &lt;strong&gt;Note:&lt;/strong&gt; Due to latency, you may need to stop and restart the test player for new streams.&lt;/p&gt;
+	
+" data-toggle="popover" data-animation="true" data-delay="150" data-original-title="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Test Player Limitations
+	
+"></i>
+					<script>
+						WOWZA.Util.DialogPopover("#infoPopup");
+					</script>
+				</h4>
+				
+					
+				
+			</div>
+			<div id="testAppBody" class="modal-body" style="min-height:600px;max-height:675px;height:auto;overflow-y: hidden; overflow-x: hidden;">
+				<div class="form-group">
+					<div class="controls">
+						<div class="row">
+							<div class="col-md-5">
+								<div class="input-group">
+									<span class="input-group-addon">
+										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Server
+	
+
+									</span>
+									<input id="server" class="form-control" type="text" placeholder="" value="">
+								</div>
+								<div class="visible-xs visible-sm" style="line-height:10px"><br></div>
+							</div>
+							<div class="col-md-7">
+								<div class="input-group">
+									<span class="input-group-addon">
+										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Application
+	
+
+									</span>
+									<input id="applicationInstance" type="text" placeholder="" value="" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group">
+									
+										
+											<span class="input-group-addon">
+												
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Stream
+	
+
+											</span>
+										
+										
+									
+									<input id="stream" type="text" placeholder="" value="" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<ul class="nav nav-tabs visible-xs">
+					<li id="testMobile"><a href="javascript:showTab('Mobile')">Mobile
+					</a></li>
+				</ul-->
+				<!--ul class="nav nav-tabs visible-sm">
+					<li id="testDash"><a href="javascript:showTab('Dash')">MPEG
+							DASH</a></li>
+					<li id="testHLS"><a href="javascript:showTab('HLS')">Apple
+							HLS</a></li>
+					<li id="testMobile"><a href="javascript:showTab('Mobile')">Mobile
+					</a></li>
+				</ul-->
+				<div class="visible-md visible-lg">
+					<ul class="nav nav-tabs">
+						<li id="testDash" class="active"><a href="javascript:showTab(&#39;Dash&#39;)">MPEG
+								DASH</a></li>
+						<li id="testHLS"><a href="javascript:showTab(&#39;HLS&#39;)">Apple
+								HLS</a></li>
+						<li id="testRTMP" class=""><!-- class="hidden-xs hidden-sm"--><a href="javascript:showTab(&#39;RTMP&#39;)">Adobe
+								RTMP</a></li>
+						<li id="testHDS"><!--class="hidden-xs hidden-sm"--><a href="javascript:showTab(&#39;HDS&#39;)">Adobe HDS</a></li>
+						<li id="testSmooth"><!-- class="hidden-xs hidden-sm"--><a href="javascript:showTab(&#39;Smooth&#39;)">MS
+								Smooth</a></li>
+						<li id="testMobile"><a href="javascript:showTab(&#39;Mobile&#39;)">Mobile
+						</a></li>
+					</ul>
+				</div>
+				<div class="visible-xs visible-sm">
+					<select class="form-control" onchange="showMobileTestPlayer(value);">
+						<option id="testMobile2" value="Mobile">Mobile</option>
+						<option id="testDash2" value="Dash">MPEG-DASH</option>
+						<option id="testHLS2" value="HLS">Apple HLS</option>
+						<option id="testRTMP2" value="RTMP">Adobe RTMP</option>
+						<option id="testHDS2" value="HDS">Adobe HDS</option>
+						<option id="testSmooth2" value="Smooth">MS Smooth</option>
+					</select>
+					<hr>
+				</div>
+
+				<div id="tabTestContent">
+					<div id="TabHDS" style="position: absolute; width: 93%; background-color: rgb(255, 255, 255); visibility: hidden; z-index: -1;">
+
+						
+							
+								<div class=" row" id="ndvrControls" style="">
+									<div class="col-md-2" style="margin-top: 5px">
+										<span class="inline pull-right"><strong>Stream
+												URL</strong></span>
+									</div>
+									<div class="col-md-8">
+										<input type="text" id="hdsUrl" class="form-control" placeholder="" value="">
+									</div>
+									<div class="col-md-2">
+										<button id="connectHds" type="button" class="btn btn-default pull-right" onclick="javascript:ndvrConnect(true)" style="width: 100px;">Start</button>
+									</div>
+								</div>
+								<div id="hdsWrapper" style="background-color: #fff;"><object type="application/x-shockwave-flash" name="flashContent" data="./Live _ Wowza Streaming Engine Manager_files/live.swf.Без названия" width="655" height="450" id="flashContent" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="wmode" value="opaque"><param name="flashvars" value="src=http%3A//192.168.1.103%3A1935/Live/VOD/Live.stream/manifest.f4m%3FDVR&amp;allowscriptaccess=sameDomain&amp;autoPlay=false&amp;verbose=false&amp;allowFullScreen=true&amp;flashVars=editStreamBar=true,src=http%3A//192.168.1.103%3A1935/Live/VOD/Live.stream/manifest.f4m%3FDVR,autoPlay=true&amp;controlBarAutoHide=false&amp;controlBarPosition=bottom&amp;scale=showall&amp;wmode=opaque"></object></div>
+							
+							
+						
+					</div>
+					<div id="TabRTMP" style="position: absolute; width: 95%; height: 475px; background-color: rgb(255, 255, 255); z-index: -1; visibility: hidden;">
+						
+							
+								<div id="liveRTMPPlayerContainer"><embed id="liveRTMPPlayer" width="636" height="440" src="applications/test/live/FlashRTMPPlayer/live.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" play="true" loop="true" scale="showall" wmode="opaque" devicefont="false" bgcolor="#000000" name="liveRTMPPlayer" menu="true" allowfullscreen="true" allowscriptaccess="sameDomain" type="application/x-shockwave-flash"></div>
+							
+							
+						
+					</div>
+					<div id="TabHLS" style="position: absolute; width: 95%; background-color: rgb(255, 255, 255); height: 475px; visibility: hidden; z-index: -1;">
+						
+							
+								<div id="notsupported">
+									<br> <br> <br>
+									<center>
+										<h2>
+											<b>HTML5 or HLS is not supported in this browser</b>
+										</h2>
+									</center>
+									<br> <br> <br>
+								</div>
+								<div id="supported" style="background-color: #fff;  display: none;">
+									<div class="row">
+										<!--div class="col-md-2" style="margin-top: 5px">
+											<span class="inline"><strong>Stream
+													URL</strong></span>
+										</div-->
+										<div class="col-md-12">
+											<div class="input-group" style="max-width:655px">
+												<input type="text" id="html5connectStr" class="form-control" placeholder="" value="">
+												<span class="input-group-btn">
+													<button id="connectObj" type="button" class="btn btn-default" onclick="javascript:connect()">Start</button>
+												</span>
+											</div>
+										</div>
+										<!--div class="col-md-2">
+											<button id="connectObj" type="button" class="btn btn-default"
+												onclick="javascript:connect()" style="width: 82px">Start</button>
+										</div-->
+									</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<style>
+												video {
+													background-color: #000000;
+												}
+											</style>
+											<video id="videoObj" x-webkit-airplay="allow" controls="" alt="Example File" width="650" height="365" onerror="failed(event)" oncanplay="canPlay()"></video>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-group indent1">
+											<label class="control-label">Status:</label> <span class="uneditable-input" id="statusStr" style="width: 605px;">This is a test</span>
+										</div>
+									</div>
+									<script>
+										if (supports_hls_video())
+										{
+											$("#notsupported").hide();
+											$("#supported").show();
+										} else
+										{
+											$("#supported").hide();
+										}
+										function connect()
+										{
+											if (connectObj.textContent == "Stop")
+											{
+												disconnectHTML5();
+											} else
+											{
+												connectObj.textContent = "Stop";
+												statusStr.textContent = "";
+												videoObj.src = html5connectStr.value;
+												videoObj.load();
+											}
+										}
+										function disconnectHTML5()
+										{
+											if (!isIE && supports_hls_video())
+											{
+												connectObj.textContent = "Start";
+												videoObj.pause();
+												videoObj.src = null;
+												videoObj.load();
+												statusStr.textContent = "";
+											}
+										}
+										function canPlay()
+										{
+											playControl();
+										}
+										function playControl()
+										{
+											if (videoObj.paused == false)
+											{
+												videoObj.pause();
+											} else
+											{
+												videoObj.play();
+												statusStr.textContent = "Playing";
+											}
+										}
+										function failed(e)
+										{
+											// video playback failed - show a message saying why
+											switch (e.target.error.code)
+											{
+											case e.target.error.MEDIA_ERR_ABORTED:
+												statusStr.textContent = 'You aborted the video playback.';
+												break;
+											case e.target.error.MEDIA_ERR_NETWORK:
+												statusStr.textContent = 'A network error caused the video download to fail part-way.';
+												break;
+											case e.target.error.MEDIA_ERR_DECODE:
+												statusStr.textContent = 'The video playback was aborted due to a corruption problem or because the video used features your browser did not support.';
+												break;
+											case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+												statusStr.textContent = 'The video could not be loaded, either because the server or network failed or because the format is not supported.';
+												break;
+											default:
+												statusStr.textContent = 'An unknown error occurred.';
+												break;
+											}
+										}
+									</script>
+								</div>
+							
+							
+						
+					</div>
+					<div id="TabSmooth" style="position: absolute; width: 95%; height: 475px; background-color: rgb(255, 255, 255); visibility: hidden; z-index: -1;">
+						
+							
+								<div class="row" style="" id="smoothControls">
+									<!--div class="col-md-2" style="margin-top: 5px">
+										<span class="inline pull-right"><strong>Stream
+												URL</strong></span>
+									</div-->
+									<div class="col-md-12">
+										<div class="input-group" style="max-width:655px">
+											<input type="text" id="smoothUrl" class="form-control" placeholder="" value="">
+											<span class="input-group-btn">
+												<button id="connectSmooth" type="button" class="btn btn-default pull-right" onclick="javascript:connectSmooth()">Start</button>
+											</span>
+										</div>
+									</div>
+									<!--div class="col-md-2">
+										<button id="connectSmooth" type="button" class="btn btn-default pull-right"
+											onclick="javascript:connectSmooth()" style="width: 100px">Start</button>
+									</div-->
+								</div>
+								<div class="row" style="height:440px;">
+									<div class="col-md-12">
+										<div id="silverlightControlHost" style="height:440px;">
+											<object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%" id="smoothVideoPlayer">
+												
+													
+														<param name="source" value="applications/test/live/ndvr/SilverlightPlayer/LiveDvrSmoothStreaming.xap">
+													
+													
+												
+												<param name="background" value="transparent">
+												<param name="scale" value="showall">
+												<param name="windowless" value="true">
+												<param name="onerror" value="onSilverlightError">
+												<param name="background" value="white">
+												<param name="minRuntimeVersion" value="4.0.50401.0">
+												<param name="autoUpgrade" value="true">
+												<param name="InitParams" value="autoplay=false;deliverymethod=adaptivestreaming;">
+												<a href="http://go.microsoft.com/fwlink/?LinkID=149156&amp;v=4.0.50401.0" style="text-decoration: none;"> <img src="./Live _ Wowza Streaming Engine Manager_files/saved_resource" alt="Get Microsoft Silverlight" style="border-style: none">
+												</a>
+											</object>
+											<iframe id="_sl_historyFrame" style="visibility: hidden; height: 0; width: 0; border: 0px" src="./Live _ Wowza Streaming Engine Manager_files/saved_resource.html"></iframe>
+										</div>
+									</div>
+								</div>
+							
+							
+						
+						<script>
+						$(document).ready(function(){
+							setTimeout(function() {
+								if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+									$("#TabSmooth").html('<center><h2>Silverlight is unavailable on iOS platforms</h2></center>');
+								}
+							},0);
+						});
+						</script>
+					</div>
+					<div id="TabDash" style="position: absolute; background-color: rgb(255, 255, 255); height: 475px; visibility: visible; z-index: 1000;">
+						
+							
+								<div id="dashnotsupported" style="display: none;">
+									<br> <br> <br>
+									<h2>
+										<b>Media Source Extensions not supported in this browser,
+											DASH playback unavailable.</b>
+									</h2>
+								</div>
+								<div id="dashsupported" style="background-color: rgb(255, 255, 255);">
+									<div class="row">
+										<!--div class="col-md-2" style="margin-top: 5px">
+											<span class="inline"><strong>Stream
+													URL</strong></span>
+										</div-->
+										<div class="col-md-12">
+											<div class="input-group" style="max-width:655px">
+												<input type="text" id="dashConnectStr" class="form-control" placeholder="" value="">
+												<span class="input-group-btn">
+													<button id="dashConnectObj" type="button" class="btn btn-default" onclick="JavaScript:dashConnect()">Stop</button>
+												</span>
+											</div>
+										</div>
+										<!--div class="col-md-2">
+											<button id="dashConnectObj" type="button"
+												class="btn btn-default" onclick="JavaScript:dashConnect()"
+												style="width: 82px">Start</button>
+										</div-->
+									</div>
+									<div>
+										<style>
+											video {
+												background-color: #000000;
+											}
+										</style>
+										<video id="dashVideoObj" x-webkit-airplay="allow" controls="" alt="Example File" width="97%" autoplay="" "="" src="blob:http://localhost:8088/8eee65c8-b782-4a27-bd76-bf762b148552"></video>
+									</div>
+									<div class="row">
+										<div class="form-group indent1">
+											<label class="control-label">Status:</label> <span class=" uneditable-input" id="dashStatusStr">Playing</span>
+										</div>
+									</div>
+									<p class="text-warning">
+										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Warning: You may experience inconsistent playback using this third-party beta DASH test player.
+	
+
+									</p>
+								</div>
+								<script>
+									if (supports_media_source())
+									{
+										$("#dashnotsupported").hide();
+										$("#dashsupported").show();
+									} else
+									{
+										$("#dashsupported").hide();
+									}
+								</script>
+							
+							
+						
+					</div>
+					<div id="TabMobile" style="background-color: rgb(255, 255, 255); height: 475px; visibility: hidden; z-index: -1;">
+						<div class="row">
+							<div class="col-md-12">
+								<h5>Mobile Streaming URLS</h5>
+								<p>To test your application on a mobile device, enter the URLs
+									below in your device's default browser.</p>
+								<div class="well well-sm">
+									<h5>iOS</h5>
+									<p class="breakall"><span id="IOSHREF"><a href="http://192.168.1.103:1935/Live/VOD/Live.stream/playlist.m3u8?DVR">http://192.168.1.103:1935/Live/VOD/Live.stream/playlist.m3u8?DVR</a></span></p>
+								</div>
+								<div class="well well-sm">
+									<h5>Android/Other</h5>
+									<p class="breakall"><span id="AndroidHREF"><a href="rtsp://192.168.1.103:1935/Live/VOD/Live.stream">rtsp://192.168.1.103:1935/Live/VOD/Live.stream</a></span></p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-inline">
+								<h5>Send These Links To Me</h5>
+								<div class="input-group">
+									<input class="form-control" name="emailAddress" id="emailAddress" type="text" placeholder="Email Address">
+									<span class="input-group-btn">
+										<button class="btn btn-default" name="emailLink" id="emailLink" onclick="javascript:sendEmail()">
+											<i class="fa fa-envelope"></i>
+											Email Me
+										</button>
+									</span>
+								</div>
+								<div class="help-block">
+									<strong>Note:</strong> An email application is required.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+	defStream = "myStream";
+	defContent = "sample.mp4";
+	var IOSUrl = "";
+	var AndroidUrl = "";
+
+	initUrls();
+
+	function initUrls()
+	{
+		$("#server").val(currentVhostConnectionIPAddress+":"+currentVhostConnectionPort);
+		if ("live" == "live")
+		{
+			$("#stream").val("Live.stream");
+			$("#smoothControls").show();
+		} else
+		{
+			$("#stream").val("mp4:sample.mp4");
+		}
+		if("VOD"=="")
+		{
+			$("#applicationInstance").val("Live");
+		}
+		else
+		{
+			$("#applicationInstance").val("Live/VOD");
+			setApplicationInstance();
+		}
+		$("#smoothUrl").val(getSmoothStream());
+		IOSURL=getHLSStream();
+		$("#IOSHREF").html(getMobileHLSStream());
+		AndroidURL=getAndroidStream();
+		$("#AndroidHREF").html(getMobileAndroidStream());
+		$("#html5connectStr").val(getHLSStream());
+	}
+
+
+	function updateStream()
+	{
+		setTimeout(function()
+		{
+			setApplicationInstance();
+			updateServer();
+
+			if (document.getElementById("liveHTTPPlayer") != null && document.getElementById("liveHTTPPlayer").setStream !=null)
+			{
+				document.getElementById("liveHTTPPlayer").setStream(getVODHTTPStream());
+			}
+			if (document.getElementById("liveRTMPPlayer") != null && document.getElementById("liveRTMPPlayer").setStream!=null)
+			{
+				document.getElementById("liveRTMPPlayer").setStream($("#stream").val());
+			}
+			if (document.getElementById("smoothVideoPlayer") != null && document.getElementById("smoothVideoPlayer").Content != null)
+			{
+				document.getElementById("smoothVideoPlayer").Content.wowza.setStream(getSmoothStream());
+			}
+			if (document.getElementById("dashVideoObj") != null)
+			{
+				$("#dashConnectStr").val(getDASHStream());
+			}
+			if (document.getElementById("videoObj") != null)
+			{
+				$("#connectStr").val(getHLSStream());
+			}
+			$("#hdsUrl").val(getLiveHTTPStream());
+			$("#smoothUrl").val(getSmoothStream());
+			IOSURL=getHLSStream();
+			$("#IOSHREF").html(getMobileHLSStream());
+			AndroidURL=getAndroidStream();
+			$("#AndroidHREF").html(getMobileAndroidStream());
+			$("#html5connectStr").val(getHLSStream());
+		}, 20);
+	}
+
+	function updateApplicationInstance()
+	{
+		setTimeout(function()
+		{
+			//setApplicationInstance();
+			updateServer();
+		},20);
+	}
+
+	function setApplicationInstance()
+	{
+		var inst="";
+		var appName = $("#applicationInstance").val();
+		fSlash = appName.indexOf("/");
+		if(fSlash>0)
+		{
+			inst = appName.substr(fSlash+1);
+			appName = appName.substr(0,fSlash);
+		}
+		if(inst=="_definst_")
+		{
+			inst="";
+		}
+		if(inst=="")
+		{
+			if($("#stream").val().indexOf("/") >0)
+			{
+				inst="_definst_";
+			}
+		}
+		if(inst=="")
+		{
+			$("#applicationInstance").val(appName);
+		}
+		else
+		{
+			$("#applicationInstance").val(appName + "/"+inst);
+		}
+	}
+
+	function updateServer()
+	{
+		setTimeout(function()
+		{
+			rtmpPrefix="rtmp";
+			if(currentVhostConnectionSSLEnable)
+			{
+				rtmpPrefix="rtmps";
+			}
+			if (document.getElementById("liveHTTPPlayer") != null && document.getElementById("liveHTTPPlayer").setStream != null)
+			{
+				document.getElementById("liveHTTPPlayer").setStream(getHDSStream());
+			}
+			if (document.getElementById("liveRTMPPlayer") != null && document.getElementById("liveRTMPPlayer").setServer != null)
+			{
+				document.getElementById("liveRTMPPlayer").setServer(
+						rtmpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() );
+			}
+			if (document.getElementById("smoothVideoPlayer") != null && document.getElementById("smoothVideoPlayer").Content != null)
+			{
+				document.getElementById("smoothVideoPlayer").Content.wowza.setStream(getSmoothStream());
+			}
+			if (document.getElementById("dashVideoObj") != null)
+			{
+				$("#dashConnectStr").val(getDASHStream());
+			}
+			if (document.getElementById("videoObj") != null)
+			{
+				$("#connectStr").val(getHLSStream());
+			}
+			$("#hdsUrl").val(getLiveHTTPStream());
+			$("#smoothUrl").val(getSmoothStream());
+			IOSURL=getHLSStream();
+			$("#IOSHREF").html(getMobileHLSStream());
+			AndroidURL=getAndroidStream();
+			$("#AndroidHREF").html(getMobileAndroidStream());
+			$("#html5connectStr").val(getHLSStream());
+		}, 10);
+	}
+
+	function sendEmail()
+	{
+		var emailBody = "Use the following links to test Wowza Streaming Engine:\r\n\r\niOS: " + IOSURL
+			+ "\r\nAndroid: " + AndroidURL + "\r\n\r\n";
+		location.href = "mailto:" + $("#emailAddress").val() + "?subject=" + encodeURIComponent("Wowza Streaming Engine Test URLs") + "&body="
+			+ encodeURIComponent(emailBody);
+	}
+	function getHDSStream()
+	{
+		if ("live" == "live")
+		{
+			return getLiveHTTPStream();
+		} else
+		{
+			return getVODHTTPStream();
+		}
+	}
+	/* some of these functions are called from the players themselves */
+	function getVODHTTPStream()
+	{
+		httpPrefix="http";
+		if(currentVhostConnectionSSLEnable)
+		{
+			httpPrefix="https";
+		}
+		return httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/manifest.f4m";
+	}
+	function getLiveHTTPStream()
+	{
+		httpPrefix="http";
+		if(currentVhostConnectionSSLEnable)
+		{
+			httpPrefix="https";
+		}
+		return httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/manifest.f4m" + ((ndvrEnabled) ? "?DVR" : "");
+	}
+	function getDASHStream()
+	{
+		httpPrefix="http";
+		if(currentVhostConnectionSSLEnable)
+		{
+			httpPrefix="https";
+		}
+		return httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/manifest.mpd";//+((ndvrEnabled)?"?DVR":"");
+	}
+
+	function getVODRTMPServer()
+	{
+		rtmpPrefix="rtmp";
+		if(currentVhostConnectionSSLEnable)
+		{
+			rtmpPrefix="rtmps";
+		}
+		return rtmpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val();
+	}
+	function getVODRTMPStream()
+	{
+		return $("#stream").val();
+	}
+	function getSmoothStream()
+	{
+		httpPrefix="http";
+		if(currentVhostConnectionSSLEnable)
+		{
+			httpPrefix="https";
+		}
+		return httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/Manifest" + ((ndvrEnabled) ? "?DVR" : "");
+	}
+	function getVODSmoothStream()
+	{
+		return getSmoothStream();
+	}
+	function getLiveSmoothStream()
+	{
+		return getSmoothStream();
+	}
+
+	function getLiveRTMPServer()
+	{
+		rtmpPrefix="rtmp";
+		if(currentVhostConnectionSSLEnable)
+		{
+			rtmpPrefix="rtmps";
+		}
+		return rtmpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val();
+	}
+	function getLiveRTMPStream()
+	{
+		return $("#stream").val();
+	}
+
+	function getHLSStream()
+	{
+		httpPrefix="http";
+		if(currentVhostConnectionSSLEnable)
+		{
+			httpPrefix="https";
+		}
+		return httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/playlist.m3u8" + ((ndvrEnabled) ? "?DVR" : "");
+	}
+	function getMobileHLSStream()
+	{
+		httpPrefix="http";
+		if(currentVhostConnectionSSLEnable)
+		{
+			httpPrefix="https";
+		}
+		return "<a href=" + httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/playlist.m3u8" + ((ndvrEnabled) ? "?DVR" : "" ) + ">"
+			+ httpPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val() + "/playlist.m3u8" + ((ndvrEnabled) ? "?DVR" : "") + "</a>";
+	}
+	function getAndroidStream()
+	{
+		rtspPrefix="rtsp";
+		if(currentVhostConnectionSSLEnable)
+		{
+			rtspPrefix="rtsps";
+		}
+		return rtspPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val().replace("mp4:", "");
+	}
+	function getMobileAndroidStream()
+	{
+		rtspPrefix="rtsp";
+		if(currentVhostConnectionSSLEnable)
+		{
+			rtspPrefix="rtsps";
+		}
+		return "<a href=" + rtspPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val().replace("mp4:", "") + ">"
+			+ rtspPrefix + "://" + $("#server").val() + "/" + $("#applicationInstance").val() + "/"
+			+ $("#stream").val().replace("mp4:", "") + "</a>";
+	}
+	function getHostNoPort()
+	{
+		var host = document.location.hostname;
+		if ($("#server").val().length > 0)
+		{
+			host = $("#server").val();
+		}
+		return host;
+	}
+
+	function showTab(tab)
+	{
+		var tabs = [
+			'HDS', 'RTMP', 'HLS', 'Smooth', 'Mobile', 'Dash'
+		];
+		stopAllPlayers();
+		for ( var tabIdx = 0; tabIdx < tabs.length; tabIdx++)
+		{
+			var div = '#Tab' + tabs[tabIdx];
+			var tabId = '#test' + tabs[tabIdx];
+			if (tabs[tabIdx] == tab)
+			{
+				$(div).css('zIndex', 1000);
+				$(div).css('visibility', 'visible');
+				$(tabId).addClass('active');
+				continue;
+			}
+			$(div).css('visibility', 'hidden');
+			$(div).css('zIndex', -1);
+			$(tabId).removeClass('active');
+		}
+	}
+
+	function stopAllPlayers()
+	{
+		if (disconnectHTML5)
+			disconnectHTML5(); //stop html5
+		if (ndvrEnabled && $("#flashContent").length > 0)
+		{
+			ndvrConnect(false);
+		}
+		if (document.getElementById("liveRTMPPlayer") != null
+			&& document.getElementById("liveRTMPPlayer").playerStop)
+		{
+			document.getElementById("liveRTMPPlayer").playerStop();
+		}
+		if (document.getElementById("liveHTTPPlayer") != null
+			&& document.getElementById("liveHTTPPlayer").playerStop)
+		{
+			document.getElementById("liveHTTPPlayer").playerStop();
+		}
+		try
+		{
+			// IE10 doesn't seem to load the silverlight plugin until it's viewed the first
+			// time, so while .Content will exist it will be an empty object and will
+			// throw an exception when we do anything to look for the wowza bindings
+			if (document.getElementById("smoothVideoPlayer") != null
+				&& document.getElementById("smoothVideoPlayer").Content != null
+				&& document.getElementById("smoothVideoPlayer").Content.wowza != null)
+			{
+				document.getElementById("smoothVideoPlayer").Content.wowza.playerStop();
+			}
+		} catch (e)
+		{
+		}
+		if (document.getElementById("dashVideoObj") != null)
+		{
+			dashStop();
+		}
+	}
+	function testApplicationClose()
+	{
+		stopAllPlayers();
+		$('#testApplicationModal').modal('hide');
+	}
+
+	if (ndvrEnabled)
+	{
+		$("#connectStr").val(getLiveHTTPStream());
+		$("#ndvrControls").show();
+		$("#hdsUrl").val(getLiveHTTPStream());
+	}
+
+	function ndvrConnect(autoPlay)
+	{
+		var playerSource = "applications/test/live/FlashHTTPPlayer/live.swf";
+		var params =
+		{
+			src : escape($("#hdsUrl").val()),
+			allowscriptaccess : "sameDomain",
+			autoPlay : autoPlay ? autoPlay : false,
+			verbose : false,
+			allowFullScreen : true,
+			flashVars : "editStreamBar=true,src=" + escape($("#hdsUrl").val()) + ",autoPlay=true",
+			controlBarAutoHide : "false",
+			controlBarPosition : "bottom",
+			scale : "showall",
+			wmode : "opaque"
+		};
+		$("#hdsWrapper").empty();
+
+		$("<div id='flashContent'></div>").appendTo($("#hdsWrapper"));
+		$("#flashContent").html("<div id='noflashContent'><h2>To view this page ensure that Adobe Flash Player version 11.1.0 or greater is installed.</h2></div>");
+		if (ndvrEnabled)
+		{
+			playerSource = "applications/test/live/ndvr/FlashHTTPPlayer/live.swf";
+			swfobject.embedSWF(playerSource, "flashContent", "655", "450", swfVersionStr, xiSwfUrlStr, params,
+			{
+				allowFullScreen : "true",
+				wmode : "opaque"
+			},
+			{
+				name : "flashContent"
+			});
+		} else
+		{
+			swfobject.embedSWF(playerSource, "flashContent", "655", "450", swfVersionStr, xiSwfUrlStr, flashVars,
+				params, attributes);
+			swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+		}
+		/*
+		var params = {
+			src: "http://localhost:1935/dvr/myStream/manifest.f4m?DVR",
+			autoPlay: true,
+			verbose: true,
+			controlBarAutoHide: "false",
+			controlBarPosition: "bottom",
+			flashvars:{showStreamBar:false}
+		};
+		$("#hdsWrapper").empty();
+		$("<div id='flashContent'></div>").appendTo($("#hdsWrapper"));
+		playerSource = "applications/test/live/ndvr/FlashHTTPPlayer/live.swf";
+		params.src = escape($("#connectStr").val());
+		params.verbose=true;
+		swfobject.embedSWF(playerSource, "flashContent", 640, 480, "10.3.0", "expressInstall.swf", params, {allowFullScreen: "true",wmode: "direct"}, {name: "flashContent"}); */
+	}
+
+	function connectSmooth()
+	{
+		if ($("#smoothVideoPlayer") == null)
+		{
+			return;
+		}
+		var ctl = $("#smoothVideoPlayer")[0].Content.wowza;
+		ctl.setStream($("#smoothUrl").val());
+		ctl.playerStart();
+	}
+
+	setTimeout(function()
+	{
+		// onkeydown="javascript:generateUrls()"
+		$("#server").on('keydown', updateServer);
+		$("#applicationInstance").on('keydown', updateApplicationInstance);
+		$("#stream").on('keydown', updateStream);
+		if ($('#mobileSelector').is(':hidden'))
+		{
+			showTab('RTMP');
+		}
+		else
+		{ 
+			//show Mobile Tab on mobile 
+			showTab('Mobile');
+		}
+		if (AC_FL_RunContent == 0)
+		{
+			alert("This page requires AC_RunActiveContent.js.");
+		} else
+		{
+			AC_FL_RunContent('codebase',
+				'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0', 'width', '636',
+				'height', '440', 'src', 'applications/test/live/FlashRTMPPlayer/live',
+				'quality', 'high', 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
+				'play', 'true', 'loop', 'true', 'scale', 'showall', 'wmode', 'opaque', 'devicefont', 'false',
+				'id', 'liveRTMPPlayer', 'bgcolor', '#000000', 'name', 'liveRTMPPlayer',
+				'menu', 'true', 'allowFullScreen', 'true', 'allowScriptAccess', 'sameDomain', 'movie',
+				'applications/test/live/FlashRTMPPlayer/live', "id", 'liveRTMPPlayer'); //end AC code
+		}
+
+		$("#smoothConnectStr").val(getSmoothStream());
+		$("#dashConnectStr").val(getDASHStream());
+
+		$("#testApplicationModal").modal({backdrop: 'static',
+			  keyboard: false});
+		$.getScript("applications/test/swfobject.js", function()
+		{
+			ndvrConnect(false);
+		});
+
+	}, 500);
+</script>
+<script src="./Live _ Wowza Streaming Engine Manager_files/dash-shaka.js.Без названия"></script>
+<script>
+var video;
+var player;
+var source; 
+var estimator;
+
+	function dashConnect()
+	{
+	if (dashConnectObj.textContent == "Stop")
+		{
+		dashStop();
+		} else
+		{
+		dashConnectObj.textContent = "Stop";
+		dashStatusStr.textContent = "Playing";
+		if ( video == null )
+			{video = document.querySelector("#dashVideoObj");}
+		if ( player == null )
+			{player = new shaka.player.Player(video);}
+		// Attach the player to the window so that it can be easily debugged.
+		window.player = player;
+		// Listen for errors from the Player.
+		player.addEventListener('error', dashFailed );
+		if ( estimator != null )
+			{estimator=null;}
+		estimator = new shaka.util.EWMABandwidthEstimator();
+		if ( source != null )
+			{source = null;}
+		source = new shaka.player.DashVideoSource(dashConnectStr.value, null, estimator);
+		// Load the source into the Player.
+		player.load(source);
+		}
+	}
+	 
+	function dashFailed(e)
+	{
+	var done = false;
+	if ( e.detail == 'Error: Network failure.' )
+		{
+		statusStr.textContent = 'Network Connection Failed.';
+		done = true;
+		}
+	if ( e.detail.status!=200 && done == false )
+		{
+		switch ( e.detail.status )
+			{
+			case 404:
+				statusStr.textContent = e.detail.url+' not found.';
+				break;
+			default:
+				statusStr.textContent = 'Error '+e.detail.status+' for '+e.detail.url;
+				break;
+			}
+		}
+	}
+	
+	function showMobileTestPlayer(player)
+	{
+		showTab(player);
+	}
+	
+	function dashStop()
+	{
+		if(player!=null)
+		{
+		console.log('Player is '+player);
+		player.unload();
+		}
+	dashConnectObj.textContent = "Start";
+	dashStatusStr.textContent = "Disconnected";
+	}
+
+</script></div><div class="modal-backdrop fade in"></div></body></html>

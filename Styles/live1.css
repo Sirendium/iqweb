@@ -1,0 +1,45 @@
+#Top{
+	color: white;
+	float: left;
+}
+#Text{
+	font-size: 30px;
+}
+#grid_1{
+	margin-left: 20px;
+}
+#grid_2{
+	margin-left: 20px;
+}
+#grid_3{
+	margin-left: 20px;
+}
+#grid_4{
+	margin-left: 20px;
+}
+#Top_2{
+	float: right;
+	color: white;
+}
+#logo_t{
+	margin-left: 50px;
+}
+#Box{
+	background-color: silver;
+	width: 60%;
+	height: 100%;
+	float: left;
+
+}
+#box_size_height{
+	padding-top: 80%;
+}
+#Box_1{
+	background-color: silver;
+	width: 37%;
+	float: right;
+	height: 100%;
+}
+#box_size_height_1{
+	padding-top: 130%;
+}

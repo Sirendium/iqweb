@@ -1,0 +1,335 @@
+<!--Redirect to Login-->
+<!--Leave above comment for UI to redirect properly -->
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<!-- Forces user OUT of IE's compatibility mode and removes "broken page" icon --> 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <title>Wowza Streaming Engine Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- Le styles -->
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="../font-awesome/css/font-awesome.css" rel="stylesheet" >
+	<link href="../css/wowza.css" rel="stylesheet">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!-- [if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif] -->
+	<script src="../include.js"></script>
+	
+	<!-- Fav and touch icons -->
+	<link rel="shortcut icon" type="../image/x-icon" href="../img/ico/favicon.ico?v=2">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../img/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../img/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../img/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="../img/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-static-top">
+	    <div class="container-full">
+	      	<a class="navbar-brand hidden-sm hidden-xs" href="javascript:loadAjaxSideBar('home/main.htm','')"><img style="height:44px; width:44px;float:left;" src="../img/icon-product_128.png" /><div style="float:left;padding-left:10px;"><div class="navbar-brand-wse">Wowza
+					Streaming Engine</div><div class="navbar-brand-mgr">Manager</div></div></a>
+			<a class="navbar-brand visible-sm visible-xs" href="javascript:loadAjaxSideBar('home/main.htm','')"><img style="height:44px; width:44px;" src="../img/icon-product_128.png" /></a>
+	  </div>
+	</nav>
+
+	<div class="container-full">
+		<ol class="breadcrumb">
+  			<li class="active" style="font-weight:bold;color:#000000;">Welcome</li>
+  			<li style="color:#999999;">Video Workflow Overview</li>
+  			<li style="color:#999999;">Sign In</li>
+  			<li style="color:#999999;">Source User Name and Password</li>
+		</ol>		
+		<div class="welcome-well">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Welcome to Wowza Streaming Engine!
+	
+</h2>
+					<h5>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Thank you for installing!
+	
+</h5> 
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Click <strong>Next</strong> to learn more about how the Wowza Streaming Engine&#8482; software works and to provide user name and password information.
+	
+<br><br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p class="pull-right">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-default" name="skipintro" id="skipintro" onClick="javascript:skip()"><i class=""></i> Skip Intro</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-primary" name="next" id="next" onClick="javascript:next()"><i class=""></i> Next <i class="fa fa-arrow-right"></i></a>
+
+</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<span class="pull-right"><input type="checkbox" id="donotshowagain">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		Do not show this again
+	
+</span>
+				</div>			
+			</div>
+		</div>
+	<div class="row">
+		<hr>
+        <footer>
+        <!--
+        <div class="col-md-8">
+			<p><a href="?lang=en">English</a> 
+			   | 
+			   <a href="?lang=es">Espa&ntilde;ol</a>
+			   | 
+			   <a href="?lang=zh">&#20013;&#25991;(&#31616;&#20307;)</a></p>
+        </div>
+ -->
+        <div class="col-md-2">
+            <p><img class="img-responsive footer-logo" src="../img/wowza-logo.png"></p>
+        </div>
+        <div class="col-md-10">
+            <p class="text-muted"><small>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+	
+	
+		&copy; 2007&ndash;2016 Wowza Media Systems, LLC. All rights reserved. "Wowza" and other trademarks are trademarks of Wowza. For more information, see <a href="http://www.wowza.com/docredirect.php?doc=legalTrademarks" target="_blank">Wowza Trademarks</a>. Third-party trademarks are property of their respective owners and their use does not imply endorsement by such third parties.
+	
+</small></p>
+        </div>
+        </footer>
+        </div>
+	</div>
+
+	<!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+</body>
+<script>
+
+$(document).ready(function() {
+	dnsa = readCookie("DoNotShowFTU","false");
+	$('#donotshowagain').attr("checked",dnsa=="true");
+});
+
+function next()
+{
+	createCookie("DoNotShowFTU",$("#donotshowagain").is(':checked'),730);
+	window.location="workflow.htm";
+}
+</script>
+<script>
+function skip()
+{
+	createCookie("DoNotShowFTU",$("#donotshowagain").is(':checked'),730);
+	lastSB_page="home/main.htm";
+	//createCookie("LastSB_Page",lastSB_page);
+	window.open('../Home.htm?skipedIntro=true','_top','','');
+}
+</script>
+</html>
+	      
